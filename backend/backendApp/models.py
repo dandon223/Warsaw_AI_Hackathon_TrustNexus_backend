@@ -10,9 +10,11 @@ class Email(models.Model):
     encrypted_recipient_name = models.TextField(null=True)
     encrypted_recipient_email = models.TextField(null=True)
     encrypted_subject = models.TextField(null=True)
+    encrypted_summary = models.TextField(null=True)
     encrypted_date = models.TextField(null=True)
     encrypted_message_content = models.TextField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    
     class Meta:
         unique_together = ('encrypted_sender_name', 'encrypted_sender_email', 'encrypted_recipient_name',
                            'encrypted_recipient_email', 'encrypted_subject', 'encrypted_date', 'encrypted_message_content',)
@@ -25,6 +27,14 @@ class Email(models.Model):
     @sender_name.setter
     def sender_name(self, value):
         self.encrypted_sender_name = encrypt_value(value) if value else None
+
+    @property
+    def summary(self):
+        return decrypt_value(self.encrypted_summary) if self.encrypted_summary else None
+
+    @summary.setter
+    def summary(self, value):
+        self.encrypted_summary = encrypt_value(value) if value else None
 
     @property
     def sender_email(self):
