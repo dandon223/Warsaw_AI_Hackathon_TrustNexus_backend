@@ -10,7 +10,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from .test_connection import llm
-from asgiref.sync import sync_to_async
 
 
 # load_dotenv()
@@ -204,7 +203,7 @@ Return only valid JSON, nothing else. If a field has no information, use null or
         return {}
 
 
-async def add_summary_to_dataframe(
+def add_summary_to_dataframe(
     df: pd.DataFrame,
     subject_column="subject",
     content_column="message_content",
@@ -268,9 +267,9 @@ Email:
 Provide a clear, concise summary (2-4 sentences) that captures the essential information."""
             )
 
-    result = await sync_to_async(llm.batch)(tasks)
+    result =  (llm.batch(tasks))
 
-    summaries = [resp.content for resp in result]
+    summaries: list[str] = [resp.content for resp in result]
 
     df[summary_column] = summaries
 

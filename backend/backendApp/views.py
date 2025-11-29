@@ -23,7 +23,7 @@ from .llm_summary import add_summary_to_dataframe
 def csrf(request: Request) -> JsonResponse:
     return JsonResponse({"detail": "CSRF cookie set"})
 class TestAPIView(APIView):  # type: ignore[misc]
-    async def get(self, request: Request):
+    def get(self, request: Request):
         return Response(
         {"message": "Hi"}, 
         status=status.HTTP_200_OK
@@ -31,7 +31,7 @@ class TestAPIView(APIView):  # type: ignore[misc]
 
 
 class EmailAPIView(APIView):  # type: ignore[misc]
-    async def post(self, request: Request):
+    def post(self, request: Request):
         email_path = request.data.get("email_path")
         if email_path is None:
             return Response(
@@ -40,8 +40,7 @@ class EmailAPIView(APIView):  # type: ignore[misc]
             )
 
         df = parse_mails_to_dataframe(email_path)
-        summaried_df = await add_summary_to_dataframe(df)
-        print(summaried_df[0])
+        summaried_df = add_summary_to_dataframe(df)
         emails_to_create = []
         for _, row in summaried_df.iterrows():
             emails_to_create.append(
