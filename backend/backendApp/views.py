@@ -12,6 +12,7 @@ from rest_framework.views import APIView
 import pandas as pd
 from .emails import parse_mails_to_dataframe
 from django.views.decorators.csrf import ensure_csrf_cookie
+from .models import Email
 
 @ensure_csrf_cookie
 def csrf(request: Request) -> JsonResponse:
@@ -35,7 +36,17 @@ class EmailAPIView(APIView):  # type: ignore[misc]
             )
 
         df = parse_mails_to_dataframe(email_path)
-        print(df.describe())
+        print(df)
+        for _, row in df.iterrows():
+            Email.objects.get_or_create(
+                sender_name=row['sender_name'],
+                sender_email=row['sender_email'],
+                recipient_name=row['recipient_name'],
+                recipient_email=row['recipient_email'],
+                subject=row['subject'],
+                date=row['date'],
+                message_content=row['message_content'],
+            )
         return Response(
         {"message": "Done"}, 
         status=status.HTTP_201_CREATED

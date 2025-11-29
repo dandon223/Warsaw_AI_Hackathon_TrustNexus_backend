@@ -5,6 +5,7 @@
 ```
 curl -LsSf https://astral.sh/uv/install.sh | sh
 uv init
+uv sync
 ```
 
 
@@ -15,6 +16,6 @@ uv run manage.py runserver
 ```
 
 ```
-uv run python manage.py makemigrations
+uv run python manage.py makemigrations backendApp
 uv run python manage.py migrate
 ```
