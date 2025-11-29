@@ -13,3 +13,8 @@ cd backend
 uv run manage.py migrate
 uv run manage.py runserver
 ```
+
+```
+uv run python manage.py makemigrations
+uv run python manage.py migrate
+```
