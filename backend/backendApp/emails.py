@@ -3,7 +3,8 @@ import pathlib
 import glob
 import pandas as pd
 import re
-
+from .models import Email
+import json
 
 def read_mails_data(data_dir: pathlib.Path):
     """
@@ -177,3 +178,28 @@ def parse_mails_to_dataframe(data_dir=None):
     df = pd.DataFrame(all_messages)
     
     return df
+
+def emails_to_csv(data_dir=None):
+    emails = Email.objects.all()
+
+    # Convert queryset to list of dictionaries
+    email_list = []
+    for e in emails:
+        email_dict = {
+            "id": str(e.id),  # UUID to string
+            "sender_name": e.sender_name,
+            "sender_email": e.sender_email,
+            "recipient_name": e.recipient_name,
+            "recipient_email": e.recipient_email,
+            "subject": e.subject,
+            "date": e.date,
+            "message_content": e.message_content,
+            "created_at": e.created_at.isoformat() if e.created_at else None
+        }
+        email_list.append(email_dict)
+
+    # Save to JSON file
+    with open(data_dir + "/emails.json", "w", encoding="utf-8") as f:
+        json.dump(email_list, f, ensure_ascii=False, indent=4)
+
+    print(f"Saved {len(email_list)} emails to emails.json")
