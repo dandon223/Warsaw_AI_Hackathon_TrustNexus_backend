@@ -15,6 +15,7 @@ import pandas as pd
 from .test_connection import query_llm
 from .emails import parse_mails_to_dataframe, emails_to_csv, analysis_to_csv
 from django.views.decorators.csrf import ensure_csrf_cookie
+from .llm_summary import add_summary_to_dataframe 
 from .models import Email, LLMAnalysis
 from .serializers import EmailSerializerGet, LLMAnalysisSerializerGet
 
@@ -30,8 +31,7 @@ class TestAPIView(APIView):  # type: ignore[misc]
 
 
 class EmailAPIView(APIView):  # type: ignore[misc]
-
-    def post(self, request: Request) -> Response:
+    def post(self, request: Request):
         email_path = request.data.get("email_path")
         if email_path is None:
             return Response(
@@ -40,9 +40,9 @@ class EmailAPIView(APIView):  # type: ignore[misc]
             )
 
         df = parse_mails_to_dataframe(email_path)
-        print(df)
+        summaried_df = add_summary_to_dataframe(df)
         emails_to_create = []
-        for _, row in df.iterrows():
+        for _, row in summaried_df.iterrows():
             emails_to_create.append(
                 Email(
                     sender_name=row['sender_name'],
