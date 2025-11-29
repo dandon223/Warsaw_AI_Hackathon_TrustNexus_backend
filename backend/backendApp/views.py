@@ -52,6 +52,7 @@ class EmailAPIView(APIView):  # type: ignore[misc]
                     subject=row['subject'],
                     date=row['date'],
                     message_content=row['message_content'],
+                    summary=row['summary']
                 )
             )
 

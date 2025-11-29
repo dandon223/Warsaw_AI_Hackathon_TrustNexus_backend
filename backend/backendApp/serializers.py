@@ -5,7 +5,7 @@ class EmailSerializerGet(serializers.ModelSerializer):  # type: ignore[misc]
     class Meta:
         model = Email
         fields = ["sender_name", "sender_email", "recipient_name", 
-                  "recipient_email", "subject", "date", "message_content"]
+                  "recipient_email", "subject", "date", "message_content", "summary"]
 
 class LLMAnalysisSerializerGet(serializers.ModelSerializer):  # type: ignore[misc]
     class Meta:
