@@ -26,3 +26,9 @@ uv run python manage.py makemigrations backendApp
 uv run manage.py migrate
 uv run manage.py runserver
 ```
+
+### How to format code
+```
+uv run ruff check --select I
+uv run ruff format
+```
