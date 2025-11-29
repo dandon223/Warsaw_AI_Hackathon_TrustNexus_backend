@@ -2,6 +2,7 @@ import uuid
 from typing import Any, Dict, List
 
 from django.db import transaction
+from django.forms import model_to_dict
 from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.exceptions import NotFound, ValidationError
@@ -10,6 +11,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import pandas as pd
+
+from .test_connection import query_llm
 from .emails import parse_mails_to_dataframe, emails_to_csv
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Email
@@ -56,12 +59,25 @@ class EmailAPIView(APIView):  # type: ignore[misc]
         return Response(
         {"message": "Done"}, 
         status=status.HTTP_201_CREATED
-        )
+    )
 
-    def get(self, request: Request) -> Response:
-            emails = Email.objects.filter()
-            serializer = EmailSerializerGet(emails, many=True)
-            return Response(serializer.data)
+class AnalyzeEmailsView(APIView):  # type: ignore[misc]
+    permission_classes = [AllowAny]
+
+    def post(self, request) -> Response:
+        emails = Email.objects.all()
+        if not emails.exists():
+            raise NotFound("No emails found")
+        
+        text_request = request.data.get("text", "")
+
+        data =[model_to_dict(email) for email in emails]
+
+        resp = query_llm(text_request, data)
+        
+        return Response({"emails": {resp}}, status=status.HTTP_200_OK)
+
+    
 
 class SaveEmailsAPIView(APIView):  # type: ignore[misc]
     def post(self, request: Request) -> Response:
@@ -76,3 +92,9 @@ class SaveEmailsAPIView(APIView):  # type: ignore[misc]
         {"message": "Done"}, 
         status=status.HTTP_201_CREATED
         )
+    
+    def get(self, request: Request) -> Response:
+            emails = Email.objects.filter()
+            serializer = EmailSerializerGet(emails, many=True)
+            return Response(serializer.data)
+    
