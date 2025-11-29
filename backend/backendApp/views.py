@@ -11,11 +11,16 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import pandas as pd
+<<<<<<< HEAD
 
 from .test_connection import query_llm
 from .emails import parse_mails_to_dataframe
+=======
+from .emails import parse_mails_to_dataframe, emails_to_csv
+>>>>>>> main
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Email
+from .serializers import EmailSerializerGet
 
 @ensure_csrf_cookie
 def csrf(request: Request) -> JsonResponse:
@@ -40,16 +45,21 @@ class EmailAPIView(APIView):  # type: ignore[misc]
 
         df = parse_mails_to_dataframe(email_path)
         print(df)
+        emails_to_create = []
         for _, row in df.iterrows():
-            Email.objects.get_or_create(
-                sender_name=row['sender_name'],
-                sender_email=row['sender_email'],
-                recipient_name=row['recipient_name'],
-                recipient_email=row['recipient_email'],
-                subject=row['subject'],
-                date=row['date'],
-                message_content=row['message_content'],
+            emails_to_create.append(
+                Email(
+                    sender_name=row['sender_name'],
+                    sender_email=row['sender_email'],
+                    recipient_name=row['recipient_name'],
+                    recipient_email=row['recipient_email'],
+                    subject=row['subject'],
+                    date=row['date'],
+                    message_content=row['message_content'],
+                )
             )
+
+        Email.objects.bulk_create(emails_to_create, ignore_conflicts=True)
         return Response(
         {"message": "Done"}, 
         status=status.HTTP_201_CREATED
@@ -70,3 +80,25 @@ class AnalyzeEmailsView(APIView):  # type: ignore[misc]
         resp = query_llm(text_request, data)
         
         return Response({"emails": {resp}}, status=status.HTTP_200_OK)
+
+    
+
+class SaveEmailsAPIView(APIView):  # type: ignore[misc]
+    def post(self, request: Request) -> Response:
+        email_path = request.data.get("email_path")
+        if email_path is None:
+            return Response(
+            {"message": "no email_path"}, 
+            status=status.HTTP_400_BAD_REQUEST 
+            )
+        emails_to_csv(email_path)
+        return Response(
+        {"message": "Done"}, 
+        status=status.HTTP_201_CREATED
+        )
+    
+    def get(self, request: Request) -> Response:
+            emails = Email.objects.filter()
+            serializer = EmailSerializerGet(emails, many=True)
+            return Response(serializer.data)
+    

@@ -1,7 +1,7 @@
+Od: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
 Projekt: Platforma monitoringu modeli ML (wewnętrzna)
 Nitka: Zamieszanie po zmianie schematu bazy przez Data Platform – dashboardy się wywalają
 
-Od: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
 Wysłano: 2025-04-27 09:05
 Do: data-platform@szpilex.ai
 DW: ml-leads@szpilex.ai
