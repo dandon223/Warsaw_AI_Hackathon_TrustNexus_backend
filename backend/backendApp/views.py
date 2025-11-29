@@ -13,6 +13,7 @@ import pandas as pd
 from .emails import parse_mails_to_dataframe, emails_to_csv
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Email
+from .serializers import EmailSerializerGet
 
 @ensure_csrf_cookie
 def csrf(request: Request) -> JsonResponse:
@@ -56,6 +57,11 @@ class EmailAPIView(APIView):  # type: ignore[misc]
         {"message": "Done"}, 
         status=status.HTTP_201_CREATED
         )
+
+    def get(self, request: Request) -> Response:
+            emails = Email.objects.filter()
+            serializer = EmailSerializerGet(emails, many=True)
+            return Response(serializer.data)
 
 class SaveEmailsAPIView(APIView):  # type: ignore[misc]
     def post(self, request: Request) -> Response:
