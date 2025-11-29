@@ -3,6 +3,35 @@ import pandas as pd
 from read_mails import read_mails_data
 
 
+def parse_sender(sender_string):
+    """
+    Parse sender string into name and email.
+    
+    Args:
+        sender_string (str): Sender string in format "Name <email@domain.com>" or "email@domain.com"
+    
+    Returns:
+        tuple: (name, email) or (None, email) if no name found
+    """
+    if not sender_string:
+        return None, None
+    
+    # Pattern: "Name <email@domain.com>" or just "email@domain.com"
+    match = re.match(r'^(.+?)\s*<(.+?)>$', sender_string.strip())
+    if match:
+        name = match.group(1).strip()
+        email = match.group(2).strip()
+        return name, email
+    else:
+        # Check if it's just an email
+        email_pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+        if re.match(email_pattern, sender_string.strip()):
+            return None, sender_string.strip()
+        else:
+            # Assume it's a name without email
+            return sender_string.strip(), None
+
+
 def parse_single_mail(mail_content):
     """
     Parse a single mail content string into individual email messages.
@@ -29,7 +58,10 @@ def parse_single_mail(mail_content):
         
         # Extract sender (nadawca)
         sender_match = re.search(r'^Od:\s+(.+?)(?:\n|$)', message_text, re.MULTILINE)
-        nadawca = sender_match.group(1).strip() if sender_match else None
+        nadawca_raw = sender_match.group(1).strip() if sender_match else None
+        
+        # Parse sender into name and email
+        nadawca_nazwa, nadawca_mail = parse_sender(nadawca_raw) if nadawca_raw else (None, None)
         
         # Extract date (data)
         date_match = re.search(r'Wysłano:\s+(.+?)(?:\n|$)', message_text, re.MULTILINE)
@@ -37,13 +69,21 @@ def parse_single_mail(mail_content):
         
         # Extract recipient (odbiorca)
         recipient_match = re.search(r'Do:\s+(.+?)(?:\n|$)', message_text, re.MULTILINE)
-        odbiorca = recipient_match.group(1).strip() if recipient_match else None
+        odbiorca_raw = recipient_match.group(1).strip() if recipient_match else None
+        
+        # Handle multiple recipients (comma-separated) - take the first one
+        if odbiorca_raw:
+            # Split by comma and take the first recipient
+            first_recipient = odbiorca_raw.split(',')[0].strip()
+            odbiorca_nazwa, odbiorca_mail = parse_sender(first_recipient)
+        else:
+            odbiorca_nazwa, odbiorca_mail = None, None
         
         # Extract subject (temat)
         subject_match = re.search(r'Temat:\s+(.+?)(?:\n|$)', message_text, re.MULTILINE)
         temat = subject_match.group(1).strip() if subject_match else None
         
-        # Extract main content (główna treść wiadomości)
+        # Extract main content (message_content)
         # Find the line after "Temat:" and extract everything until the next "Od:" or end
         content_match = re.search(r'Temat:\s+.+?\n\n(.+?)(?=\n\nOd:\s+|$)', message_text, re.DOTALL)
         if not content_match:
@@ -58,13 +98,15 @@ def parse_single_mail(mail_content):
             tresc = None
         
         # Only add message if we have at least sender or recipient
-        if nadawca or odbiorca:
+        if nadawca_nazwa or nadawca_mail or odbiorca_nazwa or odbiorca_mail:
             messages.append({
-                'nadawca': nadawca,
-                'odbiorca': odbiorca,
-                'temat': temat,
-                'data': data,
-                'główna treść wiadomości': tresc
+                'sender_name': nadawca_nazwa,
+                'sender_email': nadawca_mail,
+                'recipient_name': odbiorca_nazwa,
+                'recipient_email': odbiorca_mail,
+                'subject': temat,
+                'date': data,
+                'message_content': tresc
             })
     
     return messages
@@ -79,8 +121,8 @@ def parse_mails_to_dataframe(data_dir=None):
                                  If None, uses default from read_mails_data().
     
     Returns:
-        pd.DataFrame: DataFrame with columns: 'nadawca', 'odbiorca', 'temat', 'data', 
-                     'główna treść wiadomości'
+        pd.DataFrame: DataFrame with columns: 'sender_name', 'sender_email', 'recipient_name', 'recipient_email', 
+                     'subject', 'date', 'message_content'
     """
     # Read all mail data
     mails = read_mails_data(data_dir) if data_dir else read_mails_data()
@@ -111,9 +153,11 @@ if __name__ == "__main__":
     print(df.dtypes)
     print(f"\nSample message:")
     if len(df) > 0:
-        print(f"\nNadawca: {df.iloc[0]['nadawca']}")
-        print(f"Odbiorca: {df.iloc[0]['odbiorca']}")
-        print(f"Temat: {df.iloc[0]['temat']}")
-        print(f"Data: {df.iloc[0]['data']}")
-        print(f"Treść (first 200 chars): {df.iloc[0]['główna treść wiadomości'][:200] if pd.notna(df.iloc[0]['główna treść wiadomości']) else 'N/A'}...")
+        print(f"\nSender name: {df.iloc[0]['sender_name']}")
+        print(f"Sender email: {df.iloc[0]['sender_email']}")
+        print(f"Recipient name: {df.iloc[0]['recipient_name']}")
+        print(f"Recipient email: {df.iloc[0]['recipient_email']}")
+        print(f"Subject: {df.iloc[0]['subject']}")
+        print(f"Date: {df.iloc[0]['date']}")
+        print(f"Message content (first 200 chars): {df.iloc[0]['message_content'][:200] if pd.notna(df.iloc[0]['message_content']) else 'N/A'}...")
 
