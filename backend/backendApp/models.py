@@ -4,13 +4,13 @@ from django.db import models
 
 class Email(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    sender_name = models.TextField() 
-    sender_email = models.TextField()
-    recipient_name = models.TextField() 
-    recipient_email = models.TextField()
-    subject = models.TextField()
-    date = models.TextField()
-    message_content = models.TextField()
+    sender_name = models.TextField(null=True) 
+    sender_email = models.TextField(null=True)
+    recipient_name = models.TextField(null=True) 
+    recipient_email = models.TextField(null=True)
+    subject = models.TextField(null=True)
+    date = models.TextField(null=True)
+    message_content = models.TextField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     class Meta:
         unique_together = ('sender_name', 'sender_email', 'recipient_name',

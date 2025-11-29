@@ -1,11 +1,10 @@
-Projekt: Voicebot – diagnostyka internetu dla operatora telekomunikacyjnego
-Nitka: Zamieszanie po cichej zmianie limitów w OSS – SLA vs throttling
-
 Od: OSS Team TelGO <oss-team@telgo.pl>
 Wysłano: 2025-05-03 07:45
 Do: Michał Wróbel <michal.wrobel@szpilex.ai>
 DW: agnieszka.rutkowska@telgo.pl, cx@telgo.pl
 Temat: Voicebot TelGO – update limitów na /lineTest FAST
+Projekt: Voicebot – diagnostyka internetu dla operatora telekomunikacyjnego
+Nitka: Zamieszanie po cichej zmianie limitów w OSS – SLA vs throttling
 
 Cześć,
 
