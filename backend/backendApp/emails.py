@@ -87,29 +87,27 @@ def parse_single_mail(mail_content):
     
     # Split by "Od: " to separate individual messages
     # Pattern: "Od: " at the start of a line (possibly after whitespace/newline)
-    message_parts = re.split(r'(?:\n\s*)?Od:\s+', mail_content)
-    
+    message_parts = re.split(r'(?=^Od: )', mail_content, flags=re.MULTILINE)
+
     # Skip the first part if it's empty or doesn't contain a message
     for part in message_parts:
         if not part.strip():
             continue
             
-        # Add "Od: " back to the beginning for easier parsing
-        message_text = "Od: " + part.strip()
-        
+        # Add "Od: " back to the beginning for easier parsing        
         # Extract sender
-        sender_match = re.search(r'^Od:\s+(.+?)(?:\n|$)', message_text, re.MULTILINE)
+        sender_match = re.search(r'^Od:\s+(.+?)(?:\n|$)', part, re.MULTILINE)
         sender_raw = sender_match.group(1).strip() if sender_match else None
         
         # Parse sender into name and email
         sender_name, sender_email = parse_sender(sender_raw) if sender_raw else (None, None)
         
         # Extract date
-        date_match = re.search(r'Wysłano:\s+(.+?)(?:\n|$)', message_text, re.MULTILINE)
+        date_match = re.search(r'Wysłano:\s+(.+?)(?:\n|$)', part, re.MULTILINE)
         date = date_match.group(1).strip() if date_match else None
         
         # Extract recipient
-        recipient_match = re.search(r'Do:\s+(.+?)(?:\n|$)', message_text, re.MULTILINE)
+        recipient_match = re.search(r'Do:\s+(.+?)(?:\n|$)', part, re.MULTILINE)
         recipient_raw = recipient_match.group(1).strip() if recipient_match else None
         
         # Handle multiple recipients (comma-separated) - take the first one
@@ -121,15 +119,15 @@ def parse_single_mail(mail_content):
             recipient_name, recipient_email = None, None
         
         # Extract subject
-        subject_match = re.search(r'Temat:\s+(.+?)(?:\n|$)', message_text, re.MULTILINE)
+        subject_match = re.search(r'Temat:\s+(.+?)(?:\n|$)', part, re.MULTILINE)
         subject = subject_match.group(1).strip() if subject_match else None
         
         # Extract main content
         # Find the line after "Temat:" and extract everything until the next "Od:" or end
-        content_match = re.search(r'Temat:\s+.+?\n\n(.+?)(?=\n\nOd:\s+|$)', message_text, re.DOTALL)
+        content_match = re.search(r'Temat:\s+.+?\n\n(.+?)(?=\n\nOd:\s+|$)', part, re.DOTALL)
         if not content_match:
             # Try to find content after the last header field
-            content_match = re.search(r'Temat:\s+.+?\n\n(.+)', message_text, re.DOTALL)
+            content_match = re.search(r'Temat:\s+.+?\n\n(.+)', part, re.DOTALL)
         
         if content_match:
             content = content_match.group(1).strip()
@@ -139,7 +137,7 @@ def parse_single_mail(mail_content):
             content = None
         
         # Only add message if we have at least sender or recipient
-        if sender_name or sender_email or recipient_name or recipient_email:
+        if sender_name or sender_email or recipient_name or recipient_email or content:
             messages.append({
                 'sender_name': sender_name,
                 'sender_email': sender_email,
@@ -149,7 +147,7 @@ def parse_single_mail(mail_content):
                 'date': date,
                 'message_content': content
             })
-    
+
     return messages
 
 

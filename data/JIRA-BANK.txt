@@ -1,5 +1,5 @@
-Temat: Brown-bag: Jak działają nasze modele churn? (nieformalne spotkanie)
 Od: Anna Wysocka <anna.wysocka@szpilex.ai>
+Temat: Brown-bag: Jak działają nasze modele churn? (nieformalne spotkanie)
 Wysłano: 2025-04-09 12:27
 Do: ml-leads@szpilex.ai, pm-team@szpilex.ai
 
