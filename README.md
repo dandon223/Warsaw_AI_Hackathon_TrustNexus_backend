@@ -19,3 +19,7 @@ uv run manage.py runserver
 uv run python manage.py makemigrations backendApp
 uv run python manage.py migrate
 ```
+
+## LLM
+1. Create .env file in repository root
+2. set OPEN_AI_TOKEN=<CYFRONET API TOKEN>
