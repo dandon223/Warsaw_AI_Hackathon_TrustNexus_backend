@@ -4,8 +4,52 @@ Module for extracting key information and generating summaries from email messag
 
 import os
 import pandas as pd
+import logging
+from datetime import datetime
+from pathlib import Path
 from dotenv import load_dotenv
 # load_dotenv()
+
+# Configure logging to both console and file
+def setup_logging(log_dir=None):
+    """
+    Setup logging configuration to save logs to file and display in console.
+    
+    Args:
+        log_dir: Directory to save log files. If None, uses 'logs' directory in project root.
+    """
+    # Determine log directory
+    if log_dir is None:
+        # Get project root (3 levels up from this file)
+        BASE_DIR = Path(__file__).parent.parent.parent
+        log_dir = BASE_DIR / 'logs'
+    else:
+        log_dir = Path(log_dir)
+    
+    # Create logs directory if it doesn't exist
+    log_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Create log filename with timestamp
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    log_file = log_dir / f'llm_summary_{timestamp}.log'
+    
+    # Configure logging with both file and console handlers
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        handlers=[
+            logging.FileHandler(log_file, encoding='utf-8'),
+            logging.StreamHandler()  # Also output to console
+        ]
+    )
+    
+    logger = logging.getLogger(__name__)
+    logger.info(f"Logging initialized. Log file: {log_file}")
+    return logger, str(log_file)
+
+# Initialize logging
+logger, log_file_path = setup_logging()
 
 
 def summarize_by_llm(subject, content, model_name="meta-llama/Llama-3.3-70B-Instruct", max_tokens=100):
@@ -65,7 +109,7 @@ Provide a clear, concise summary (2-4 sentences) that captures the essential inf
         )
         
         summary = response.choices[0].message.content.strip()
-        #print(summary)
+        print(summary)
         return summary
             
     except Exception as e:
@@ -162,20 +206,51 @@ def add_summary_to_dataframe(
     """
     df = df.copy()
     
+    total_emails = len(df)
+    logger.info(f"Starting to add summaries to DataFrame with {total_emails} emails")
+    logger.info(f"Using model: {model_name}, max_tokens: {max_tokens}")
+    
     summaries = []
+    skipped_count = 0
+    
     for idx, row in df.iterrows():
+        current_num = len(summaries) + 1
+        progress_pct = (current_num / total_emails) * 100
+        
         subject = row.get(subject_column)
         content = row.get(content_column)
         
         # Skip if both subject and content are empty
         if pd.isna(subject) and pd.isna(content):
+            logger.debug(f"Email {current_num}/{total_emails} ({progress_pct:.1f}%): Skipping - empty subject and content")
             summaries.append(None)
+            skipped_count += 1
             continue
         
-        summary = summarize_by_llm(subject, content, model_name=model_name, max_tokens=max_tokens)
-        summaries.append(summary)
+        logger.info(f"Processing email {current_num}/{total_emails} ({progress_pct:.1f}%)")
+        
+        try:
+            summary = summarize_by_llm(subject, content, model_name=model_name, max_tokens=max_tokens)
+            summaries.append(summary)
+            
+            if summary:
+                logger.info(f"✓ Email {current_num}/{total_emails} completed - Summary generated ({len(summary)} chars)")
+            else:
+                logger.warning(f"⚠ Email {current_num}/{total_emails} completed - No summary generated (returned None)")
+                
+        except Exception as e:
+            logger.error(f"✗ Email {current_num}/{total_emails} failed: {str(e)}")
+            summaries.append(None)
     
     df[summary_column] = summaries
+    
+    successful_count = sum(1 for s in summaries if s is not None)
+    logger.info(f"Summary generation completed!")
+    logger.info(f"  Total emails: {total_emails}")
+    logger.info(f"  Successful: {successful_count}")
+    logger.info(f"  Skipped (empty): {skipped_count}")
+    logger.info(f"  Failed: {total_emails - successful_count - skipped_count}")
+    
     return df
 
 
