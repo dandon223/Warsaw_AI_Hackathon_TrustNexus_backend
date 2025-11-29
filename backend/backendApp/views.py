@@ -17,12 +17,13 @@ from .emails import parse_mails_to_dataframe, emails_to_csv
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Email
 from .serializers import EmailSerializerGet
+from .llm_summary import add_summary_to_dataframe 
 
 @ensure_csrf_cookie
 def csrf(request: Request) -> JsonResponse:
     return JsonResponse({"detail": "CSRF cookie set"})
 class TestAPIView(APIView):  # type: ignore[misc]
-    def get(self, request: Request):
+    async def get(self, request: Request):
         return Response(
         {"message": "Hi"}, 
         status=status.HTTP_200_OK
@@ -30,8 +31,7 @@ class TestAPIView(APIView):  # type: ignore[misc]
 
 
 class EmailAPIView(APIView):  # type: ignore[misc]
-
-    def post(self, request: Request) -> Response:
+    async def post(self, request: Request):
         email_path = request.data.get("email_path")
         if email_path is None:
             return Response(
@@ -40,9 +40,10 @@ class EmailAPIView(APIView):  # type: ignore[misc]
             )
 
         df = parse_mails_to_dataframe(email_path)
-        print(df)
+        summaried_df = await add_summary_to_dataframe(df)
+        print(summaried_df[0])
         emails_to_create = []
-        for _, row in df.iterrows():
+        for _, row in summaried_df.iterrows():
             emails_to_create.append(
                 Email(
                     sender_name=row['sender_name'],
