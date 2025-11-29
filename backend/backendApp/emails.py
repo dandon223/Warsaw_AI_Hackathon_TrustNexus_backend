@@ -1,7 +1,48 @@
-import re
+import os
+import pathlib
+import glob
 import pandas as pd
-from read_mails import read_mails_data
+import re
 
+
+def read_mails_data(data_dir: pathlib.Path):
+    """
+    Read mail data from .txt files in the specified directory.
+    
+    Recursively searches for all .txt files in the directory and subdirectories.
+    
+    Args:
+        data_dir (str): Path to the directory containing mail .txt files.
+    
+    Returns:
+        list: List of mail contents (strings) from all .txt files found.
+    """
+    mails = []
+
+    # Search for all .txt files recursively
+    path = os.path.join(data_dir, '**', '*.txt')
+    files = glob.glob(path, recursive=True)
+    
+    # If no files found with recursive search, try non-recursive
+    if not files:
+        path = os.path.join(data_dir, '*.txt')
+        files = glob.glob(path)
+    
+    # Read all .txt files
+    for file_path in files:
+        try:
+            with open(file_path, 'r', encoding='utf-8') as mail:
+                content = mail.read().strip()
+                if content:  # Only add non-empty files
+                    mails.append(content)
+        except Exception as e:
+            print(f"Error reading file {file_path}: {e}")
+            continue
+    
+    if not mails:
+        print(f"No .txt files found in {data_dir}")
+    
+    return mails
 
 def parse_sender(sender_string):
     """
@@ -138,26 +179,3 @@ def parse_mails_to_dataframe(data_dir=None):
     df = pd.DataFrame(all_messages)
     
     return df
-
-
-if __name__ == "__main__":
-    # Test the parsing
-    df = parse_mails_to_dataframe()
-    
-    print(f"Parsed {len(df)} email messages")
-    print(f"\nDataFrame shape: {df.shape}")
-    print(f"\nColumns: {list(df.columns)}")
-    print(f"\nFirst few rows:")
-    print(df.head())
-    print(f"\nData types:")
-    print(df.dtypes)
-    print(f"\nSample message:")
-    if len(df) > 0:
-        print(f"\nSender name: {df.iloc[0]['sender_name']}")
-        print(f"Sender email: {df.iloc[0]['sender_email']}")
-        print(f"Recipient name: {df.iloc[0]['recipient_name']}")
-        print(f"Recipient email: {df.iloc[0]['recipient_email']}")
-        print(f"Subject: {df.iloc[0]['subject']}")
-        print(f"Date: {df.iloc[0]['date']}")
-        print(f"Message content (first 200 chars): {df.iloc[0]['message_content'][:200] if pd.notna(df.iloc[0]['message_content']) else 'N/A'}...")
-
