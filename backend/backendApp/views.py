@@ -11,13 +11,9 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import pandas as pd
-<<<<<<< HEAD
 
 from .test_connection import query_llm
-from .emails import parse_mails_to_dataframe
-=======
 from .emails import parse_mails_to_dataframe, emails_to_csv
->>>>>>> main
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Email
 from .serializers import EmailSerializerGet
