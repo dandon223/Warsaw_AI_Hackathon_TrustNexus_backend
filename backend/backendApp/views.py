@@ -35,6 +35,7 @@ class EmailAPIView(APIView):
 		summaried_df = add_summary_to_dataframe(df)
 		emails_to_create = []
 		for _, row in summaried_df.iterrows():
+			print(row)
 			emails_to_create.append(
 				Email(
 					sender_name=row['sender_name'],
@@ -66,9 +67,7 @@ class AnalyzeEmailsView(APIView):
 			raise NotFound('No emails found')
 
 		text_request = request.data.get('text', '')
-
-		data = [model_to_dict(email) for email in emails]
-
+		data = [email.to_dict() for email in emails]
 		resp = query_llm(text_request, data)
 		LLMAnalysis.objects.create(question=text_request, answer=resp)
 		return Response({'emails': {resp}}, status=status.HTTP_200_OK)

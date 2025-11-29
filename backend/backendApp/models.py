@@ -24,6 +24,7 @@ class Email(models.Model):
 			'encrypted_recipient_name',
 			'encrypted_recipient_email',
 			'encrypted_subject',
+			'encrypted_summary',
 			'encrypted_date',
 			'encrypted_message_content',
 		)
@@ -95,6 +96,18 @@ class Email(models.Model):
 
 	def __str__(self):
 		return self.subject
+
+	def to_dict(self):
+		return {
+			'sender_name': self.sender_name,
+			'summary': self.summary,
+			'sender_email': self.sender_email,
+			'recipient_name': self.recipient_name,
+			'recipient_email': self.recipient_email,
+			'subject': self.subject,
+			'date': self.date,
+			'message_content': self.message_content,
+		}
 
 
 class LLMAnalysis(models.Model):

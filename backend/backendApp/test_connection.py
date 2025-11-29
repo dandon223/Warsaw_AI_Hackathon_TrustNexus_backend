@@ -17,7 +17,6 @@ def query_llm(prompt: str, emails: list[dict]) -> str:
 		'\n\nRetrieved Context: {context}'
 		'\n\nUser Question: {question}'
 	)
-
 	chain = {'context': (lambda x: str(emails)), 'question': (lambda x: x)} | context_prompt | llm | StrOutputParser()
 	response = chain.invoke(prompt)
 

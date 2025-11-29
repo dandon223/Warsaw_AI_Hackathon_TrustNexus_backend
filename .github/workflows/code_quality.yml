@@ -21,4 +21,4 @@ jobs:
     - name: Analysing the backend code with checkers
       run: |
         uv run ruff check --select I
-        uv run ruff format
+        uv run ruff format --check
