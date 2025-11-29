@@ -21,8 +21,8 @@ def setup_logging(log_dir=None):
     # Determine log directory
     if log_dir is None:
         # Get project root (3 levels up from this file)
-        BASE_DIR = Path(__file__).parent.parent.parent
-        log_dir = BASE_DIR / 'logs'
+        LOG_BASE_DIR = Path(__file__).parent.parent.parent
+        log_dir = LOG_BASE_DIR / 'logs'
     else:
         log_dir = Path(log_dir)
     
@@ -109,7 +109,7 @@ Provide a clear, concise summary (2-4 sentences) that captures the essential inf
         )
         
         summary = response.choices[0].message.content.strip()
-        print(summary)
+        #print(summary)
         return summary
             
     except Exception as e:
