@@ -10,6 +10,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import pandas as pd
+
+from .test_connection import query_llm
 from .emails import parse_mails_to_dataframe
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Email
@@ -51,3 +53,18 @@ class EmailAPIView(APIView):  # type: ignore[misc]
         {"message": "Done"}, 
         status=status.HTTP_201_CREATED
     )
+
+class AnalyzeEmailsView(APIView):  # type: ignore[misc]
+    permission_classes = [AllowAny]
+
+    def post(self, request) -> Response:
+        emails = Email.objects.all()
+        if not emails.exists():
+            raise NotFound("No emails found")
+        
+        text_request = request.data.get("text", "")
+
+        resp = query_llm(text_request, list(emails))
+        print(text_request)
+        
+        return Response({"emails": {resp}}, status=status.HTTP_200_OK)
