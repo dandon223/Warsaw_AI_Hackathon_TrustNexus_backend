@@ -18,3 +18,11 @@ class Email(models.Model):
     
     def __str__(self):
         return self.subject
+
+class LLMAnalysis(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    question = models.TextField(null=True) 
+    answer = models.TextField(null=True)
+
+    def __str__(self):
+        return self.question

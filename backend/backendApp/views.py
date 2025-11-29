@@ -13,10 +13,10 @@ from rest_framework.views import APIView
 import pandas as pd
 
 from .test_connection import query_llm
-from .emails import parse_mails_to_dataframe, emails_to_csv
+from .emails import parse_mails_to_dataframe, emails_to_csv, analysis_to_csv
 from django.views.decorators.csrf import ensure_csrf_cookie
-from .models import Email
-from .serializers import EmailSerializerGet
+from .models import Email, LLMAnalysis
+from .serializers import EmailSerializerGet, LLMAnalysisSerializerGet
 
 @ensure_csrf_cookie
 def csrf(request: Request) -> JsonResponse:
@@ -61,6 +61,11 @@ class EmailAPIView(APIView):  # type: ignore[misc]
         status=status.HTTP_201_CREATED
     )
 
+    def get(self, request: Request) -> Response:
+            emails = Email.objects.filter()
+            serializer = EmailSerializerGet(emails, many=True)
+            return Response(serializer.data)
+
 class AnalyzeEmailsView(APIView):  # type: ignore[misc]
     permission_classes = [AllowAny]
 
@@ -74,8 +79,13 @@ class AnalyzeEmailsView(APIView):  # type: ignore[misc]
         data =[model_to_dict(email) for email in emails]
 
         resp = query_llm(text_request, data)
-        
+        LLMAnalysis.objects.create(question=text_request, answer= resp)
         return Response({"emails": {resp}}, status=status.HTTP_200_OK)
+
+    def get(self, request: Request) -> Response:
+            emails = LLMAnalysis.objects.filter()
+            serializer = LLMAnalysisSerializerGet(emails, many=True)
+            return Response(serializer.data)
 
     
 
@@ -93,8 +103,16 @@ class SaveEmailsAPIView(APIView):  # type: ignore[misc]
         status=status.HTTP_201_CREATED
         )
     
-    def get(self, request: Request) -> Response:
-            emails = Email.objects.filter()
-            serializer = EmailSerializerGet(emails, many=True)
-            return Response(serializer.data)
-    
+class SaveAnalyzeEmailsView(APIView):  # type: ignore[misc]
+    def post(self, request: Request) -> Response:
+        email_path = request.data.get("email_path")
+        if email_path is None:
+            return Response(
+            {"message": "no email_path"}, 
+            status=status.HTTP_400_BAD_REQUEST 
+            )
+        analysis_to_csv(email_path)
+        return Response(
+        {"message": "Done"}, 
+        status=status.HTTP_201_CREATED
+        )

@@ -3,7 +3,7 @@ import pathlib
 import glob
 import pandas as pd
 import re
-from .models import Email
+from .models import Email, LLMAnalysis
 import json
 
 def read_mails_data(data_dir: pathlib.Path):
@@ -203,3 +203,20 @@ def emails_to_csv(data_dir=None):
         json.dump(email_list, f, ensure_ascii=False, indent=4)
 
     print(f"Saved {len(email_list)} emails to emails.json")
+
+def analysis_to_csv(data_dir=None):
+    analysis = LLMAnalysis.objects.all()
+    analysis_list = []
+    for e in analysis:
+        analysis_dict = {
+            "id": str(e.id),  # UUID to string
+            "question": e.question,
+            "answer": e.answer,
+        }
+        analysis_list.append(analysis_dict)
+
+    # Save to JSON file
+    with open(data_dir + "/analysis.json", "w", encoding="utf-8") as f:
+        json.dump(analysis_list, f, ensure_ascii=False, indent=4)
+
+    print(f"Saved {len(analysis_list)} analysis to analysis.json")
