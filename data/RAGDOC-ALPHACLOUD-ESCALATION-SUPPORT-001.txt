@@ -1,0 +1,40 @@
+
+Od: Tomasz Urban <tomasz.urban@alphacloud.com>
+Wysłano: 2025-04-03 09:18
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+DW: Marek Jaworski <marek.jaworski@alphacloud.com>, support-leads@alphacloud.com
+Temat: [Eskalacja] RAG Docs – błędne odpowiedzi i stara dokumentacja
+
+Cześć Kasiu,
+
+muszę podbić temat RAG-a, bo od wczoraj mamy kilka zgłoszeń od supportu:
+
+1) Case #SUP-23109:
+   - pytanie agenta: “Czy klient na planie STANDARD ma dostęp do API /v3/billing/export?”
+   - RAG odpowiedział: “Tak, endpoint dostępny od planu STANDARD wzwyż”.
+   - Faktycznie: od stycznia endpoint jest tylko w ENTERPRISE (policy change).
+
+2) Case #SUP-23127:
+   - pytanie o limit projektów w v3,
+   - RAG zwrócił fragmenty dokumentacji z v2 (max 5 projektów), podczas gdy w v3 jest 20.
+
+Wygląda na to, że:
+- albo indeks zawiera stare wersje dokumentów,
+- albo filtr po “version”/“valid_to” nie działa tak, jak zakładaliśmy.
+
+Na razie poprosiłem team leadów, żeby:
+- traktowali odpowiedzi RAG-a jako “podpowiedź”, a nie źródło prawdy,
+- w szczególności w tematach BILLING / LIMITY.
+
+Czy możesz dać znać:
+- czy to jest pojedynczy bug, czy raczej systemowy problem z wersjonowaniem?
+- oraz jaki widzisz realny horyzont na poprawkę?
+
+Jeśli trzeba, podeślę konkretne query_id z rag_query_log.
+
+Pozdrawiam,
+Tomek
+
+--
+Tomasz Urban
+Head of Customer Support | AlphaCloud

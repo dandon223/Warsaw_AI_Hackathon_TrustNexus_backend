@@ -1,0 +1,84 @@
+
+Od: Natalia Cisek <natalia.cisek@expensely.app>
+Wysłano: 2025-03-01 09:00
+Do: Piotr Gacek <piotr.gacek@globetrade.eu>
+DW: finanse@globetrade.eu
+Temat: Expensely – zakres pilota (limity i waluty)
+
+Cześć Piotr,
+na pilota proponuję:
+
+- rozliczenia:
+  - tylko podróże europejskie,
+  - waluty: EUR, PLN, GBP,
+  - kursy – średni NBP z dnia poprzedniego.
+
+- limity:
+  - nocleg: 120 EUR / noc,
+  - diety: wg tabeli wewnętrznej (zaimportujemy jako słownik).
+
+Czy na tej podstawie możemy ruszać?
+
+Natalia
+
+--
+Natalia Cisek
+Implementation Lead | Expensely.app
+
+
+Od: Piotr Gacek <piotr.gacek@globetrade.eu>
+Wysłano: 2025-03-01 09:42
+Do: Natalia Cisek <natalia.cisek@expensely.app>
+DW: finanse@globetrade.eu
+Temat: Expensely – zakres pilota (limity i waluty)
+
+Cześć,
+musimy rozszerzyć:
+
+- część zespołów lata do USA i Azji,
+- jeśli system nie obsłuży USD i JPY na starcie, pilot będzie "kaleki".
+
+Propozycja:
+- waluty: EUR, PLN, GBP, USD, JPY,
+- kursy:
+  - EBC (EUR),
+  - NBP (pozostałe),
+  - cache do 24 h.
+
+Piotr
+
+
+Od: finanse@globetrade.eu
+Wysłano: 2025-03-01 10:10
+Do: Piotr Gacek <piotr.gacek@globetrade.eu>, Natalia Cisek <natalia.cisek@expensely.app>
+Temat: Expensely – zakres pilota (limity i waluty)
+
+Cześć,
+z naszej strony OK na rozszerzenie walut, ale:
+
+- pilota i tak proponujemy ograniczyć do:
+  - jednego regionu (Europa + US east),
+  - maks. 50 użytkowników.
+
+Ryzyko: jeśli od razu wrzucimy cały świat, pilota nie ogarniemy.
+
+Finanse GlobeTrade
+
+
+Od: Natalia Cisek <natalia.cisek@expensely.app>
+Wysłano: 2025-03-01 10:45
+Do: Piotr Gacek <piotr.gacek@globetrade.eu>
+DW: finanse@globetrade.eu
+Temat: Expensely – zakres pilota (limity i waluty)
+
+Podsumowanie:
+
+- funkcjonalnie:
+  - waluty: EUR, PLN, GBP, USD, JPY,
+  - kursy: EBC + NBP, cache 24 h,
+- pilotażowo:
+  - tylko wybrane regiony i 50 użytkowników.
+
+Czyli wracamy do "węższego" pilota, ale z pełną obsługą walut ważnych dla biznesu.
+
+Natalia

@@ -1,0 +1,86 @@
+
+Od: Ola Pierzchała <ola.pierzchala@eventlane.io>
+Wysłano: 2025-01-25 10:00
+Do: Michał Szafrański <michal.szafranski@liveculture.pl>
+DW: finanse@liveculture.pl
+Temat: EventLane – typy biletów i zasady zwrotów
+
+Cześć Michał,
+propozycja:
+
+- typy biletów:
+  - standard,
+  - VIP,
+  - early bird.
+
+- zwroty:
+  - do 14 dni przed wydarzeniem – 100%,
+  - 13–7 dni – 50%,
+  - <7 dni – brak zwrotu.
+
+To jest najczęściej spotykany model. Czy pasuje?
+
+Ola
+
+--
+Ola Pierzchała
+Product Manager | EventLane.io
+
+
+Od: Michał Szafrański <michal.szafranski@liveculture.pl>
+Wysłano: 2025-01-25 10:36
+Do: Ola Pierzchała <ola.pierzchala@eventlane.io>
+DW: finanse@liveculture.pl
+Temat: EventLane – typy biletów i zasady zwrotów
+
+Cześć,
+musimy to trochę złagodzić:
+
+- publiczność jest przyzwyczajona do:
+  - 100% zwrotu do 7 dni przed,
+  - 50% w ostatnim tygodniu,
+- całkowity brak zwrotów <7 dni może być wizerunkowo słaby.
+
+Proponuję:
+- 100% do 7 dni,
+- 50% do 24 h,
+- <24 h – brak zwrotu.
+
+Michał
+
+
+Od: finanse@liveculture.pl
+Wysłano: 2025-01-25 11:05
+Do: Michał Szafrański <michal.szafranski@liveculture.pl>, Ola Pierzchała <ola.pierzchala@eventlane.io>
+Temat: EventLane – typy biletów i zasady zwrotów
+
+Cześć,
+z punktu widzenia finansów:
+
+- model zaproponowany przez Michała jest OK,
+- ale chcemy mieć możliwość:
+  - oznaczenia konkretnego wydarzenia jako "non-refundable" (np. małe, niszowe, z wysokimi kosztami stałymi).
+
+Bez tego część eventów będzie ryzykowna przy dużej liczbie zwrotów w ostatniej chwili.
+
+Finanse LiveCulture
+
+
+Od: Ola Pierzchała <ola.pierzchala@eventlane.io>
+Wysłano: 2025-01-25 11:40
+Do: Michał Szafrański <michal.szafranski@liveculture.pl>
+DW: finanse@liveculture.pl
+Temat: EventLane – typy biletów i zasady zwrotów
+
+Podsumowanie:
+
+- domyślny model:
+  - 100% zwrotu do 7 dni,
+  - 50% do 24 h,
+  - <24 h – brak zwrotu,
+- opcja na poziomie wydarzenia:
+  - "non-refundable" (brak zwrotów, z jasnym komunikatem przy zakupie).
+
+Czyli z grubsza wracamy do bardziej przyjaznego modelu zwrotów, ale z możliwością zaostrzenia zasad tam, gdzie to biznesowo konieczne.
+
+Ola

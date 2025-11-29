@@ -1,0 +1,70 @@
+
+Od: Michał Boruta <michal.boruta@playmetrics.io>
+Wysłano: 2025-02-03 09:00
+Do: Tomasz Rzepka <tomasz.rzepka@pixelcraft.studio>
+DW: data@pixelcraft.studio
+Temat: PlayMetrics – zakres eventów (MVP)
+
+Cześć Tomek,
+propozycja na start:
+
+- eventy:
+  - app_open,
+  - level_start / level_complete,
+  - purchase_initiated / purchase_completed,
+  - ad_impression,
+  - user_churn_risk (tagowany po stronie serwera).
+
+- sampling:
+  - 100% graczy, brak próbkowania (mamy wystarczający budżet na storage).
+
+Czy możemy tak to założyć?
+
+Michał
+
+--
+Michał Boruta
+Product Analytics Lead | PlayMetrics.io
+
+
+Od: Tomasz Rzepka <tomasz.rzepka@pixelcraft.studio>
+Wysłano: 2025-02-03 09:37
+Do: Michał Boruta <michal.boruta@playmetrics.io>
+DW: data@pixelcraft.studio
+Temat: PlayMetrics – zakres eventów (MVP)
+
+Cześć,
+zakres eventów jest OK, ale:
+
+- po rozmowie z naszym DevOpsem:
+  - przy 100% ruchu w piku możemy przebić budżet logów,
+  - szczególnie jeśli dojdą kolejne eventy w późniejszych wersjach.
+
+Propozycja:
+- pełne logowanie dla:
+  - purchase_*,
+  - level_*,
+- sampling 20–30% dla app_open i ad_impression.
+
+Tomek
+
+
+Od: Michał Boruta <michal.boruta@playmetrics.io>
+Wysłano: 2025-02-03 10:10
+Do: Tomasz Rzepka <tomasz.rzepka@pixelcraft.studio>
+DW: data@pixelcraft.studio
+Temat: PlayMetrics – zakres eventów (MVP)
+
+OK, to korygujemy:
+
+- 100%:
+  - purchase_*,
+  - level_*,
+- 30%:
+  - app_open, ad_impression,
+- opcja:
+  - na potrzeby badań A/B możemy na określony czas podnosić sampling do 100% (feature flag).
+
+W praktyce cofamy się z ambitnego "wszystko 100%", ale z zachowaniem pełnej jakości danych tam, gdzie to najbardziej boli (monetyzacja, progresja).
+
+Michał

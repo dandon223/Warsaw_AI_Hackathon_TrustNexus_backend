@@ -1,0 +1,46 @@
+Od: Krzysztof Radwan <krzysztof.radwan@pulsecheck.app>
+Wysłano: 2025-03-15 09:10
+Do: Tomasz Żurek <tomasz.zurek@bluebyte.com>
+DW: Dział IT <it@bluebyte.com>, Dział HR <hr@bluebyte.com>
+Temat: PulseCheck – szczegóły anonimizacji technicznej
+
+Cześć Tomku,
+techniczne założenia anonimizacji:
+
+- nie zapisujemy adresów IP ani user-agentów przeglądarek,
+- token do ankiety jest jednorazowy, po użyciu "spalany",
+- odpowiedzi są przechowywane wyłącznie w formie zanonimizowanej (bez ID użytkownika).
+
+Jednocześnie chcemy:
+- umożliwić filtrowanie wyników po dziale/lokalizacji/roli,
+- zachować minimalny próg odpowiedzi (5 osób).
+
+Model:
+- mapowanie "użytkownik → grupa" dzieje się w momencie wysyłki zaproszenia,
+- do bazy odpowiedzi trafia tylko: group_id + odpowiedzi.
+
+Daj znać, czy to spełnia Wasze wymagania IT/bezpieczeństwa.
+
+Krzysztof
+
+--
+Krzysztof Radwan
+CTO | PulseCheck.app
+
+
+Od: Dział IT <it@bluebyte.com>
+Wysłano: 2025-03-15 10:05
+Do: Krzysztof Radwan <krzysztof.radwan@pulsecheck.app>
+DW: Tomasz Żurek <tomasz.zurek@bluebyte.com>, Dział HR <hr@bluebyte.com>
+Temat: PulseCheck – szczegóły anonimizacji technicznej
+
+Cześć,
+z naszej strony ważne jest jeszcze:
+
+- szyfrowanie bazy danych (at rest),
+- regularne testy bezpieczeństwa (pentesty raz w roku),
+- możliwość wygenerowania logu dostępu administratorów systemu.
+
+Poza tym model anonimizacji wygląda poprawnie.
+
+IT BlueByte

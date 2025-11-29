@@ -1,0 +1,46 @@
+Od: Joanna Cieślak <joanna.cieslak@cloudsync.io>
+Wysłano: 2025-03-02 09:05
+Do: Łukasz Tomasik <lukasz.tomasik@resellerpro.pl>
+DW: partnerzy@cloudsync.io
+Temat: CloudSync – zakres panelu partnera
+
+Cześć Łukasz,
+zgodnie z rozmową:
+
+1. Partner portal ma umożliwiać:
+   - rejestrację leadów (z informacją o kliencie i potencjalnym planie),
+   - podgląd statusu leada (open / in progress / closed-won / closed-lost),
+   - podgląd prowizji naliczonych i wypłaconych.
+
+2. Zasady:
+   - lead jest "zarezerwowany" dla partnera na 60 dni,
+   - po 60 dniach bez aktywności lead wraca do puli ogólnej.
+
+Czy taka logika pasuje do Waszego modelu partnerskiego?
+
+Asia
+
+--
+Joanna Cieślak
+Channel Program Manager | CloudSync
+
+
+Od: Łukasz Tomasik <lukasz.tomasik@resellerpro.pl>
+Wysłano: 2025-03-02 09:48
+Do: Joanna Cieślak <joanna.cieslak@cloudsync.io>
+DW: partnerzy@cloudsync.io
+Temat: CloudSync – zakres panelu partnera
+
+Cześć,
+tak, ale doprecyzujmy:
+
+- chcemy możliwość przedłużenia rezerwacji leada (np. o kolejne 30 dni) na wniosek partnera,
+- dobrze byłoby widzieć przychód MRR/ARR z klienta, jeśli lead został wygrany.
+
+Ryzyko: spory o to "kto jest właścicielem klienta" – panel ma to maksymalnie czytelnie pokazywać.
+
+Łukasz
+
+--
+Łukasz Tomasik
+CEO | ResellerPro

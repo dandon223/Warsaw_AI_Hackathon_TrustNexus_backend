@@ -1,0 +1,66 @@
+Od: Michał Wróbel <michal.wrobel@szpilex.ai>
+Wysłano: 2025-02-18 09:07
+To: Natalia Król <natalia.krol@ecom-client.com>, Bartosz Maj <bartosz.maj@szpilex.ai>
+Temat: Hybrydowy asystent – zasady routingu
+
+Cześć,
+w projekcie hybrydowym zakładamy:
+- voicebot obsługuje część rozmowy (identyfikacja, temat),
+- RAG generuje podpowiedzi dla konsultanta na ekranie,
+- w niektórych przypadkach voicebot czyta odpowiedź RAG klientowi.
+
+Potrzebujemy tabeli: które intencje idą pełnym "self-service", a które tylko jako podpowiedź dla agenta.
+
+Michał
+
+--
+Michał Wróbel
+Product Manager – CX Automation | SZPILEX.ai
+
+
+Od: Natalia Król <natalia.krol@ecom-client.com>
+Wysłano: 2025-02-18 10:36
+Do: Michał Wróbel <michal.wrobel@szpilex.ai>
+Temat: Hybrydowy asystent – zasady routingu
+
+Propozycja:
+- self-service: status zamówienia, godziny otwarcia, proste FAQ,
+- tylko podpowiedź: reklamacje, problemy z płatnościami, opóźnienia dostawy,
+- obowiązkowo do agenta: groźby pozwu, skargi formalne, zgłoszenia RODO.
+
+Ryzyko: voicebot nie rozpozna poprawnie tonu rozmowy (klient zdenerwowany). Potrzebujemy analizy sentymentu / detekcji frustracji.
+
+Natalia
+
+
+Od: Bartosz Maj <bartosz.maj@szpilex.ai>
+Wysłano: 2025-02-18 12:48
+Do: Michał Wróbel <michal.wrobel@szpilex.ai>, Natalia Król <natalia.krol@ecom-client.com>
+Temat: Hybrydowy asystent – zasady routingu
+
+Możemy użyć gotowego modelu sentymentu (PL) działającego real-time. Zasady:
+- jeśli sentyment = "zły" i pewność > 0.8 → natychmiastowy transfer do agenta,
+- jeśli frazy typu "reklamacja", "prawnik", "UOKiK" → też transfer.
+
+Logujemy powód transferu w tabeli call_routing_log.
+
+Bartek
+
+--
+Bartosz Maj
+Backend Engineer | SZPILEX.ai
+
+
+Od: Michał Wróbel <michal.wrobel@szpilex.ai>
+Wysłano: 2025-02-19 09:30
+Do: Natalia Król <natalia.krol@ecom-client.com>, Bartosz Maj <bartosz.maj@szpilex.ai>
+Temat: Hybrydowy asystent – zasady routingu
+
+Podsumowanie:
+- self-service: proste FAQ, statusy, godziny,
+- podpowiedź dla agenta: reklamacje, płatności, opóźnienia,
+- obowiązkowy agent: groźby pozwu, skargi, RODO, zły sentyment.
+
+Ryzyka: fałszywie pozytywne/negatywne detekcje sentymentu → na etapie pilota robimy shadow mode (tylko logowanie, bez realnego routingu) przez 2 tygodnie.
+
+Michał

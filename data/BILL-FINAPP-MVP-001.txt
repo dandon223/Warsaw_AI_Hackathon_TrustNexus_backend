@@ -1,0 +1,29 @@
+Od: Rafał Czerwiński <rafal.czerwinski@billstream.io>
+Wysłano: 2025-01-30 09:30
+Do: Monika Zając <monika.zajac@finapp.pl>
+DW: Paweł Tomaszek <pawel.tomaszek@finapp.pl>
+Temat: Billstream – zakres obsługi faktur w MVP
+
+Cześć Moniko,
+zgodnie z ustaleniami:
+
+1. W ramach MVP system ma obsługiwać:
+   - faktury sprzedażowe (B2B, B2C),
+   - faktury korygujące,
+   - proformy.
+
+2. Waluty:
+   - PLN, EUR, USD,
+   - automatyczne pobieranie kursów NBP (dla PLN) i ECB (dla EUR/USD).
+
+3. Podatki:
+   - stawki VAT: 0%, 5%, 8%, 23%,
+   - obsługa odwrotnego obciążenia (reverse charge) dla transakcji wewnątrz UE.
+
+Potrzebuję potwierdzenia, czy na start musimy wspierać także OSS (One Stop Shop) dla sprzedaży cyfrowej, czy to temat na później?
+
+Rafał
+
+--
+Rafał Czerwiński
+Founder & CTO | Billstream

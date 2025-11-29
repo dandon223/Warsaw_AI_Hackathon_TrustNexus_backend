@@ -1,0 +1,91 @@
+
+Od: Zespół ML – Voice & RAG <ml-leads@szpilex.ai>
+Wysłano: 2025-04-05 10:40
+Do: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+DW: data-platform@szpilex.ai, voicebot-pm@szpilex.ai
+Temat: ML Monitoring – feedback od agentów jako etykiety
+
+Cześć,
+
+przy IntentClassifier-v4 i RAG-Ranker-v2 brakuje nam jednego klocka,
+żeby móc realnie ocenić jakość w online:
+
+- w tej chwili widzimy:
+  - rozkład predykcji,
+  - confidence,
+  - PSI na kilku featurach,
+- ale nie mamy:
+  - “twardych” etykiet z biznesu (czy wynik był przydatny / poprawny).
+
+Propozycja:
+- dodać do model_stats_daily / osobnej tabeli:
+  - eventy feedbackowe z UI:
+    - “agent skorygował intent”,
+    - “agent oznaczył odpowiedź RAG jako not helpful / helpful”.
+
+Z naszej perspektywy wystarczy schema:
+- feedback_events(
+    id,
+    model_name,
+    version,
+    ts,
+    feedback_type,      -- np. INTENT_CORRECTED / ANSWER_NOT_HELPFUL
+    original_label,
+    corrected_label,
+    channel,
+    extra_json
+  )
+
+Pytanie:
+- czy to Waszym zdaniem należy do ML Monitoring (schema ml_monitoring),
+  - czy powinniśmy to traktować jako osobny strumień w data-platform?
+
+ML Leads
+
+
+Od: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+Wysłano: 2025-04-05 12:02
+Do: Zespół ML – Voice & RAG <ml-leads@szpilex.ai>
+DW: data-platform@szpilex.ai, voicebot-pm@szpilex.ai
+Temat: Re: ML Monitoring – feedback od agentów jako etykiety
+
+Cześć,
+
+z mojego punktu widzenia to jest dokładnie brakujący element między “surowymi logami” a “jakością modelu”.
+
+Propozycja docelowa:
+
+1) RAW:
+   - feedback_events lądują w S3:
+     - s3://ml-monitoring-feedback/{model}/{yyyy}/{MM}/{dd}/events.parquet
+
+2) AGGREGATES:
+   - w ml_monitoring dodamy tabelę:
+     - model_feedback_daily(
+         model_name,
+         version,
+         date,
+         feedback_type,
+         count_events,
+         correction_rate,      -- np. % przypadków, gdzie intent został poprawiony
+         slice_key             -- kanał / kraj / segment
+       )
+
+3) Dashboard:
+   - w “Model Health” dorzucimy panel:
+     - “Agent feedback”:
+       - correction_rate,
+       - % “not helpful” dla RAG.
+
+Krótkoterminowo możemy:
+- zacząć od logowania eventów w S3 + prosty job agregujący raz dziennie,
+- dopiero potem dobudować “ładny” dashboard.
+
+To jest w mojej ocenie część ML Monitoring,
+bo bez tego będziemy wiecznie zgadywać jakość pośrednio z driftu i rozkładów predykcji.
+
+Szymon
+
+--
+Szymon Ratajczak
+Product Manager – Data & ML | SZPILEX.ai

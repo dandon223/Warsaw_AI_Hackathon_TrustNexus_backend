@@ -1,0 +1,78 @@
+
+Od: Dział Prawny TelGO <legal@telgo.pl>
+Wysłano: 2025-04-12 09:30
+Do: Michał Wróbel <michal.wrobel@szpilex.ai>
+DW: agnieszka.rutkowska@telgo.pl, dpo@telgo.pl
+Temat: Voicebot TelGO – klauzule informacyjne i retencja nagrań
+
+Dzień dobry,
+
+po przeglądzie scenariuszy voicebota mamy kilka punktów do doprecyzowania
+z perspektywy ochrony danych i prawa telekomunikacyjnego:
+
+1) Klauzula informacyjna:
+   - na ten moment klient słyszy:
+     - “Rozmowa jest nagrywana w celach jakościowych.”
+   - w rzeczywistości:
+     - przetwarzamy też nagrania w celu trenowania modeli NLU.
+
+2) Retencja:
+   - prosimy o potwierdzenie:
+     - jak długo przechowywane są:
+       - surowe nagrania audio,
+       - transkrypcje tekstowe,
+       - logi NLU (intenty, encje).
+
+3) Anonimizacja:
+   - czy jest przewidziany mechanizm pseudoanonimizacji przed użyciem nagrań
+     do trenowania modeli (np. usuwanie numerów telefonów, adresów itd.)?
+
+Proszę o krótkie podsumowanie stanu faktycznego
+oraz informację, co możemy względnie szybko skorygować w komunikatach.
+
+Pozdrawiam,
+Dział Prawny TelGO
+
+
+Od: Michał Wróbel <michal.wrobel@szpilex.ai>
+Wysłano: 2025-04-12 11:05
+Do: Dział Prawny TelGO <legal@telgo.pl>
+DW: agnieszka.rutkowska@telgo.pl, dpo@telgo.pl, security@szpilex.ai
+Temat: Voicebot TelGO – klauzule informacyjne i retencja nagrań
+
+Dzień dobry,
+
+stan obecny:
+
+1) Klauzula:
+   - faktycznie w komunikacie otwierającym mówimy tylko o “celach jakościowych”,
+   - natomiast w umowie + DPA mamy zapis:
+     - “poprawa jakości modeli rozpoznawania mowy i rozumienia języka naturalnego”.
+
+2) Retencja (po naszej stronie):
+   - surowe nagrania audio:
+     - 90 dni (po tym okresie automatyczne usuwanie),
+   - transkrypcje:
+     - 180 dni,
+   - logi NLU (intenty, encje, metadane):
+     - 12 miesięcy (bez danych umożliwiających identyfikację klienta).
+
+3) Anonimizacja:
+   - przed użyciem nagrań do trenowania:
+     - przepuszczamy transkrypcje przez moduł PII-redaction:
+       - numer telefonu, PESEL, adresy e-mail, adresy fizyczne → maskowane,
+   - audio używamy tylko w formie fragmentów odseparowanych od metadanych klienta.
+
+Rzeczy, które możemy zmienić szybko:
+- doprecyzować komunikat otwierający:
+  - np. “Rozmowa jest nagrywana w celach jakościowych oraz poprawy działania automatycznego asystenta.”
+- dodać do IVR link do pełnej klauzuli na stronie www.
+
+Jeśli prześlecie sugerowane brzmienie klauzuli,
+nasz zespół może je wprowadzić w ciągu 1–2 sprintów wdrożeniowych.
+
+Michał
+
+--
+Michał Wróbel
+Product Manager – Telco Automation | SZPILEX.ai

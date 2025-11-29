@@ -1,0 +1,92 @@
+Od: Marek Jaworski <marek.jaworski@alphacloud.com>
+Wysłano: 2025-05-05 09:12
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+DW: sales@alphacloud.com, security@alphacloud.com
+Temat: RAG Docs – rozjazd deklaracji sprzedaży ze scope’em MVP
+
+Cześć Kasiu,
+
+mamy małe “zamieszanie” po ostatnim QBR z dużym klientem ENTERPRISE (AcmeCorp).
+
+Handlowiec (Piotr) w prezentacji sprzedażowej pokazał slajd, na którym:
+- w roadmapie na Q3 znalazł się punkt:
+  - “RAG obejmuje: public docs + help center + ticket history + fragmenty logów”.
+
+Problem:
+- w naszych ustaleniach MVP + Etap 2:
+  - ticket history i logi są OUT (ze względu na PII / Security / DPO),
+  - a Confluence i tak jeszcze nie wyszło z pilota.
+
+Klient już się “zakochał” w wizji:
+- agent zadaje pytanie,
+- RAG widzi wszystko: dokumentację, tickety, logi,
+- “jeden asystent do wszystkiego”.
+
+Zanim powiem Piotrowi, że się zagalopował:
+- chciałbym wiedzieć, co jest REALNE:
+  - czy w ogóle bierzemy tickets/logs jako potencjalne źródła (np. w 2026),
+  - czy to jest dla Was “deal-breaker” z perspektywy architektury i security.
+
+Marek
+
+--
+Marek Jaworski
+VP Product | AlphaCloud
+
+
+Od: Piotr Lis <piotr.lis@alphacloud.com>
+Wysłano: 2025-05-05 09:29
+Do: Marek Jaworski <marek.jaworski@alphacloud.com>, Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+DW: sales@alphacloud.com
+Temat: Re: RAG Docs – rozjazd deklaracji sprzedaży ze scope’em MVP
+
+Cześć,
+
+od razu mea culpa z mojej strony – na slajdzie wpisałem:
+- “ticket history + fragmenty logów”,
+bazując na tym, że:
+- “docelowo” chcemy tam dojść, a nie, że to już jest przyklepane na Q3.
+
+Klient zrozumiał to raczej jako:
+- “coś, co się pojawi po MVP, jeszcze w tym roku”.
+
+Nie chcę, żeby wyszło, że ich “naciągnęliśmy”,
+więc jeśli powiecie, że to realnie dopiero 2026 albo wcale,
+to:
+- ja biorę na siebie wytłumaczenie, że:
+  - “security & privacy” są ważniejsze niż roadmapa.
+
+Piotr
+
+
+Od: Security Team AlphaCloud <security@alphacloud.com>
+Wysłano: 2025-05-05 10:02
+Do: Marek Jaworski <marek.jaworski@alphacloud.com>, Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+DW: dpo@alphacloud.com
+Temat: Re: RAG Docs – rozjazd deklaracji sprzedaży ze scope’em MVP
+
+Cześć,
+
+z naszej strony sprawa jest dość jasna:
+
+- ticket history:
+  - jest pełne danych osobowych, opisów incydentów, czasem poufnych informacji,
+- logi:
+  - zawierają IP, domeny, nazwy hostów, często identyfikatory klientów.
+
+Bez:
+- pełnej klasyfikacji danych,
+- bardzo agresywnego redaction,
+- i osobnego DPIA (ocena skutków dla ochrony danych):
+  - RAG na ticket history + logach jest NIEAKCEPTOWALNY.
+
+Jeśli chcemy kiedykolwiek iść w tym kierunku, to:
+- mówimy o projekcie na osobny budżet i kilka miesięcy analizy.
+
+Na dziś:
+- maks, na jaki możemy się zgodzić:
+  - public docs + help center + ew. “zredagowane” wewnętrzne KB.
+
+Security Team
+
+

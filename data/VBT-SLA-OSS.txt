@@ -1,0 +1,115 @@
+Od: Michał Wróbel <michal.wrobel@szpilex.ai>
+Wysłano: 2025-05-03 10:02
+Do: OSS Team TelGO <oss-team@telgo.pl>
+DW: agnieszka.rutkowska@telgo.pl, cx@telgo.pl
+Temat: Re: Voicebot TelGO – update limitów na /lineTest FAST
+
+Cześć,
+
+dzięki za info, ale mamy tu spory problem:
+
+- cały flow voicebota, który budowaliśmy,
+  zakładał:
+  - do 60 FAST testów na minutę,
+  - przy czym my po swojej stronie i tak robimy throttling na ~30/min.
+
+Dzisiaj rano:
+- widzimy gwałtowny wzrost:
+  - timeoutów,
+  - komunikatów “Mamy kolejkę testów, spróbuj za kilka minut”,
+- co rozwala UX i psuje NPS (już są pierwsze skargi).
+
+Rozumiem potrzebę ochrony OSS,
+ale ta zmiana została zrobiona:
+- bez konsultacji z nami,
+- w środku dnia produkcyjnego rollout’u nowego scenariusza.
+
+Potrzebuję:
+1) Krótkoterminowo:
+   - rollback albo podniesienie limitu chociaż do 40/min,
+   - albo “white-listy” dla voicebota.
+2) Długoterminowo:
+   - mechanizm komunikacji o takich zmianach z min. tygodniowym wyprzedzeniem.
+
+Michał
+
+
+Od: Agnieszka Rutkowska <agnieszka.rutkowska@telgo.pl>
+Wysłano: 2025-05-03 10:25
+Do: Michał Wróbel <michal.wrobel@szpilex.ai>, OSS Team TelGO <oss-team@telgo.pl>
+DW: cx@telgo.pl
+Temat: Re: Voicebot TelGO – update limitów na /lineTest FAST
+
+Cześć,
+
+przyznaję, że to jest po części moja wina – widziałam ticket z prośbą OSS o obniżenie limitów,
+ale nie dopilnowałam, żeby to przeszło przez steering dla voicebota.
+
+Propozycja kompromisu:
+
+1) Krótkoterminowo (dziś/jutro):
+   - OSS:
+     - podnosi limit do 40 req/min per tenant,
+   - voicebot:
+     - wprowadza dodatkowy limiter po swojej stronie:
+       - max 25/min,
+       - priorytet dla klientów z otwartym zgłoszeniem “IN_PROGRESS”.
+
+2) W ciągu kolejnego sprintu:
+   - dopisujemy w procesie:
+     - że każda zmiana limitów OSS/BSS musi przejść przez:
+       - “Change Advisory Board” z reprezentantami Digital/Voicebot.
+
+OSS Team – da się to u Was tak ustawić?
+
+Agnieszka
+
+
+Od: OSS Team TelGO <oss-team@telgo.pl>
+Wysłano: 2025-05-03 11:05
+Do: Michał Wróbel <michal.wrobel@szpilex.ai>, Agnieszka Rutkowska <agnieszka.rutkowska@telgo.pl>
+DW: cx@telgo.pl
+Temat: Re: Voicebot TelGO – update limitów na /lineTest FAST
+
+Cześć,
+
+z naszej strony:
+- jesteśmy w stanie:
+  - podnieść limit do 40/min od jutra rano,
+  - dodać voicebota do “white-listy”,
+    - co oznacza, że:
+      - jego requesty będą miały priorytet nad częścią panelu agentów (pod warunkiem, że nie przekroczycie 25/min).
+
+W zamian:
+- prosimy o:
+  - dodatkowy throttling po stronie voicebota,
+  - prosty mechanizm backoff:
+    - jeśli widzicie 429 z OSS → nie ponawiacie od razu, tylko po 10–15 s.
+
+Za zamieszanie – przepraszamy,
+nie doceniliśmy, jak mocno ta zmiana uderzy w realtime’owe scenariusze.
+
+OSS Team
+
+
+Od: Michał Wróbel <michal.wrobel@szpilex.ai>
+Wysłano: 2025-05-03 12:00
+Do: OSS Team TelGO <oss-team@telgo.pl>, Agnieszka Rutkowska <agnieszka.rutkowska@telgo.pl>
+DW: cx@telgo.pl
+Temat: Re: Voicebot TelGO – update limitów na /lineTest FAST
+
+Cześć,
+
+dzięki za szybki odzew – bierzemy ten kompromis:
+
+- po naszej stronie:
+  - limiter do 25 req/min,
+  - backoff przy 429 (przerzucenie części ruchu na komunikat “mamy kolejkę testów”),
+- po Waszej:
+  - 40 req/min,
+  - priorytet dla voicebota.
+
+Na retro zrobimy z tego case’a:
+- “dlaczego nie robi się cichych zmian limitów w środku dnia” ;)
+
+Michał

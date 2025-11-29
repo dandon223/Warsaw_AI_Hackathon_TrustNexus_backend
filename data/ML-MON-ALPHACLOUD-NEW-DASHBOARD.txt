@@ -1,0 +1,41 @@
+
+Od: Marek Jaworski <marek.jaworski@alphacloud.com>
+Wysłano: 2025-04-22 16:20
+Do: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+DW: ml-leads@szpilex.ai, data-platform@szpilex.ai
+Temat: ML Monitoring – widok dla zarządu (high-level)
+
+Cześć Szymon,
+
+po ostatnim demo platformy ML Monitoring mam prośbę z poziomu zarządu AlphaCloud.
+
+Obecnie:
+- widzimy sporo technicznych metryk (PSI, rozkłady predykcji itp.),
+- ale brakuje jednego, “zarządowego” widoku, który:
+  - łączy “zdrowie” modeli z KPI biznesowymi.
+
+Potrzeby:
+- raz w tygodniu chcemy mieć:
+  - prostą tabelę “Model → Status → Wpływ na biznes”,
+  - np.:
+    - IntentClassifier-v4 → YELLOW → “spadek dokładności w kanale VOICE, wzrost średniego AHT o 12%”,
+    - ChurnPredictor-v3 → GREEN → “stabilny, brak istotnego driftu, churn_rate w normie”.
+
+Czy z perspektywy Waszego modelu danych:
+- bylibyście w stanie dodać do model_stats_daily:
+  - jeszcze jeden poziom agregacji, który łączy:
+    - traffic volume + model metrics + business_metric_value
+  - i z tego wyprowadzić “traffic-weighted Model Health score”?
+
+Nie potrzebujemy od razu rozbudowanego narzędzia BI,
+bardziej prosty dashboard, który:
+- pokazuje trend tygodniowy,
+- sygnalizuje, gdzie model zaczyna “ciążyć” na KPI.
+
+Daj znać, co jest realne w ramach obecnego MVP, a co byłoby już “Etapem 2”.
+
+Marek
+
+--
+Marek Jaworski
+VP Product | AlphaCloud

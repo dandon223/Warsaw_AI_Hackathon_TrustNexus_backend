@@ -1,0 +1,56 @@
+Od: Michał Wróbel <michal.wrobel@szpilex.ai>
+Wysłano: 2025-02-01 08:55
+Do: helpdesk@szpilex.ai
+Temat: Voicebot IT – definicja zakresu
+
+Cześć,
+projektujemy voicebota dla helpdesku IT. Zakres na start:
+- reset hasła do Active Directory,
+- odblokowanie konta VPN,
+- status zgłoszenia w Jira Service Management,
+- zgłoszenie problemu z laptopem (ticket auto-tworzenie).
+
+Integracje: AD, VPN Gateway (Fortinet), Jira API.
+
+Czy brakuje jakichś kluczowych przypadków?
+
+Michał
+
+--
+Michał Wróbel
+IT Services Product Manager | SZPILEX.ai
+
+
+Od: Robert Zieliński <robert.zielinski@szpilex.ai>
+Wysłano: 2025-02-01 10:18
+Do: Michał Wróbel <michal.wrobel@szpilex.ai>
+Temat: Voicebot IT – definicja zakresu
+
+Dodałbym:
+- "Nie działa Outlook" → szybkie instrukcje + ticket,
+- reset tokenu do MFA (Azure AD).
+
+Ryzyko: przy niepoprawnej identyfikacji użytkownika voicebot może resetować hasło nie tej osobie. Potrzebujemy min. 2 form weryfikacji (ID + kod SMS lub aplikacja).
+
+Robert
+
+--
+Robert Zieliński
+IT Operations Lead | SZPILEX.ai
+
+
+Od: Michał Wróbel <michal.wrobel@szpilex.ai>
+Wysłano: 2025-02-01 13:06
+Do: Robert Zieliński <robert.zielinski@szpilex.ai>, security@szpilex.ai
+Temat: Voicebot IT – definicja zakresu
+
+Decyzje:
+- identyfikacja: login domenowy + kod SMS z systemu "OTP-Internal",
+- brak głosowej resetacji MFA – tylko ticket do IT,
+- logowanie wszystkich operacji w IT_AuditLog (SQL).
+
+Ryzyka:
+- awaria OTP-Internal → fallback do "przekieruj do agenta IT",
+- socjotechnika (użytkownik podaje cudzy login).
+
+Michał

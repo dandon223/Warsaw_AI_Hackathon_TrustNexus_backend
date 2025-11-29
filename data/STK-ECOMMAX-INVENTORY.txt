@@ -1,0 +1,65 @@
+
+Od: Damian Osiński <damian.osinski@stockpilot.io>
+Wysłano: 2025-02-02 09:12
+Do: Karina Wrona <karina.wrona@ecommax.pl>
+DW: logistyka@ecommax.pl
+Temat: StockPilot – rezerwacje stanów i backorder
+
+Cześć Karina,
+propozycja logiki:
+
+- zamówienie klienta:
+  - jeśli stan >= zamówiona ilość → rezerwujemy towar,
+  - jeśli stan < zamówiona ilość → blokujemy zamówienie (brak możliwości złożenia).
+
+- nie obsługujemy backorderów w MVP (dużo komplikacji logistycznych).
+
+Daje to prosty model, łatwy do wdrożenia w 6 tygodni.
+
+Damian
+
+--
+Damian Osiński
+Product Owner | StockPilot.io
+
+
+Od: Karina Wrona <karina.wrona@ecommax.pl>
+Wysłano: 2025-02-02 10:00
+Do: Damian Osiński <damian.osinski@stockpilot.io>
+DW: logistyka@ecommax.pl
+Temat: StockPilot – rezerwacje stanów i backorder
+
+Cześć,
+niestety to "nie przejdzie":
+
+- w modzie sezonowej:
+  - część towaru mamy "w drodze",
+  - chcemy przyjmować zamówienia nawet jeśli stan magazynowy = 0, ale jest potwierdzenie dostawy.
+
+Czyli:
+- backorder jest dla nas krytyczny.
+
+Karina
+
+
+Od: Damian Osiński <damian.osinski@stockpilot.io>
+Wysłano: 2025-02-02 10:42
+Do: Karina Wrona <karina.wrona@ecommax.pl>, logistyka@ecommax.pl
+Temat: StockPilot – rezerwacje stanów i backorder
+
+OK, to obracamy logikę:
+
+- wprowadzamy:
+  - stan magazynowy (on hand),
+  - stan w dostawie (inbound),
+  - próg "ile możemy sprzedać na backorder" per produkt.
+
+Nowy model:
+- jeśli on hand >= ilość → standardowa rezerwacja,
+- jeśli on hand < ilość, ale on hand + inbound >= ilość → zamówienie przyjęte jako backorder, z komunikatem "wysyłka po dacie X",
+- jeśli on hand + inbound < ilość → zamówienie blokowane.
+
+Na MVP proponuję:
+- backorder tylko dla wybranych kategorii (np. buty, kurtki).
+
+Damian

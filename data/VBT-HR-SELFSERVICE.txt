@@ -1,0 +1,45 @@
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-02-25 09:08
+Do: Joanna Lewandowska <joanna.lewandowska@szpilex.ai>
+DW: Dział HR <hr@szpilex.ai>
+Temat: Voicebot HR – zakres funkcji self-service
+
+Cześć,
+projektujemy voicebota HR dla pracowników.
+Na start proponuję, aby obsługiwał:
+- sprawdzenie liczby dni urlopu,
+- zgłoszenie nieobecności (choroba, opieka nad dzieckiem),
+- podstawowe pytania o benefity (np. prywatna opieka medyczna),
+- dane o pensji wypłaconej w ostatnim miesiącu (kwota netto/brutto) – ew. w formie skrótu.
+
+Integracje: system kadrowy "PeopleCore", moduł płacowy "PayrollX", wewnętrzny RAG HR.
+
+Czy są funkcje, które koniecznie powinny się znaleźć w pierwszej wersji, lub takie, których nie chcemy w voicebocie w ogóle?
+
+Kasia
+
+--
+Katarzyna Pawlak
+Product Owner – HR Solutions | SZPILEX.ai
+
+
+Od: Joanna Lewandowska <joanna.lewandowska@szpilex.ai>
+Wysłano: 2025-02-25 10:00
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+DW: Dział HR <hr@szpilex.ai>
+Temat: Voicebot HR – zakres funkcji self-service
+
+Cześć,
+na MVP:
+- jak najbardziej urlopy, nieobecności, benefity,
+- pensja: tylko informacja o tym, że pasek płacowy jest dostępny w portalu, bez podawania konkretnej kwoty przez telefon (kwestie bezpieczeństwa).
+
+Nie chcemy przez voicebota:
+- zmiany numeru konta do wypłaty,
+- udzielania zaświadczeń o zarobkach (to nadal przez HR).
+
+Joanna
+
+--
+Joanna Lewandowska
+HR Director | SZPILEX.ai

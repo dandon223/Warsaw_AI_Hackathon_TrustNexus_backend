@@ -1,0 +1,96 @@
+
+Od: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+Wysłano: 2025-03-20 14:00
+Do: data-platform@szpilex.ai, ml-leads@szpilex.ai
+Temat: [RFC] ML-MON-PLATFORM-MVP-001 – zamknięcie i plan wdrożenia
+
+Cześć,
+
+zamykam RFC ML-MON-PLATFORM-MVP-001.
+
+Finalne ustalenia (krótko):
+- RAW eventy → S3:
+  - s3://ml-monitoring-raw/{model}/{yyyy}/{MM}/{dd}/events.parquet
+- AGGREGATES → PostgreSQL (schema: ml_monitoring):
+  - model_stats_daily,
+  - model_drift_events,
+  - w drugiej iteracji: model_feedback_daily.
+
+Założyliśmy:
+- dzienne joby agregujące (Airflow),
+- retencja RAW:
+  - 180 dni,
+- retencja agregatów:
+  - 24 miesiące.
+
+Jeśli ktoś ma istotne veto,
+to w praktyce jest ostatni moment, bo dev startuje od przyszłego sprintu.
+
+Szymon
+
+--
+Szymon Ratajczak
+Product Manager – Data & ML | SZPILEX.ai
+
+
+Od: Data Platform Team <data-platform@szpilex.ai>
+Wysłano: 2025-03-28 09:12
+To: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+DW: ml-leads@szpilex.ai
+Temat: Re: [RFC] ML-MON-PLATFORM-MVP-001 – zamknięcie i plan wdrożenia
+
+Cześć,
+
+dopiero teraz zauważyliśmy tę wiadomość (szczegóły RFC wpadły w nasz osobny kanał i przeleżały kilka dni).
+Widzę, że dev już ruszył, ale mimo wszystko dorzucamy komentarz:
+
+1) Retencja RAW 180 dni:
+   - przy obecnych wolumenach:
+     - IntentClassifier + RAG-Ranker + ChurnPredictor
+   - mówimy o ~20–25 TB / pół roku,
+   - to jest nadal OK, ale:
+     - wymagać będzie mocnej polityki lifecycle (S3 IA / Glacier).
+
+2) Retencja agregatów 24 miesiące:
+   - spoko z perspektywy storage,
+   - ale trzeba pamiętać, że:
+     - modele, które zdeprecjonujemy, będą “dyndać” w dashboardach.
+
+Sugestia:
+- w model_registry dodać pole:
+  - “status” (ACTIVE / DEPRECATED),
+- a w dashboardzie:
+  - domyślnie filtrować tylko ACTIVE.
+
+Nie blokujemy bieżącego developmentu,
+ale warto to uwzględnić przy projektowaniu widoków.
+
+Data Platform Team
+
+
+Od: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+Wysłano: 2025-03-28 10:25
+Do: Data Platform Team <data-platform@szpilex.ai>
+DW: ml-leads@szpilex.ai
+Temat: Re: [RFC] ML-MON-PLATFORM-MVP-001 – zamknięcie i plan wdrożenia
+
+Cześć,
+
+dzięki, że mimo wszystko wróciliście do tego RFC – lepiej późno niż bez feedbacku.
+
+Ad 1) Retencja RAW:
+- lifecycle policy i tak planowaliśmy,
+- dociągniemy to tak:
+  - 30 dni – S3 Standard,
+  - 150 dni – S3 IA / Glacier (do dogadania z Wami).
+
+Ad 2) DEPRECATED modele:
+- fajny punkt, nie miałem go w oryginalnym RFC,
+- dopiszemy:
+  - kolumnę status w model_registry,
+  - filtr w dashboardzie “domyślnie tylko ACTIVE”.
+
+Dev już poszedł w ruch, ale te zmiany są kompatybilne wstecznie,
+więc wciśniemy je w kolejne iteracje bez cofania prac.
+
+Szymon

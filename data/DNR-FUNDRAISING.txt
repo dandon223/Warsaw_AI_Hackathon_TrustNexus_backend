@@ -1,0 +1,75 @@
+
+Od: Julia Kaczmarczyk <julia.kaczmarczyk@donorlink.org>
+Wysłano: 2025-03-09 09:15
+Do: Marek Piotrowski <marek.piotrowski@pomoc-dzieciom.org>
+DW: fundraising@pomoc-dzieciom.org
+Temat: DonorLink – segmentacja i scoring darczyńców
+
+Cześć Marku,
+propozycja zakresu:
+
+- segmenty:
+  - nowi darczyńcy,
+  - powracający,
+  - wysokowartościowi,
+  - ryzyko odejścia.
+
+- scoring:
+  - 0–100, na podstawie:
+    - częstotliwości wpłat,
+    - kwot,
+    - reakcji na kampanie (otwarcia maili, kliknięcia).
+
+System mógłby:
+- automatycznie sugerować, do którego segmentu trafi darczyńca,
+- podpowiadać, kiedy wysłać kolejną kampanię.
+
+Julia
+
+--
+Julia Kaczmarczyk
+Product Manager | DonorLink.org
+
+
+Od: Marek Piotrowski <marek.piotrowski@pomoc-dzieciom.org>
+Wysłano: 2025-03-09 09:58
+Do: Julia Kaczmarczyk <julia.kaczmarczyk@donorlink.org>
+DW: fundraising@pomoc-dzieciom.org
+Temat: DonorLink – segmentacja i scoring darczyńców
+
+Cześć,
+segmentacja – super, scoring też, ale:
+
+- nie chcemy:
+  - sytuacji, gdzie system "karze" kogoś za rok przerwy (np. trudna sytuacja życiowa),
+  - zbyt agresywnych kampanii do osób, które od dawna nie reagują.
+
+Chciałbym:
+- scoring tylko jako wskazówkę,
+- obowiązkowo możliwość ręcznej zmiany segmentu.
+
+Marek
+
+--
+Marek Piotrowski
+Kierownik Działu Fundraisingu
+Fundacja Pomoc Dzieciom
+
+
+Od: Julia Kaczmarczyk <julia.kaczmarczyk@donorlink.org>
+Wysłano: 2025-03-09 10:35
+Do: Marek Piotrowski <marek.piotrowski@pomoc-dzieciom.org>
+DW: fundraising@pomoc-dzieciom.org
+Temat: DonorLink – segmentacja i scoring darczyńców
+
+Rozumiem, aktualizuję:
+
+- CRM:
+  - automatycznie wylicza scoring i proponuje segment,
+  - ale zawsze można go ręcznie nadpisać (z pozostawieniem historii zmian),
+- kampanie:
+  - dodamy ograniczenia, żeby nie wysyłać zbyt wielu wiadomości do darczyńców z niską aktywnością.
+
+Czyli cofamy się z "twardego" przypisywania segmentów w 100% przez algorytm, na rzecz modelu "propozycja + kontrola człowieka".
+
+Julia

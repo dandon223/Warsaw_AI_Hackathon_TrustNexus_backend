@@ -1,0 +1,26 @@
+Temat: [Warsztaty] Design Thinking dla projektów telco (TelGO + SZPILEX.ai)
+Od: Agnieszka Rutkowska <agnieszka.rutkowska@telgo.pl>
+Wysłano: 2025-04-11 13:05
+Do: Michał Wróbel <michal.wrobel@szpilex.ai>
+DW: cx@telgo.pl, pm-team@szpilex.ai
+
+Cześć,
+
+organizujemy wspólne, krótkie warsztaty “Design Thinking dla procesów wsparcia technicznego”,
+które mogą być przydatne również pod kątem kolejnych iteracji voicebota.
+
+Termin: 2025-04-23 (wtorek), 9:30–12:30
+Miejsce: TelGO, sala “Gdańsk” + możliwość dołączenia zdalnie (Teams)
+Facylitator: zewnętrzna firma UX/Service Design (Flow&Co)
+
+Zakres:
+- mapowanie journey klienta przy problemach z internetem,
+- identyfikacja momentów frustracji (IVR, oczekiwanie, powtarzanie danych),
+- wspólne szkicowanie alternatywnych ścieżek (także z udziałem automatyzacji / voicebota).
+
+Jeżeli po Waszej stronie ktoś jeszcze z PM / UX chce dołączyć,
+daj proszę znać, żebym zarezerwowała dodatkowe miejsca.
+
+Pozdrawiam,
+Agnieszka
+Tribe Lead – Digital Care | TelGO

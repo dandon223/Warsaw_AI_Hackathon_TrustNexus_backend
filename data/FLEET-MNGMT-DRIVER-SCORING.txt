@@ -1,0 +1,88 @@
+Od: Karol Małecki <karol.malecki@fleetmind.io>
+Wysłano: 2025-03-12 09:20
+Do: Joanna Baran <joanna.baran@poltranslog.pl>
+DW: Dział HR <hr@poltranslog.pl>, Dział Prawny <legal@poltranslog.pl>
+Temat: System floty – scoring kierowców i polityka flotowa
+
+Cześć,
+wracamy do tematu oceny stylu jazdy kierowców.
+
+Propozycja modelu scoringu:
+- parametry:
+  - liczba ostrych hamowań,
+  - przyspieszenia powyżej progu,
+  - przekroczenia prędkości względem limitu,
+  - czas jazdy bez przerwy powyżej X godzin.
+
+- skala:
+  - wynik 0–100, gdzie 100 = wzorowy styl jazdy,
+  - klasy: zielony (80–100), żółty (60–79), czerwony (<60).
+
+Pytania:
+1. Czy scoring ma być widoczny dla kierowców, czy tylko dla przełożonych?
+2. Jakie konsekwencje chcecie powiązać z "czerwoną" kategorią?
+
+Karol
+
+--
+Karol Małecki
+Product Manager | FleetMind.io
+
+
+Od: Dział HR <hr@poltranslog.pl>
+Wysłano: 2025-03-12 10:05
+Do: Karol Małecki <karol.malecki@fleetmind.io>
+DW: Joanna Baran <joanna.baran@poltranslog.pl>, Dział Prawny <legal@poltranslog.pl>
+Temat: System floty – scoring kierowców i polityka flotowa
+
+Cześć,
+z punktu widzenia HR:
+
+- scoring powinien być:
+  - widoczny dla kierowcy (żeby wiedział, co poprawić),
+  - widoczny dla bezpośredniego przełożonego.
+
+- konsekwencje "czerwonej" kategorii:
+  - najpierw szkolenie z eco-drivingu / bezpieczeństwa,
+  - dopiero przy braku poprawy – możliwe działania dyscyplinujące.
+
+Musimy unikać sytuacji, w której scoring jest używany wyłącznie "karząco".
+
+HR PolTransLog
+
+
+Od: Dział Prawny <legal@poltranslog.pl>
+Wysłano: 2025-03-12 10:42
+Do: Karol Małecki <karol.malecki@fleetmind.io>, Dział HR <hr@poltranslog.pl>, Joanna Baran <joanna.baran@poltranslog.pl>
+Temat: System floty – scoring kierowców i polityka flotowa
+
+Cześć,
+z punktu widzenia compliance:
+
+- system nie może:
+  - służyć do ciągłego śledzenia kierowców po godzinach pracy,
+  - wyświetlać lokalizacji prywatnych przejazdów (w przypadku aut do użytku mieszanego).
+
+Potrzebujemy:
+- wyraźnego rozdziału "jazda służbowa" vs "jazda prywatna",
+- zapisów w polityce flotowej, które opisują sposób użycia danych telemetrycznych.
+
+Dział Prawny
+
+
+Od: Joanna Baran <joanna.baran@poltranslog.pl>
+Wysłano: 2025-03-12 11:30
+Do: Karol Małecki <karol.malecki@fleetmind.io>
+DW: Dział HR <hr@poltranslog.pl>, Dział Prawny <legal@poltranslog.pl>
+Temat: System floty – scoring kierowców i polityka flotowa
+
+Podsumowanie:
+
+- scoring 0–100, klasy: zielony/żółty/czerwony,
+- widoczny dla kierowcy i przełożonego,
+- "czerwony" = najpierw szkolenie, później ewentualne działania HR,
+- prywatne przejazdy wyłączone z lokalizacji, tylko agregaty (np. liczba km prywatnych).
+
+Prośba: przygotujcie z Waszej strony draft ekranów dla kierowców (jak widzą swój wynik) + propozycję zapisów do polityki flotowej.
+
+Joanna

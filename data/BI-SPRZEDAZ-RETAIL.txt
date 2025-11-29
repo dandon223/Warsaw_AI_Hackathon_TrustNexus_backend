@@ -1,0 +1,69 @@
+Od: Kamila Zając <kamila.zajac@datavista.io>
+Wysłano: 2025-02-03 09:20
+Do: Piotr Tomala <piotr.tomala@retailmax.eu>
+DW: Zarząd RetailMax <zarzad@retailmax.eu>
+Temat: BI Sprzedaż – zakres dashboardów
+
+Cześć Piotr,
+w ramach projektu BI dla RetailMax proponujemy:
+
+1. Dashboard "Executive":
+   - sprzedaż dzienna/tygodniowa/miesięczna,
+   - porównanie rok do roku,
+   - top 10 sklepów i bottom 10 sklepów.
+
+2. Dashboard "Sklep":
+   - sprzedaż per kategoria,
+   - liczba paragonów,
+   - średnia wartość koszyka.
+
+3. Źródła:
+   - POS (sprzedaż),
+   - system lojalnościowy,
+   - dane budżetowe (Excel).
+
+Czy są jeszcze jakieś wskaźniki "must have" dla zarządu?
+
+Kamila
+
+--
+Kamila Zając
+BI Consultant | Datavista.io
+
+
+Od: Piotr Tomala <piotr.tomala@retailmax.eu>
+Wysłano: 2025-02-03 10:05
+Do: Kamila Zając <kamila.zajac@datavista.io>
+DW: Zarząd RetailMax <zarzad@retailmax.eu>
+Temat: BI Sprzedaż – zakres dashboardów
+
+Cześć,
+zarząd mocno patrzy na:
+
+- marżę brutto per kategoria,
+- udział promocji w sprzedaży,
+- udział sprzedaży lojalnościowej vs "ulicznej".
+
+Ryzyko: jeśli dashboard nie pokaże kontekstu (np. dużej kampanii marketingowej), liczby będą mylone z "organicznymi".
+
+Piotr
+
+--
+Piotr Tomala
+Commercial Director | RetailMax
+
+
+Od: Kamila Zając <kamila.zajac@datavista.io>
+Wysłano: 2025-02-03 11:30
+Do: Piotr Tomala <piotr.tomala@retailmax.eu>, Zarząd RetailMax <zarzad@retailmax.eu>
+Temat: BI Sprzedaż – zakres dashboardów
+
+Dzięki,
+dodamy:
+- marżę per kategoria,
+- udział promocji,
+- rozbicie sprzedaży lojalnościowej.
+
+Wprowadzimy też eventy marketingowe jako osobną warstwę (np. kampanie TV, gazetki) – żeby łatwiej interpretować piki sprzedaży.
+
+Kamila

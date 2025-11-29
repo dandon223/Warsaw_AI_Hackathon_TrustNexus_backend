@@ -1,0 +1,47 @@
+Od: Michał Rataj <michal.rataj@szpilex.ai>
+Wysłano: 2025-03-01 09:20
+Do: Anna Piątek <anna.piatek@fincontrol.pl>
+DW: Dział Controllingu <controlling@fincontrol.pl>
+Temat: RAG Controlling – zakres raportów i danych
+
+Cześć,
+dla asystenta RAG dla controllingu chcemy udostępniać odpowiedzi na pytania typu:
+- "jakie były koszty marketingu w Q4 2024 w regionie CEE?",
+- "które linie produktowe miały największy spadek marży w ostatnich 3 miesiącach?",
+- "jakie są główne założenia budżetu na 2025 dla działu R&D?".
+
+Źródła:
+- hurtownia danych (raporty agregowane),
+- pliki z budżetami działów,
+- opisowe prezentacje do budżetu zarządczego.
+
+Czy są obszary, których nie powinniśmy obejmować RAG-iem (np. wynagrodzenia zarządu, poufne dane M&A)?
+
+Michał
+
+--
+Michał Rataj
+Analytics Product Lead | SZPILEX.ai
+
+
+Od: Anna Piątek <anna.piatek@fincontrol.pl>
+Wysłano: 2025-03-01 10:12
+Do: Michał Rataj <michal.rataj@szpilex.ai>
+DW: Dział Controllingu <controlling@fincontrol.pl>
+Temat: RAG Controlling – zakres raportów i danych
+
+Cześć,
+ograniczenia:
+- nie indeksujcie szczegółowych list płac ani arkuszy z wynagrodzeniami zarządu,
+- dane M&A (potencjalne akwizycje) są out-of-scope,
+- RAG ma pracować na poziomie agregatów, nie pojedynczych faktur.
+
+Chciałabym, żeby asystent:
+- pomagał w szybkim odpowiadaniu na pytania zarządu,
+- sugerował, który raport/arkusz warto otworzyć, gdy odpowiedź wymaga większego kontekstu.
+
+Anna
+
+--
+Anna Piątek
+Head of Controlling | FinControl

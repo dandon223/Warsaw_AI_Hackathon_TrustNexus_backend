@@ -1,0 +1,182 @@
+
+Od: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+Wysłano: 2025-03-11 09:00
+Do: ml-leads@szpilex.ai
+DW: data-platform@szpilex.ai
+Temat: ML Monitoring – zakres metryk i model danych (MVP)
+
+Cześć,
+zgodnie z ustaleniami z offsite, zbieram w jednym miejscu proposal na MVP platformy ML Monitoring.
+
+1) Zakres modeli na start:
+   - “IntentClassifer-v4” (voicebot),
+   - “RAG-Ranker-v2” (scoring dokumentów),
+   - “ChurnPredictor-v3” (projekt TelGO).
+
+2) Metryki online:
+   - dla klasyfikatorów:
+     - predicted_label_distribution (per dzień),
+     - confidence_histogram,
+     - input_feature_stats (min/max/mean/std),
+   - dla RAG-Ranker:
+     - click-through-rate na pierwszą propozycję (ctr_top1),
+     - average_rank_accepted_doc.
+
+3) Data model (PostgreSQL, schema: ml_monitoring):
+   - tables:
+     - model_registry(model_name, version, owner, baseline_dataset, created_at),
+     - model_stats_daily(model_name, version, date, metric_name, metric_value, slice_key),
+     - model_drift_events(id, model_name, version, event_type, p_value, triggered_at).
+
+Pytania:
+- czy na MVP chcemy od razu wchodzić w pełny drift inputów (KS test dla każdej cechy),
+- czy zaczynamy od prostszych agregatów?
+
+Szymon
+
+--
+Szymon Ratajczak
+Product Manager – Data & ML | SZPILEX.ai
+
+
+Od: Zespół ML – Voice & RAG <ml-leads@szpilex.ai>
+Wysłano: 2025-03-11 09:42
+Do: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+DW: data-platform@szpilex.ai
+Temat: ML Monitoring – zakres metryk i model danych (MVP)
+
+Cześć,
+kilka uwag z naszej strony:
+
+- IntentClassifier-v4:
+  - chcemy osobne metryki dla kanałów: VOICE / CHAT,
+  - bardzo pomagają “confusion pairs” (np. SALDO vs HISTORIA → typowa pomyłka).
+
+- RAG-Ranker-v2:
+  - CTR to za mało,
+  - przyda się:
+    - avg_n_docs_in_context,
+    - % pytań, gdzie user kliknie “not helpful”.
+
+- Drift:
+  - pełny KS test per feature na start może być overkill,
+  - ale chętnie zobaczymy:
+    - PSI (Population Stability Index) na kilku kluczowych featurach.
+
+ML Leads
+
+
+Od: Data Platform Team <data-platform@szpilex.ai>
+Wysłano: 2025-03-11 10:15
+Do: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>, ml-leads@szpilex.ai
+Temat: ML Monitoring – koszty i limity (MVP)
+
+Cześć,
+z punktu widzenia platformy:
+
+- jeśli będziemy logować każdy request online:
+  - przy wolumenach IntentClassifier + RAG-Ranker skończymy z > 100M rekordów / miesiąc,
+  - to jest do udźwignięcia, ale potrzebujemy:
+    - partycjonowania po dacie,
+    - archiwizacji do S3 po 90 dniach.
+
+Propozycja:
+- nie logujemy RAW eventów w relacyjnej bazie,
+- tylko:
+  - agregaty dzienne w model_stats_daily,
+  - a surowe logi lądują w S3 (bucket: s3://ml-monitoring-raw/..., format: Parquet).
+
+Data Platform
+
+
+Od: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+Wysłano: 2025-03-11 11:05
+Do: Data Platform Team <data-platform@szpilex.ai>, ml-leads@szpilex.ai
+Temat: ML Monitoring – doprecyzowanie modelu danych
+
+OK, doprecyzowuję:
+
+- PostgreSQL (ml_monitoring):
+  - model_registry,
+  - model_stats_daily,
+  - model_drift_events.
+
+- S3:
+  - RAW:
+    - s3://ml-monitoring-raw/{model_name}/{yyyy}/{MM}/{dd}/events.parquet
+      - pola: model_name, version, ts, input_hash, features_vector (hash), predicted_label, confidence, channel, extra_json.
+  - AGGREGATES:
+    - generowane raz dziennie przez job “ml-monitoring-aggregator”.
+
+Drift:
+- na MVP:
+  - PSI dla wybranych featurów (feature_key in ('country', 'segment', 'channel')),
+  - zapis w model_drift_events (event_type='PSI_THRESHOLD_EXCEEDED').
+
+Szymon
+
+
+Od: Anna Wysocka <anna.wysocka@szpilex.ai>
+Wysłano: 2025-03-11 12:00
+Do: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>, ml-leads@szpilex.ai
+DW: data-platform@szpilex.ai
+Temat: ML Monitoring – widoki dla PM / Biznesu
+
+Cześć,
+z perspektywy PM-ów i biznesu (szczególnie przy ChurnPredictor-v3):
+
+- chcielibyśmy:
+  - widok “Model Health” z prostą sygnalizacją:
+    - GREEN / YELLOW / RED,
+  - powiązanie:
+    - zmian w metrykach modelu z KPI biznesowymi (np. “czy pogorszenie AUC koreluje ze wzrostem churnu”).
+
+Propozycja:
+- dodać do model_stats_daily:
+  - kolumnę business_metric_value (np. churn_rate),
+  - slice_key = np. “segment=SMB;country=PL”.
+
+Reszta może być ukryta w zaawansowanych dashboardach, PM potrzebuje prostego “termometru”.
+
+Anna
+
+--
+Anna Wysocka
+Senior Product Manager | SZPILEX.ai
+
+
+Od: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+Wysłano: 2025-03-11 13:05
+Do: Anna Wysocka <anna.wysocka@szpilex.ai>, ml-leads@szpilex.ai
+DW: data-platform@szpilex.ai
+Temat: ML Monitoring – podsumowanie ustaleń i korekta zakresu MVP
+
+Podsumowanie:
+
+- Zakres modeli w MVP:
+  - IntentClassifier-v4, RAG-Ranker-v2, ChurnPredictor-v3.
+
+- Metryki:
+  - IntentClassifier:
+    - predicted_label_distribution per kanał (VOICE / CHAT),
+    - confusion_pairs (np. SALDO vs HISTORIA),
+  - RAG-Ranker:
+    - ctr_top1,
+    - avg_n_docs_in_context,
+    - % “not helpful”,
+  - ChurnPredictor:
+    - stabilność score’ów + business_metric: churn_rate (per segment/country).
+
+- Drift:
+  - PSI na wybranych featurach (country, segment, channel),
+  - zapis eventów w model_drift_events.
+
+- Model danych:
+  - RAW → S3 (Parquet),
+  - AGG → PostgreSQL (model_stats_daily), z kolumną business_metric_value i slice_key.
+
+W praktyce zeszliśmy z ambitnego pełnego KS-per-feature na MVP z PSI na kilku kluczowych encjach, ale za to mamy od razu sensowną warstwę “Model Health” dla PM-ów i biznesu.
+
+Jeśli nie ma veto, przenoszę to do RFC: ML-MON-PLATFORM-MVP-001.
+
+Szymon

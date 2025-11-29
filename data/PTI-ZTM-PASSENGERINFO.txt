@@ -1,0 +1,69 @@
+
+Od: Piotr Czekaj <piotr.czekaj@cityflow.tech>
+Wysłano: 2025-01-20 08:45
+Do: Magdalena Gawlik <magdalena.gawlik@ztm-miasto.pl>
+DW: dyspozytornia@ztm-miasto.pl
+Temat: CityFlow – zakres komunikatów dla pasażerów (MVP)
+
+Dzień dobry,
+propozycja:
+
+- kanały:
+  - ekrany na przystankach,
+  - aplikacja mobilna,
+  - API dla zewnętrznych integracji.
+
+- komunikaty:
+  - planowy czas przyjazdu,
+  - opóźnienia w minutach,
+  - komunikaty o remontach i objazdach.
+
+Zakładamy, że wszystkie komunikaty generujemy automatycznie na bazie GPS + rozkładu.
+
+Piotr
+
+--
+Piotr Czekaj
+Solution Architect | CityFlow.tech
+
+
+Od: Magdalena Gawlik <magdalena.gawlik@ztm-miasto.pl>
+Wysłano: 2025-01-20 09:18
+Do: Piotr Czekaj <piotr.czekaj@cityflow.tech>
+DW: dyspozytornia@ztm-miasto.pl
+Temat: CityFlow – zakres komunikatów dla pasażerów (MVP)
+
+Dzień dobry,
+rozsądek podpowiada, że:
+
+- remonty/objazdy:
+  - nie są tak częste jak opóźnienia,
+  - i zwykle wymagają "ludzkiej" edycji treści.
+
+Proponuję:
+- na MVP:
+  - automatyczne: czas przyjazdu + opóźnienia,
+  - ręczne wprowadzanie komunikatów o remontach/objazdach (panel dyspozytora).
+
+Remonty możemy zautomatyzować później.
+
+Magdalena
+
+
+Od: Piotr Czekaj <piotr.czekaj@cityflow.tech>
+Wysłano: 2025-01-20 09:55
+Do: Magdalena Gawlik <magdalena.gawlik@ztm-miasto.pl>
+DW: dyspozytornia@ztm-miasto.pl
+Temat: CityFlow – zakres komunikatów dla pasażerów (MVP)
+
+Rozumiem, czyli zmieniamy:
+
+- MVP:
+  - automatyczne: przyjazd + opóźnienia,
+  - panel do ręcznego dodawania/edycji komunikatów specjalnych (remonty, objazdy, awarie),
+- etap 2:
+  - dopiero wtedy myślimy o integracji z systemem planowania remontów.
+
+Czyli wracamy do "rdzenia" (czas + opóźnienie), a część redakcyjną zostawiamy po stronie dyspozytorów.
+
+Piotr

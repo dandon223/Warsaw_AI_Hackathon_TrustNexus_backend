@@ -1,0 +1,26 @@
+Projekt: Voicebot – diagnostyka internetu dla operatora telekomunikacyjnego
+Nitka: Zamieszanie po cichej zmianie limitów w OSS – SLA vs throttling
+
+Od: OSS Team TelGO <oss-team@telgo.pl>
+Wysłano: 2025-05-03 07:45
+Do: Michał Wróbel <michal.wrobel@szpilex.ai>
+DW: agnieszka.rutkowska@telgo.pl, cx@telgo.pl
+Temat: Voicebot TelGO – update limitów na /lineTest FAST
+
+Cześć,
+
+informacyjnie:
+
+Od dzisiaj (2025-05-03) wprowadziliśmy zmianę limitów na endpoint:
+- /api/v1/lineTest?mode=FAST
+
+Nowy limit:
+- 20 req/min per tenant (zamiast 60),
+- powód:
+  - rosnące obciążenie infrastruktury OSS,
+  - incydenty z przeciążeniem w godzinach szczytu.
+
+Zmiana jest globalna,
+dotyczy zarówno voicebota, jak i panelu agentów.
+
+OSS Team

@@ -1,0 +1,44 @@
+
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-05-05 11:10
+Do: Marek Jaworski <marek.jaworski@alphacloud.com>, Piotr Lis <piotr.lis@alphacloud.com>
+DW: security@alphacloud.com, dpo@alphacloud.com, data-team@szpilex.ai
+Temat: Re: RAG Docs – rozjazd deklaracji sprzedaży ze scope’em MVP
+
+Cześć,
+
+dzięki za transparentność – lepiej, że to wyszło teraz niż po “magicznej” prezentacji live na produkcie.
+
+Stan faktyczny:
+- nasze MVP + Etap 2 NIE zakładają:
+  - ticketów ani logów jako źródła,
+- architektura ingestion/indexu JEST przygotowana na dodawanie nowych SourceType,
+  - ale to nie znaczy, że mamy zrobiony:
+    - redaction pipeline,
+    - DPIA,
+    - model uprawnień.
+
+Propozycja (żeby minimalnie “uratować” narrację sprzedażową):
+
+1) Komunikacja do klienta (Piotr – po Waszej stronie):
+   - że:
+     - “docelowa wizja obejmuje także wiedzę z ticketów i logów”,
+     - ale wymaga to osobnego projektu security & privacy,
+     - realny horyzont: “po 2025, w uzgodnieniu z działami prawnymi i bezpieczeństwa”.
+
+2) Roadmapa:
+   - w naszym wewnętrznym materiale:
+     - dodajemy osobny epik:
+       - “RAG on operational data (tickets/logs) – under feasibility study”,
+     - BEZ żadnych dat na razie.
+
+3) Technicznie:
+   - w ingestion pipeline:
+     - zostawiamy “hook” na SourceType=TICKETS/LOGS,
+     - ale nic nie implementujemy, dopóki nie będzie zielonego światła z Security/DPO.
+
+Jeśli trzeba, mogę dołączyć do calla z klientem
+i wytłumaczyć, że przy RAG-u wolimy się trzymać z dala od “ciemnej strony PII”,
+zamiast obiecywać nierealne rzeczy.
+
+Kasia

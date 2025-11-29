@@ -1,0 +1,18 @@
+1 Status po hotfixie BILLING
+Spadek liczby zgłoszeń “RAG powiedział inaczej niż docs” z ~6/dzień do 1–2/dzień
+Na kluczowych kontach ENTERPRISE brak nowych eskalacji “RAG kontra umowa”
+
+2 Nowy problem (CS / sprzedaż)
+Incydent: RAG zasugerował klientowi plan STANDARD jako “wystarczający”, gdy account manager prowadził rozmowę o upgrade do ENTERPRISE
+To nie był błąd merytoryczny, tylko biznesowo niepożądana rekomendacja tańszego planu w kontekście cross-sell / upsell
+
+3 Decyzja krótkoterminowa (IN / OUT)
+RAG pozostaje używany w kontekście strict support (wsparcie techniczne, wyjaśnianie funkcji, nie rekomendowanie planów)
+OUT: użycie RAG-a w typowych sytuacjach salesowych (pre-sales, cross-sell, upsell) – do odwołania
+
+4 Kierunek na później (backlog)
+Requirement do backlogu: “Plan-aware RAG for CS/Sales”
+Osobny prompt / konfiguracja dla CS/Sales, który:
+
+-uwzględnia strategię upsellu,
+-nie proponuje niższego planu, jeśli z kontekstu wynika potrzeba ENTERPRISE

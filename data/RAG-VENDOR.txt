@@ -1,0 +1,29 @@
+Temat: Webinar: Practical RAG Patterns for Enterprises (zaproszenie)
+Od: AI Cloud Alliance <events@aicloud-alliance.com>
+Wysłano: 2025-04-08 09:02
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+
+Hi Katarzyna,
+
+we’d like to invite you to our upcoming webinar:
+
+Title: Practical RAG Patterns for Enterprises – Beyond the Demo
+Date: 2025-04-24, 17:00–18:30 CET
+Format: live webinar (Zoom)
+Speakers:
+- Michael Young – Head of AI, DataNimbus
+- Priya Rao – Principal Architect, CloudSense
+
+You’ll learn:
+- how other SaaS vendors structure their documentation for RAG,
+- common pitfalls with permissions, PII and hallucinations,
+- real-world latency / cost trade-offs on vector DB + LLM stacks,
+- a short live demo of production RAG setups.
+
+Registration link was sent in a separate calendar invite,
+but you can also sign up via our portal using your work e-mail address.
+
+We hope to see you there!
+
+Best regards,
+AI Cloud Alliance Events Team

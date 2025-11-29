@@ -1,0 +1,70 @@
+
+Od: Kamila Olesiuk <kamila.olesiuk@szpilex.ai>
+Wysłano: 2025-03-02 09:08
+Do: Marek Szatan <marek.szatan@fashionbox.pl>
+DW: customer-care@fashionbox.pl
+Temat: Chatbot – automatyczna obsługa zwrotów (MVP)
+
+Cześć Marku,
+pierwsza wersja założeń:
+
+- chatbot ma:
+  - przyjmować zgłoszenia zwrotu,
+  - automatycznie je akceptować, jeśli:
+    - mieści się w 30 dniach od dostawy,
+    - produkt nie jest z kategorii "higiena",
+  - generować etykietę nadawczą.
+
+- reklamacje:
+  - przekierowujemy do agenta (MVP).
+
+Dzięki temu powinniśmy zdjąć z zespołu większość prostych zwrotów.
+
+Kamila
+
+--
+Kamila Olesiuk
+Conversational CX Lead | SZPILEX.ai
+
+
+Od: Marek Szatan <marek.szatan@fashionbox.pl>
+Wysłano: 2025-03-02 09:50
+Do: Kamila Olesiuk <kamila.olesiuk@szpilex.ai>
+DW: customer-care@fashionbox.pl
+Temat: Chatbot – automatyczna obsługa zwrotów (MVP)
+
+Cześć,
+co do zwrotów – super, ale:
+
+- mamy kilka "trudniejszych" kategorii:
+  - buty premium,
+  - kolekcje kapsułowe w krótkim dropie,
+- tam chcemy:
+  - ręcznie zatwierdzać zwrot (przynajmniej na początku),
+  - zwłaszcza w okresie tuż po premierze.
+
+Czyli:
+- automatyczna akceptacja tak, ale nie dla wszystkich kategorii.
+
+Marek
+
+
+Od: Kamila Olesiuk <kamila.olesiuk@szpilex.ai>
+Wysłano: 2025-03-02 10:25
+Do: Marek Szatan <marek.szatan@fashionbox.pl>
+DW: customer-care@fashionbox.pl
+Temat: Chatbot – automatyczna obsługa zwrotów (MVP)
+
+OK, doprecyzowuję MVP:
+
+- automatyczna akceptacja:
+  - tylko dla kategorii "standardowych",
+  - z wykluczeniem: higiena, buty premium, kolekcje kapsułowe.
+
+- pozostałe:
+  - chatbot zbiera dane i tworzy zgłoszenie,
+  - decyzja po stronie agenta.
+
+Czyli cofamy zakres "pełnej automatyzacji" i zostajemy przy częściowym modelu, bezpieczniejszym na start.
+
+Kamila

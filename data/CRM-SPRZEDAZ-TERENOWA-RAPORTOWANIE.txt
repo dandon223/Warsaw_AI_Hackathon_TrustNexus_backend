@@ -1,0 +1,44 @@
+Od: Dorota Maj <dorota.maj@fieldcrm.io>
+Wysłano: 2025-03-10 09:05
+Do: Marta Frączak <marta.fraczak@agromax.pl>, Kacper Wysocki <kacper.wysocki@agromax.pl>
+Temat: CRM terenowy – raporty i wskaźniki
+
+Cześć,
+przygotowujemy zakres raportów w CRM dla sprzedaży terenowej.
+
+Propozycje KPI:
+- liczba wizyt / tydzień / handlowiec,
+- konwersja lead → oferta → wygrana,
+- średnia wartość szansy,
+- liczba "uśpionych" klientów (brak wizyty > 90 dni).
+
+Raporty:
+- widok dla handlowca (jego liczby),
+- widok dla RSM (zestawienie zespołu),
+- widok dla zarządu (agregaty regionów).
+
+Czy potrzebujecie jeszcze innych perspektyw (np. produktowych)?
+
+Dorota
+
+--
+Dorota Maj
+Product Manager | FieldCRM.io
+
+
+Od: Marta Frączak <marta.fraczak@agromax.pl>
+Wysłano: 2025-03-10 09:47
+Do: Dorota Maj <dorota.maj@fieldcrm.io>
+DW: Kacper Wysocki <kacper.wysocki@agromax.pl>
+Temat: CRM terenowy – raporty i wskaźniki
+
+Cześć,
+z mojej strony brakuje:
+
+- podziału sprzedaży wg linii produktowych,
+- wskaźnika "cross-sell" (ile produktów sprzedajemy jednemu klientowi),
+- zestawienia wizyt, po których nie powstała żadna szansa.
+
+To ostatnie jest ważne, żeby zidentyfikować "wizyty grzecznościowe" bez efektu.
+
+Marta

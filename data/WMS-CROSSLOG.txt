@@ -1,0 +1,64 @@
+
+Od: Łukasz Rosiak <lukasz.rosiak@logisoft.io>
+Wysłano: 2025-01-29 08:55
+Do: Ewelina Kruk <ewelina.kruk@speedlogistics.pl>
+DW: operacje@speedlogistics.pl
+Temat: LogiSoft WMS – założenia dla magazynu cross-dock (MVP)
+
+Cześć Ewelina,
+założenia bazowe:
+
+- magazyn cross-dock:
+  - brak klasycznego składowania na lokacjach,
+  - towar wchodzi, jest sortowany i wychodzi w ciągu 24 h.
+
+- w systemie:
+  - tylko strefy przyjęcia i wysyłki,
+  - statusy przesyłek: ARRIVED, SORTING, LOADED, DEPARTED.
+
+Chcemy uniknąć nadmiernej komplikacji lokalizacjami.
+
+Łukasz
+
+--
+Łukasz Rosiak
+Product Owner | LogiSoft.io
+
+
+Od: Ewelina Kruk <ewelina.kruk@speedlogistics.pl>
+Wysłano: 2025-01-29 09:30
+To: Łukasz Rosiak <lukasz.rosiak@logisoft.io>
+DW: operacje@speedlogistics.pl
+Temat: LogiSoft WMS – założenia dla magazynu cross-dock (MVP)
+
+Cześć,
+w 95% przypadków to prawda,
+ale:
+
+- mamy klientów "project cargo", gdzie:
+  - towar bywa zatrzymany na 48–72 h (np. czekamy na dokumenty),
+  - musimy wiedzieć gdzie dokładnie stoi.
+
+Czyli:
+- potrzebujemy prostego modelu lokalizacji "tymczasowych".
+
+Ewelina
+
+
+Od: Łukasz Rosiak <lukasz.rosiak@logisoft.io>
+Wysłano: 2025-01-29 10:05
+Do: Ewelina Kruk <ewelina.kruk@speedlogistics.pl>
+DW: operacje@speedlogistics.pl
+Temat: LogiSoft WMS – założenia dla magazynu cross-dock (MVP)
+
+Rozumiem, to robimy tak:
+
+- standard:
+  - dalej zakładamy brak składowania, tylko strefy in/out,
+- wyjątek:
+  - włączamy opcję "buffer locations" (np. BUFF-01…BUFF-20) dla przesyłek zatrzymanych >24 h,
+  - towar na bufferze ma osobny SLA (72 h).
+
+Czyli nie budujemy pełnego WMS-a lokalizacyjnego, ale dodajemy cienką warstwę dla przypadków specjalnych.
+
+Łukasz

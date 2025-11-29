@@ -1,0 +1,45 @@
+Od: Marta Olszewska <marta.olszewska@trainflow.pl>
+Wysłano: 2025-02-11 08:50
+Do: Krzysztof Banaś <krzysztof.banas@akademiabiznesu.pl>
+DW: Biuro Szkoleń <biuro@akademiabiznesu.pl>
+Temat: TrainFlow – zakres funkcji na start
+
+Dzień dobry,
+w ramach wdrożenia TrainFlow ustaliliśmy:
+
+- moduł rejestracji uczestników (www + ręczne dopisywanie),
+- lista obecności generowana automatycznie (PDF),
+- oznaczanie statusów: zapisany / potwierdzony / uczestniczył / nieobecny,
+- generowanie faktur dla firm zgłaszających pracowników,
+- eksport danych do systemu księgowego.
+
+Czy w pierwszej fazie potrzebujecie również ankiet poszkoleniowych, czy zostawiamy to na etap 2?
+
+Pozdrawiam,
+Marta
+
+--
+Marta Olszewska
+Implementation Specialist | TrainFlow
+
+
+Od: Krzysztof Banaś <krzysztof.banas@akademiabiznesu.pl>
+Wysłano: 2025-02-11 09:25
+Do: Marta Olszewska <marta.olszewska@trainflow.pl>
+DW: Biuro Szkoleń <biuro@akademiabiznesu.pl>
+Temat: TrainFlow – zakres funkcji na start
+
+Dzień dobry,
+ankiety możemy przenieść na etap 2.
+
+Na start ważniejsze są:
+- poprawne rozliczenia (faktury),
+- listy obecności i raporty dla naszych trenerów.
+
+Ryzyko: jeśli coś "urwa się" między listą obecności a fakturą, będziemy mieć reklamacje.
+
+Krzysztof
+
+--
+Krzysztof Banaś
+Dyrektor ds. Szkoleń | Akademia Biznesu

@@ -1,0 +1,70 @@
+
+Od: Michał Urban <michal.urban@szpilex.ai>
+Wysłano: 2025-02-18 09:00
+Do: Aleksandra Miś <aleksandra.mis@codeforge.io>
+DW: tech-writers@codeforge.io
+Temat: RAG Docs – zakres źródeł i polityka wersjonowania
+
+Cześć Olu,
+wstępne założenia:
+
+- źródła do RAG:
+  - oficjalna dokumentacja API (Markdown w repo),
+  - README bibliotek klienckich (Python/JS),
+  - artykuły "how-to" z Confluence.
+
+- polityka wersjonowania:
+  - indeksujemy tylko najnowszą wersję API (v3),
+  - starsze (v1, v2) ignorujemy w MVP.
+
+Dzięki temu unikniemy chaosu w odpowiedziach.
+
+Michał
+
+--
+Michał Urban
+Staff Product Engineer | SZPILEX.ai
+
+
+Od: Aleksandra Miś <aleksandra.mis@codeforge.io>
+Wysłano: 2025-02-18 09:40
+Do: Michał Urban <michal.urban@szpilex.ai>
+DW: tech-writers@codeforge.io
+Temat: RAG Docs – zakres źródeł i polityka wersjonowania
+
+Cześć,
+niestety rzeczywistość trochę nam komplikuje sprawę:
+
+- około 30% ruchu klientów nadal używa API v2,
+- mamy też kilku dużych klientów na v1, którzy migrują bardzo powoli.
+
+Jeśli RAG będzie odpowiadał tylko dla v3:
+- support nadal utknie w starych wersjach.
+
+Propozycja:
+- wszystkie wersje w indeksie,
+- ale z bardzo wyraźną informacją: "ta odpowiedź dotyczy v1/v2/v3".
+
+Ola
+
+
+Od: Michał Urban <michal.urban@szpilex.ai>
+Wysłano: 2025-02-18 10:20
+Do: Aleksandra Miś <aleksandra.mis@codeforge.io>
+DW: tech-writers@codeforge.io
+Temat: RAG Docs – zakres źródeł i polityka wersjonowania
+
+Masz rację, inaczej support nie odczuje ulgi.
+
+Aktualizuję:
+- indeksujemy v1, v2, v3,
+- do każdego fragmentu dodajemy:
+  - api_version,
+  - deprecation_flag,
+- w odpowiedzi RAG zawsze:
+  - wskazuje wersję,
+  - jeśli wersja jest deprecated, sugeruje migrację na nowszą.
+
+Czyli zamiast "tylko v3" wracamy do pełnego spektrum wersji, ale z meta-danymi, które pozwolą trzymać porządek.
+
+Michał

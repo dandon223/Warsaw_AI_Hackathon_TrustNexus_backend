@@ -1,0 +1,66 @@
+Od: Agata Kowal <agata.kowal@fleetmind.io>
+Wysłano: 2025-03-07 08:55
+Do: Joanna Baran <joanna.baran@poltranslog.pl>
+DW: Dział Serwisu Floty <serwis@poltranslog.pl>
+Temat: System floty – model przeglądów i alertów serwisowych
+
+Cześć Joanno,
+musimy doprecyzować model obsługi serwisu w systemie:
+
+Propozycja:
+- dla każdego pojazdu trzymamy:
+  - datę ostatniego przeglądu,
+  - przebieg przy ostatnim przeglądzie,
+  - typ przeglądu (okresowy, gwarancyjny, dodatkowy),
+- alerty:
+  - zbliżający się przegląd po czasie (np. 30 dni przed terminem),
+  - zbliżający się przegląd po przebiegu (np. 2000 km przed przebiegiem granicznym).
+
+Do tego:
+- rejestr zleceń serwisowych (co było zrobione, kiedy, w jakim warsztacie),
+- możliwość dołączania faktur/scanów (PDF).
+
+Czy taki model odpowiada Waszym procesom?
+
+Agata
+
+--
+Agata Kowal
+Business Analyst | FleetMind.io
+Dział: Product & Delivery
+
+
+Od: Dział Serwisu Floty <serwis@poltranslog.pl>
+Wysłano: 2025-03-07 09:40
+Do: Agata Kowal <agata.kowal@fleetmind.io>
+DW: Joanna Baran <joanna.baran@poltranslog.pl>
+Temat: System floty – model przeglądów i alertów serwisowych
+
+Cześć,
+z perspektywy serwisu:
+
+- potrzebujemy jeszcze:
+  - klasyfikacji zleceń: opony, hamulce, silnik, blacharka itd.,
+  - informacji, czy zdarzenie wynikało z eksploatacji, czy z winy kierowcy (przydatne do polityki kosztów).
+
+Alerty:
+- fajnie, gdyby pojawiał się też alert przy "dziwnych" wzorcach – np. nagły skok zużycia paliwa (może wskazywać na nieszczelność / kradzież).
+
+Serwis Floty
+
+
+Od: Joanna Baran <joanna.baran@poltranslog.pl>
+Wysłano: 2025-03-07 10:05
+Do: Agata Kowal <agata.kowal@fleetmind.io>
+DW: Dział Serwisu Floty <serwis@poltranslog.pl>
+Temat: System floty – model przeglądów i alertów serwisowych
+
+Cześć,
+z mojej strony ważne jest jeszcze:
+
+- raport: "które pojazdy generują najwyższe koszty serwisu",
+- możliwość oznaczenia pojazdu jako "kandydat do wymiany" po przekroczeniu określonego progu kosztów.
+
+Ryzyko: bez takiego widoku będziemy za późno wymieniać auta.
+
+Joanna

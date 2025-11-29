@@ -1,0 +1,64 @@
+
+Od: System ML Monitoring <no-reply@szpilex.ai>
+Wysłano: 2025-05-06 07:30
+Do: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+DW: ml-leads@szpilex.ai, data-platform@szpilex.ai
+Temat: [ALERT] PSI_THRESHOLD_EXCEEDED – ChurnPredictor-v3 (segment=SOHO, country=PL)
+
+Alert wygenerowany automatycznie przez job: ml-monitoring-aggregator
+
+Model: ChurnPredictor-v3
+Data: 2025-05-05
+Segment: SOHO
+Kraj: PL
+
+Szczegóły:
+- feature: segment
+  - PSI = 0.32 (threshold = 0.25)
+- feature: channel
+  - PSI = 0.28 (threshold = 0.20)
+
+W model_drift_events zapisano event:
+- event_type: PSI_THRESHOLD_EXCEEDED
+- model_name: ChurnPredictor-v3
+- version: 3
+- p_value: NULL (nie dotyczy)
+- slice_key: "segment=SOHO;country=PL"
+
+Rekomendacja systemu:
+- sprawdź, czy nie zaszła zmiana w miksie kanałów pozyskania klientów w tym segmencie,
+- rozważ retraining na nowszym okresie danych, jeśli drift utrzyma się przez kolejne 7 dni.
+
+To jest automatyczna wiadomość wygenerowana przez platformę ML Monitoring.
+Prosimy nie odpowiadać na tego maila.
+
+
+Od: Anna Wysocka <anna.wysocka@szpilex.ai>
+Wysłano: 2025-05-06 09:02
+Do: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+DW: ml-leads@szpilex.ai, telgo-pm@szpilex.ai
+Temat: Re: [ALERT] PSI_THRESHOLD_EXCEEDED – ChurnPredictor-v3 (segment=SOHO, country=PL)
+
+Cześć,
+
+widzę ten alert w panelu “Model Health” i zastanawiam się, jak go interpretować z biznesowego punktu widzenia.
+
+Dane od TelGO:
+- od połowy kwietnia agresywnie promują nową ofertę SOHO przez kanał digital,
+- spadł udział sprzedaży przez salon / infolinię.
+
+Pytania:
+- czy ten drift bardziej oznacza:
+  - “model się zestarzał i przestał nadążać”,
+  - czy raczej “zmieniła się populacja i trzeba przejrzeć progi decyzyjne”?
+- czy jesteśmy w stanie szybko wydzielić:
+  - churn_rate dla SOHO/PL w rozbiciu na kanały, tak jak logujemy w business_metric_value?
+
+Fajnie byłoby mieć rekomendację,
+czy wchodzimy w retraining, czy na razie robimy tuning progów + monitoring.
+
+Anna
+
+--
+Anna Wysocka
+Senior Product Manager | SZPILEX.ai

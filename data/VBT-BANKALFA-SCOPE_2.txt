@@ -1,0 +1,48 @@
+
+Od: Karolina Domańska <karolina.domanska@szpilex.ai>
+Wysłano: 2025-04-04 11:03
+Do: Piotr Malinowski <piotr.malinowski@bankalfa.pl>, Marketing Banku Alfa <marketing@bankalfa.pl>
+DW: Tomasz Lis <tomasz.lis@bankalfa.pl>, Joanna Kwiecień <joanna.kwiecien@szpilex.ai>
+Temat: Voicebot – koniecznie scenariusze cross-sell (!)
+
+Cześć,
+da się :)
+
+Proponuję kompromis:
+1. MVP (2025 H1):
+   - 4 scenariusze obsługowe (saldo, historia, blokada, reset hasła),
+   - brak faktycznego cross-sell,
+   - ALE: wzbogacamy logi o dane, które potem wykorzystamy do oceny potencjału sprzedażowego (np. częstotliwość dzwonienia, salda).
+
+2. Architektura:
+   - projektujemy intent router i warstwę "kampanii" tak, żeby w 2026 tylko podpiąć moduł scoringu i skrypty sprzedażowe,
+   - w UI będzie miejsce na "widget sprzedażowy", ale niewidoczny w MVP.
+
+W efekcie:
+- zakres funkcjonalny teraz = stricte obsługa,
+- architektonicznie = gotowość na cross-sell bez "rzeźby" za rok.
+
+Karolina
+
+
+Od: Piotr Malinowski <piotr.malinowski@bankalfa.pl>
+Wysłano: 2025-04-04 12:30
+Do: Karolina Domańska <karolina.domanska@szpilex.ai>, Marketing Banku Alfa <marketing@bankalfa.pl>
+DW: Tomasz Lis <tomasz.lis@bankalfa.pl>
+Temat: Voicebot – koniecznie scenariusze cross-sell (!)
+
+OK, ustalmy tak:
+
+- oficjalny zakres MVP:
+  - 4 intencje obsługowe,
+  - brak scenariuszy sprzedażowych,
+- architektura:
+  - z "hookami" pod cross-sell w 2026 (zgodnie z propozycją Karoliny),
+- marketing:
+  - dorzucimy to jako osobny stream w roadmapie 2026, z osobnym budżetem.
+
+W praktyce wracamy więc do pierwotnego "obsługowego" MVP, ale bogatszego o dane i gotowego pod przyszłą sprzedaż.
+
+Z mojej strony to jest finalna decyzja.
+
+Piotr

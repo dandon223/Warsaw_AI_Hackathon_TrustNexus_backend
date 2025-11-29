@@ -1,0 +1,149 @@
+
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-04-22 15:05
+Do: Marek Jaworski <marek.jaworski@alphacloud.com>
+DW: security@alphacloud.com, dpo@alphacloud.com, data-team@szpilex.ai
+Temat: RAG Docs – podsumowanie PoC z Confluence (Etap 2)
+
+Cześć,
+
+podsumowując PoC z Confluence:
+
+- Zakres:
+  - wpięliśmy 3 przestrzenie:
+    - ENG_GUIDES_ANON,
+    - RELEASE_INTERNAL,
+    - KNOWN_ISSUES_SCRUBBED.
+- Redaction:
+  - pre-index redaction:
+    - maskowanie domen klientów,
+    - usuwanie linii z logami zawierającymi IP / request_id,
+  - post-processing:
+    - standardowy PII filter (e-maile, nazwy własne).
+- Wyniki:
+  - poprawa jakości odpowiedzi dla zgłoszeń typu “edge-case bug”:
+    - precision@3: z 0,62 → 0,81 na zestawie testowym.
+
+Z perspektywy delivery:
+- jesteśmy gotowi, żeby:
+  - rozszerzyć Confluence na produkcję w tym ograniczonym zakresie (3 spaces),
+  - trzymając się wciąż regionu EU i logowania w rag_query_log (z top_k_sources).
+
+Jeżeli po stronie Security / DPO nie ma dodatkowych blokad,
+chciałabym w przyszłym sprincie podnieść feature flag `confluence_enabled=true` dla supportu (tylko wewnętrzny panel agentów).
+
+Dajcie znać, czy widzicie jakieś ryzyka, o których nie rozmawialiśmy.
+
+Kasia
+
+--
+Katarzyna Pawlak
+Program Manager | SZPILEX.ai
+Dział: Product Delivery
+
+
+Od: Marek Jaworski <marek.jaworski@alphacloud.com>
+Wysłano: 2025-04-22 16:10
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+DW: security@alphacloud.com, dpo@alphacloud.com, data-team@szpilex.ai
+Temat: Re: RAG Docs – podsumowanie PoC z Confluence (Etap 2)
+
+Cześć,
+
+z mojej strony PoC wygląda sensownie – szczególnie boost na “known issues”.
+
+Jeśli Security nie zgłosi zastrzeżeń do końca tygodnia,
+możemy przyjąć, że:
+- Confluence w tym ograniczonym zakresie wchodzi jako opt-in do panelu agentów,
+- z zastrzeżeniem:
+  - brak dostępu dla klientów końcowych,
+  - feature flag sterowany per-tenant.
+
+Security / DPO – dajcie proszę znać, gdyby coś Was niepokoiło.
+
+Marek
+
+--
+Marek Jaworski
+VP Product | AlphaCloud
+
+
+Od: Security Team AlphaCloud <security@alphacloud.com>
+Wysłano: 2025-04-29 08:42
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>, Marek Jaworski <marek.jaworski@alphacloud.com>
+DW: dpo@alphacloud.com
+Temat: Re: RAG Docs – podsumowanie PoC z Confluence (Etap 2)
+
+Cześć,
+
+dopiero teraz odkopałem tę nitkę (mea culpa, mail wpadł mi w “Rules / later review”).
+
+Po przejrzeniu materiałów z PoC:
+- samo podejście z trzema “scrubbed spaces” jest OK,
+- ALE mamy jedno dodatkowe wymaganie, którego chyba nie doprecyzowaliśmy:
+
+Chodzi o:
+- “shadow access” do Confluence z poziomu RAG-a,
+- tzn. agent może zobaczyć fragment dokumentu,
+  do którego normalnie nie miałby uprawnień w samym Confluence.
+
+Pytania / wymagania:
+
+1) Permission alignment:
+   - czy RAG respektuje ACL-e z Confluence,
+     czy działamy na “spłaszczonej” kopii wszystkich dokumentów?
+
+2) Audyt:
+   - jeżeli agent zobaczy fragment, do którego nie ma uprawnień w Confluence,
+     - log w rag_query_log musi to odnotować,
+     - plus okresowy raport (kto, kiedy, jakie space_key).
+
+Obecna rekomendacja Security:
+- NIE włączać Confluence na produkcji,
+  dopóki nie mamy jasności, że:
+  - albo ACL-e są synchronizowane,
+  - albo wprost ustalamy, że RAG daje “szerszy” wgląd i mamy na to zgodę DPO.
+
+Przepraszam za opóźnienie, to po części mój błąd organizacyjny,
+ale wolałem zareagować późno niż wcale.
+
+Security Team
+
+
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-04-29 10:05
+Do: Security Team AlphaCloud <security@alphacloud.com>, Marek Jaworski <marek.jaworski@alphacloud.com>
+DW: dpo@alphacloud.com, data-team@szpilex.ai
+Temat: Re: RAG Docs – podsumowanie PoC z Confluence (Etap 2)
+
+Cześć,
+
+dzięki za doprecyzowanie – lepiej późno niż nigdy, bo temat ACL-i faktycznie jest newralgiczny.
+
+Stan obecny:
+- PoC działał na:
+  - spłaszczonej kopii dokumentów (bez odzwierciedlenia per-user ACL),
+  - z założeniem: “widzisz to, co widzi typowy agent supportu”.
+
+Żeby wejść w pełne “permission alignment”, potrzebujemy:
+- dodatkowego kroku w ingestion:
+  - mapowanie Confluence groups → AlphaCloud roles,
+- oraz:
+  - dołożenia do indeksu listy uprawnień (np. `allowed_roles[]`),
+  - filtrowania dokumentów na etapie wektorowego searcha po roli agenta.
+
+To jest do zrobienia, ale:
+- wykracza poza zakres obecnego sprintu,
+- trzeba to traktować jako mini-projekt (szacuję 2–3 sprinty).
+
+Propozycja:
+- na razie:
+  - NIE włączamy Confluence na produkcji (feature flag zostaje OFF),
+- w tle:
+  - przygotujemy RFC na “ACL-aware RAG for Confluence”
+    + plan wdrożenia + impact na performance.
+
+Przepraszam za zamieszanie – założyłam, że “scrubbed spaces” będą wystarczająco bezpieczne
+bez pełnej synchronizacji ACL-i, ale macie rację, że z perspektywy compliance to jest za duże uproszczenie.
+
+Kasia

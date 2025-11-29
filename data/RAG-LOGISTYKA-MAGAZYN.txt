@@ -1,0 +1,58 @@
+Od: Michał Rataj <michal.rataj@szpilex.ai>
+Wysłano: 2025-02-14 09:00
+Do: Agnieszka Sokołowska <agnieszka.sokolowska@logimax.pl>
+DW: Krzysztof Baran <krzysztof.baran@logimax.pl>
+Temat: RAG Logistyka – zakres dokumentów magazynowych
+
+Cześć,
+dla RAG-a wspierającego operacje magazynowe proponuję indeksować:
+- instrukcje przyjęcia towaru (Inbound),
+- procedury kompletacji i pakowania (Picking/Packing),
+- zasady inwentaryzacji,
+- instrukcje BHP na magazynie,
+- schematy oznaczeń stref (A/B/C, strefy chłodnicze, ADR itd.).
+
+Czy są jakieś dokumenty, których nie powinniśmy indeksować (np. specyficzne umowy z operatorami, cenniki)?
+
+Michał
+
+--
+Michał Rataj
+Solution Architect – Logistics | SZPILEX.ai
+
+
+Od: Agnieszka Sokołowska <agnieszka.sokolowska@logimax.pl>
+Wysłano: 2025-02-14 09:52
+Do: Michał Rataj <michal.rataj@szpilex.ai>
+DW: Krzysztof Baran <krzysztof.baran@logimax.pl>
+Temat: RAG Logistyka – zakres dokumentów magazynowych
+
+Cześć,
+nie indeksujcie:
+- cenników usług logistycznych,
+- indywidualnych SLA dla kluczowych klientów,
+- raportów z audytów BHP.
+
+Natomiast ważne, żeby w indeksie były:
+- instrukcje obsługi wózków widłowych,
+- zasady pracy w strefach wysokiego składowania,
+- procedury przy "peak season" (Q4).
+
+RAG ma pomagać brygadzistom i pracownikom zmianowym w szybkim znalezieniu odpowiedzi na konkretne sytuacje operacyjne.
+
+Agnieszka
+
+
+Od: Krzysztof Baran <krzysztof.baran@logimax.pl>
+Wysłano: 2025-02-14 10:30
+Do: Michał Rataj <michal.rataj@szpilex.ai>, Agnieszka Sokołowska <agnieszka.sokolowska@logimax.pl>
+Temat: RAG Logistyka – zakres dokumentów magazynowych
+
+Dodałbym:
+- mapy magazynu z oznaczeniem stref,
+- template'y check-list przed rozpoczęciem zmiany,
+- procedury postępowania przy awarii skanera/kolektora danych.
+
+Ryzyko: jeśli RAG poda starą wersję procedury, możemy mieć problem przy kontroli. Musimy zadbać o aktualność i wersjonowanie.
+
+Krzysztof

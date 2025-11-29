@@ -1,0 +1,115 @@
+Projekt: Platforma monitoringu modeli ML (wewnętrzna)
+Nitka: Zamieszanie po zmianie schematu bazy przez Data Platform – dashboardy się wywalają
+
+Od: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+Wysłano: 2025-04-27 09:05
+Do: data-platform@szpilex.ai
+DW: ml-leads@szpilex.ai
+Temat: ML Monitoring – błędy w dashboardach po zmianie schematu model_stats_daily
+
+Cześć,
+
+od wczoraj wieczorem padły nam dashboardy “Model Health”
+(wszystkie widoki dla IntentClassifier-v4 i ChurnPredictor-v3).
+
+Z errorów w BI wychodzi, że:
+- kolumna `metric_name` w ml_monitoring.model_stats_daily:
+  - została zamieniona na:
+    - `metric_type` + `metric_key`,
+- a `business_metric_value`:
+  - zniknęło z tabeli.
+
+Problem:
+- nasze zapytania + dashboardy opierały się dokładnie na tych kolumnach.
+
+Pytania:
+1) Czy to była świadoma zmiana, czy przypadkowy efekt refactoru?
+2) Czy mamy jakikolwiek “migration guide” do nowego schematu?
+
+Na razie:
+- PM-i widzą puste wykresy i myślą, że “model się zepsuł”, a to tylko DB ;)
+
+Szymon
+
+
+Od: Data Platform Team <data-platform@szpilex.ai>
+Wysłano: 2025-04-27 10:02
+Do: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+DW: ml-leads@szpilex.ai
+Temat: Re: ML Monitoring – błędy w dashboardach po zmianie schematu model_stats_daily
+
+Cześć,
+
+to była częściowo świadoma zmiana, ale przyznajemy, że:
+- nie dopięliśmy komunikacji z Wami do końca.
+
+Zrobiliśmy:
+- refactor model_stats_daily:
+  - `metric_name` → (`metric_type`, `metric_key`),
+    - metric_type: ONLINE / BUSINESS / DRIFT,
+    - metric_key: np. accuracy, churn_rate, psi_country,
+  - `business_metric_value`:
+    - wylądowało w osobnej tabeli:
+      - model_business_stats_daily.
+
+Cel:
+- rozdzielić metryki stricte modelowe od KPI biznesowych,
+- uprościć integracje z innymi systemami.
+
+Przyznajemy, że:
+- powinniśmy byli:
+  - wysłać Wam osobny RFC / migration guide,
+  - a nie liczyć, że “ktoś zobaczy PR-y”.
+
+Możemy:
+1) Na szybko:
+   - utworzyć view:
+     - `model_stats_daily_legacy`,
+     - które:
+       - mapuje nową strukturę do starej (`metric_name`, `business_metric_value`),
+   - żeby dashboardy tymczasowo wstały.
+
+2) W kolejnym kroku:
+   - usiąść razem nad zapytaniami i przerobić je na nowe kolumny.
+
+Data Platform
+
+
+Od: Szymon Ratajczak <szymon.ratajczak@szpilex.ai>
+Wysłano: 2025-04-27 11:15
+Do: Data Platform Team <data-platform@szpilex.ai>
+DW: ml-leads@szpilex.ai
+Temat: Re: ML Monitoring – błędy w dashboardach po zmianie schematu model_stats_daily
+
+Cześć,
+
+ok, dzięki za szczerą odpowiedź.
+
+Propozycja, żeby nie utopić na tym tygodnia:
+
+1) Krótkoterminowo:
+   - robimy dokładnie tak, jak proponujecie:
+     - view `model_stats_daily_legacy`:
+       - z kolumnami:
+         - metric_name (złożone z metric_type + metric_key),
+         - business_metric_value (JOIN do model_business_stats_daily po model/date/slice_key).
+   - to pozwoli:
+     - podnieść obecne dashboardy bez przerabiania wszystkiego od razu.
+
+2) W kolejnym sprincie:
+   - siadamy wspólnie (ML + DP + PM)
+   - i robimy:
+     - “v2” dashboardów w oparciu o nowy schemat,
+     - z lepszym rozdzieleniem:
+       - metryk modelowych,
+       - metryk biznesowych.
+
+3) Procesowo:
+   - dorzucamy zasadę do naszych RFC:
+     - “każda zmiana w schema ml_monitoring musi mieć:
+        - RFC + migration guide + komunikat do właścicieli dashboardów”.
+
+Nie jestem zachwycony, że się o tym dowiedzieliśmy “po fakcie”,
+ale doceniam, że da się to zwinąć view + późniejszym refactorem, bez dramatycznego rollbacku.
+
+Szymon

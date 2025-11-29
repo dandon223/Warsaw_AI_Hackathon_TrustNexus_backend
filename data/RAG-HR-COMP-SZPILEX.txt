@@ -1,0 +1,184 @@
+
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-03-10 09:00
+Do: Joanna Lewandowska <joanna.lewandowska@szpilex.ai>, Anna Kwiatkowska <anna.kwiatkowska@szpilex.ai>
+DW: cfo@szpilex.ai
+Temat: RAG HR – wstępny (szeroki) zakres dokumentów
+
+Cześć,
+wstępny, bardzo szeroki zakres dla RAG HR:
+
+- polityki globalne (urlopy, benefity, praca zdalna),
+- procesy HR (rekrutacja, on/offboarding),
+- widełki wynagrodzeń per poziom stanowiska,
+- guidelines dot. podwyżek i premii,
+- FAQ dla menedżerów nt. awansów i zmiany poziomów.
+
+Założenie na start:
+- RAG jest narzędziem GŁÓWNIE dla menedżerów i HRBP,
+- pracownicy mają dostęp tylko do "publicznych" polityk (bez widełek płacowych).
+
+Wiem, że dotykamy wrażliwego obszaru (wynagrodzenia), więc proszę o feedback, zanim ruszymy z indeksacją.
+
+Kasia
+
+--
+Katarzyna Pawlak
+Program Manager | SZPILEX.ai
+Dział: PMO
+
+
+Od: Joanna Lewandowska <joanna.lewandowska@szpilex.ai>
+Wysłano: 2025-03-10 09:42
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+DW: Anna Kwiatkowska <anna.kwiatkowska@szpilex.ai>, cfo@szpilex.ai
+Temat: RAG HR – wstępny (szeroki) zakres dokumentów
+
+Cześć,
+na poziomie koncepcji brzmi super, ale:
+
+- nie widzę zgody na indeksację arkuszy z widełkami wynagrodzeń w pierwszym kroku,
+- mamy zbyt dużo "specjalnych przypadków" i indywidualnych ustaleń.
+
+Proponuję:
+- etap 1:
+  - tylko globalne polityki + FAQ,
+- etap 2:
+  - rozważymy ograniczony dostęp do widełek (tylko HR + wybrani menedżerowie).
+
+Joanna
+
+--
+Joanna Lewandowska
+HR Director | SZPILEX.ai
+
+
+Od: Anna Kwiatkowska <anna.kwiatkowska@szpilex.ai>
+Wysłano: 2025-03-10 10:15
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>, Joanna Lewandowska <joanna.lewandowska@szpilex.ai>
+DW: cfo@szpilex.ai
+Temat: RAG HR – wstępny (szeroki) zakres dokumentów
+
+Hej,
+z perspektywy HRBP:
+- RAG bez widełek będzie nadal użyteczny (zwłaszcza polityki, procesy),
+- ALE: największe maile do HR to "jakie są widełki na poziom X" i "czy mogę zaproponować Y kandydatowi".
+
+Może:
+- nie indeksować surowych arkuszy z widełkami,
+- ale wyciągnąć z nich "zakresy referencyjne" po poziomie i regionie, z silnym ograniczeniem dostępu?
+
+Anna
+
+--
+Anna Kwiatkowska
+HR Business Partner | SZPILEX.ai
+
+
+Od: CFO SZPILEX.ai <cfo@szpilex.ai>
+Wysłano: 2025-03-10 11:02
+Do: Joanna Lewandowska <joanna.lewandowska@szpilex.ai>, Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>, Anna Kwiatkowska <anna.kwiatkowska@szpilex.ai>
+Temat: RAG HR – wstępny (szeroki) zakres dokumentów
+
+Cześć,
+moja perspektywa:
+
+- nie chcę, żeby RAG wypowiadał się "wprost" o pensjach,
+- natomiast sensownie widzę:
+  - podpowiedzi "typowy poziom wynagrodzeń dla roli X w regionie Y" dla HR i HRBP,
+  - z logowaniem, kto zadaje jakie pytania.
+
+Innymi słowy: zakres tak, ale ściśle kontrolowany dostęp i logowanie.
+
+CFO
+
+
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-03-10 12:30
+Do: Joanna Lewandowska <joanna.lewandowska@szpilex.ai>, Anna Kwiatkowska <anna.kwiatkowska@szpilex.ai>, cfo@szpilex.ai
+Temat: RAG HR – wstępny (szeroki) zakres dokumentów
+
+OK, zmieniamy podejście:
+
+- Etap 1:
+  - indeksujemy tylko globalne polityki, FAQ, procesy,
+  - użytkownicy: wszyscy pracownicy (z ograniczeniami, żeby nie wyciekały treści typowo "HR only").
+
+- Etap 2 (po POC):
+  - rozważymy moduł "Compensation Advisor" dla HR/HRBP z dostępem do widełek.
+
+Czyli na razie wycinamy całkowicie temat wynagrodzeń z RAG-a.
+
+Kasia
+
+
+Od: CFO SZPILEX.ai <cfo@szpilex.ai>
+Wysłano: 2025-03-12 09:05
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>, Joanna Lewandowska <joanna.lewandowska@szpilex.ai>
+DW: Anna Kwiatkowska <anna.kwiatkowska@szpilex.ai>
+Temat: RAG HR – zmiana priorytetów (Compensation)
+
+Cześć,
+po ostatniej dyskusji w zarządzie:
+- temat wynagrodzeń wraca na stół.
+
+Powód:
+- przy obecnej skali rośniemy bardzo szybko,
+- HRBP nie nadążają z odpowiedziami o widełki i poziomy.
+
+Chciałbym, żeby:
+- moduł "Compensation Advisor" jednak znalazł się w ETAPIE 1, ale:
+  - dostęp tylko dla HR + HRBP,
+  - brak odpowiedzi wprost typu "płacimy X–Y",
+  - raczej rekomendacja: "poziom rynkowy dla roli X w regionie Y mieści się w przedziale Z".
+
+Tak, wiem, że trochę wracamy do pierwotnego pomysłu ;)
+
+CFO
+
+
+Od: Joanna Lewandowska <joanna.lewandowska@szpilex.ai>
+Wysłano: 2025-03-12 10:10
+Do: cfo@szpilex.ai, Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+DW: Anna Kwiatkowska <anna.kwiatkowska@szpilex.ai>
+Temat: RAG HR – zmiana priorytetów (Compensation)
+
+Cześć,
+jestem OK z tym kierunkiem pod warunkiem:
+
+- zakres:
+  - tylko role standardowe (bez zarządu, bez "special deals"),
+- odpowiedź RAG:
+  - zawsze z disclaimers: "rekomendacja orientacyjna, ostateczna decyzja należy do HR",
+- audyt:
+  - logujemy wszystkie zapytania i odpowiedzi.
+
+To jest trochę powrót do szerokiego zakresu, ale z dużo większą kontrolą.
+
+Joanna
+
+
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-03-12 11:25
+Do: Joanna Lewandowska <joanna.lewandowska@szpilex.ai>, cfo@szpilex.ai, Anna Kwiatkowska <anna.kwiatkowska@szpilex.ai>
+Temat: RAG HR – finalny kompromis
+
+Podsumowując tę sinusoidę :)
+
+- RAG HR Etap 1:
+  - moduł "Policies & FAQ" – dostępny dla wszystkich,
+  - moduł "Compensation Advisor" – TYLKO dla HR i HRBP,
+- zakres compensation:
+  - role standardowe, bez zarządu i wyjątków,
+  - rekomendacje widełek z disclaimers,
+- kontrola:
+  - pełne logowanie zapytań,
+  - regularny przegląd zapytań przez HR i CFO.
+
+W praktyce wracamy do pierwotnego pomysłu (RAG zna widełki), ale:
+- z silnym ograniczeniem dostępu,
+- z dodatkową warstwą kontroli, o którą prosiliście.
+
+Jeśli nie ma sprzeciwu, traktuję to jako finalną decyzję zakresową.
+
+Kasia

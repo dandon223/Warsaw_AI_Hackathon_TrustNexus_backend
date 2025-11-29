@@ -1,0 +1,87 @@
+
+Od: Zespół CX TelGO <cx@telgo.pl>
+Wysłano: 2025-04-15 08:37
+Do: Michał Wróbel <michal.wrobel@szpilex.ai>
+DW: Agnieszka Rutkowska <agnieszka.rutkowska@telgo.pl>, contact-center@telgo.pl
+Temat: Voicebot TelGO – spadek NPS po wdrożeniu MVP
+
+Cześć Michał,
+
+mamy pierwsze dane po 2 tygodniach od rollout’u voicebota (flow TECH_ISSUE):
+
+- NPS (voicebot-only) = -12
+- NPS (grupa kontrolna – konsultanci) = +5
+
+Dominujące komentarze z ankiet:
+- “za długo nic się nie dzieje po podaniu numeru usługi”,
+- “bot na siłę namawia do resetu routera”,
+- “zbyt techniczny język – nie rozumiem, co on do mnie mówi”.
+
+Dodatkowe obserwacje:
+- ~40% klientów kończy rozmowę zaraz po pierwszej propozycji reboot’u,
+- w przypadku, gdy jest już otwarte zgłoszenie w statusie “IN_PROGRESS”,
+  - voicebot i tak często wchodzi w pełny flow diagnostyczny zamiast skróconej ścieżki.
+
+Chcielibyśmy:
+1) uprościć komunikaty (uniknąć żargonu typu “CPE”, “parametry linii”),
+2) skrócić albo “wypełnić” ciszę w czasie oczekiwania na wynik lineTest FAST,
+3) dodać prostszy “escape hatch” do konsultanta po pierwszej odmowie restartu routera.
+
+Daj proszę znać:
+- co z tego możemy zrobić szybkim configiem/scriptingiem, a co wymaga większej zmiany po Waszej stronie.
+
+Pozdrawiamy,
+CX TelGO
+
+
+Od: Michał Wróbel <michal.wrobel@szpilex.ai>
+Wysłano: 2025-04-15 10:05
+Do: Zespół CX TelGO <cx@telgo.pl>
+DW: Agnieszka Rutkowska <agnieszka.rutkowska@telgo.pl>, OSS Team TelGO <oss-team@telgo.pl>
+Temat: Re: Voicebot TelGO – spadek NPS po wdrożeniu MVP
+
+Cześć,
+
+dzięki za dane – sprawdziliśmy logi z ostatnich 7 dni i odsłuchaliśmy kilkadziesiąt rozmów.
+
+Co widzimy:
+- średni “dead air” po podaniu numeru usługi: ~4,8 s,
+- w 70% przypadków, gdy klient odmawia reboot’u, bot próbuje przekonać go drugi raz,
+- w części scenariuszy z otwartym zgłoszeniem “IN_PROGRESS” faktycznie wchodzimy w zbyt ciężką diagnostykę.
+
+Zmiany, które możemy zrobić po naszej stronie w 1. kroku (bez developmentu po stronie OSS/BSS):
+
+1) Komunikaty:
+   - zamiana technicznych fraz na prostsze:
+     - “Wykonuję test linii i odczytuję parametry CPE”
+       → “Sprawdzam teraz jakość Twojego łącza. To potrwa kilka sekund.”
+   - usuwamy słowo “CPE” z wszystkich promptów.
+
+2) Logika reboot’u:
+   - po pierwszej odmowie restartu:
+     - tylko jedno dodatkowe pytanie doprecyzowujące,
+     - po drugiej odmowie → od razu propozycja rozmowy z konsultantem.
+
+3) Dead air:
+   - dokładamy krótkie komunikaty co 2–3 s:
+     - “Wciąż sprawdzam Twoje połączenie…”, “Jeszcze chwila…”
+   - technicznie to tylko zmiana scenariusza w platformie voicebotowej.
+
+4) “IN_PROGRESS”:
+   - dla spraw w statusie “IN_PROGRESS” i ostatnim zgłoszeniu < 24 h:
+     - skrócony flow:
+       - informacja o istniejącym zgłoszeniu,
+       - opcja: dopisanie informacji dla technika lub rozmowa z konsultantem,
+       - bez prób reboot’u / testu linii.
+
+Proponuję:
+- przygotować nową wersję scenariusza jako A/B test na części ruchu (np. 20%),
+- po tygodniu porównać NPS + odsetek successfully resolved.
+
+Jeśli OK, nasz zespół może przygotować propozycję konkretnych komunikatów (PL) i wrzucić do akceptacji.
+
+Michał
+
+--
+Michał Wróbel
+Product Manager – Telco Automation | SZPILEX.ai

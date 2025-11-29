@@ -1,0 +1,40 @@
+Od: Aleksandra Bielawska <aleksandra.bielawska@officesuite.io>
+Wysłano: 2025-01-29 09:00
+Do: Marcin Górny <marcin.gorny@polstar.com>
+DW: Office Management <office@polstar.com>
+Temat: OfficeSuite – zasady rezerwacji sal
+
+Cześć Marcin,
+w ramach systemu rezerwacji sal ustaliliśmy wstępnie:
+
+- integracja z Exchange/Outlook (tworzenie eventów w kalendarzu),
+- podział sal wg pojemności i wyposażenia (TV, VC, tablica),
+- zasady:
+  - max 2 h jednorazowej rezerwacji dla pojedynczego użytkownika,
+  - brak możliwości blokowania całego dnia.
+
+Czy macie jeszcze jakieś "niepisane" reguły, które powinniśmy sformalizować w systemie?
+
+Ola
+
+--
+Aleksandra Bielawska
+Product Manager | OfficeSuite.io
+
+
+Od: Marcin Górny <marcin.gorny@polstar.com>
+Wysłano: 2025-01-29 09:40
+Do: Aleksandra Bielawska <aleksandra.bielawska@officesuite.io>
+DW: Office Management <office@polstar.com>
+Temat: OfficeSuite – zasady rezerwacji sal
+
+Cześć,
+niepisane zasady:
+
+- spotkania 1:1 nie powinny zajmować największych sal,
+- rezerwacje "na wszelki wypadek" (i niewykorzystane) są bardzo źle widziane,
+- chcemy mieć raport: ile rezerwacji kończy się brakiem obecności uczestników.
+
+Ryzyko: jeśli system nie będzie tego "karał", ludzie dalej będą nadużywać.
+
+Marcin

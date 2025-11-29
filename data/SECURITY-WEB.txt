@@ -1,0 +1,28 @@
+Temat: [External] Cloud Security Day 2025 – darmowy udział online
+Od: CloudSec Events <info@cloudsec-day.com>
+Wysłano: 2025-04-01 07:45
+Do: security@alphacloud.com
+DW: marek.jaworski@alphacloud.com, it-ops@alphacloud.com
+
+Szanowni Państwo,
+
+zapraszamy na bezpłatne wydarzenie online:
+
+Cloud Security Day 2025
+Data: 2025-05-07
+Forma: konferencja online (stream + Q&A)
+
+W programie m.in.:
+- zarządzanie tożsamością i dostępem w środowiskach multi-cloud,
+- praktyczne podejścia do data residency w UE,
+- casy z wdrożeń security dla rozwiązań AI (w tym LLM & RAG),
+- panel dyskusyjny z przedstawicielami dostawców chmury.
+
+Udział:
+- bezpłatny, wymagana wcześniejsza rejestracja,
+- możliwość otrzymania certyfikatu uczestnictwa.
+
+Zachęcamy do zgłoszenia zespołów security / compliance / architektury.
+
+Z poważaniem,
+Zespół CloudSec Events

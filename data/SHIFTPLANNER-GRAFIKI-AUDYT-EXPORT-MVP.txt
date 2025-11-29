@@ -1,0 +1,42 @@
+Od: Kinga Wójcik <kinga.wojcik@shiftplanner.io>
+Wysłano: 2025-02-12 09:00
+Do: Natalia Paź <natalia.paz@fashionretail.eu>
+DW: Dział Operacyjny <operacje@fashionretail.eu>
+Temat: ShiftPlanner – audyt grafików i eksport danych
+
+Cześć Natalio,
+uzupełniając wymagania:
+
+- audyt:
+  - log każdej zmiany w grafiku (kto, kiedy, jakie pole),
+  - rozróżnienie: zmiana planu vs korekta po fakcie.
+
+- eksport:
+  - CSV/Excel do systemu kadrowo-płacowego (pracownik, data, godziny),
+  - miesięczne raporty dla HR.
+
+Czy potrzebujecie dedykowanych raportów pod PIP (kontrole czasu pracy), czy wystarczy standardowy export?
+
+Kinga
+
+--
+Kinga Wójcik
+Product Owner | ShiftPlanner.io
+
+
+Od: Natalia Paź <natalia.paz@fashionretail.eu>
+Wysłano: 2025-02-12 09:42
+Do: Kinga Wójcik <kinga.wojcik@shiftplanner.io>
+DW: Dział Operacyjny <operacje@fashionretail.eu>
+Temat: ShiftPlanner – audyt grafików i eksport danych
+
+Cześć,
+PIP:
+- przydałby się gotowy raport "kontrolny":
+  - przekroczenia norm (czas pracy, odpoczynek),
+  - liczba dni pracy z rzędu,
+  - praca w niedziele/święta.
+
+To bardzo ułatwi nam przygotowanie się do ewentualnych kontroli.
+
+Natalia

@@ -1,0 +1,27 @@
+Temat: Brown-bag: Jak działają nasze modele churn? (nieformalne spotkanie)
+Od: Anna Wysocka <anna.wysocka@szpilex.ai>
+Wysłano: 2025-04-09 12:27
+Do: ml-leads@szpilex.ai, pm-team@szpilex.ai
+
+Cześć,
+
+robimy luźne brown-bag session (wewnętrzne, nieformalna prezentacja przy lunchu):
+
+Temat: “Jak działają nasze modele churn? – od featurów do decyzji biznesowej”
+Data: 2025-04-18, godz. 12:00–13:00
+Forma: hybryda – sala “Barcelona” + Teams (stream)
+
+Dla kogo:
+- PM, analitycy, ML inżynierowie,
+- wszyscy, którzy zadają (lub powinni zadawać) pytania:
+  - “co właściwie oznacza, że klient ma score 0,82?”
+
+Plan:
+- krótkie intro o ChurnPredictor-v3 (use case TelGO),
+- jak czytać raporty z ML Monitoring (Model Health, drift, business metrics),
+- Q&A – pytania o edge-case’y, ograniczenia, plany na v4.
+
+Nie ma obowiązkowej rejestracji,
+ale mile widziana jest szybka odpowiedź “Tak/Nie”, żebyśmy wiedzieli, ile zamówić pizz 🍕
+
+Anna

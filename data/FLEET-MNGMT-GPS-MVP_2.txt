@@ -1,0 +1,18 @@
+Od: Adam Lis <adam.lis@poltranslog.pl>
+Wysłano: 2025-03-05 10:45
+Do: Karol Małecki <karol.malecki@fleetmind.io>
+DW: Joanna Baran <joanna.baran@poltranslog.pl>
+Temat: System floty – potwierdzenie zakresu MVP (telemetria i GPS)
+
+Cześć,
+z mojej strony ważne jest jeszcze:
+
+- oznaczenie pojazdów z ładunkami wrażliwymi (ADR, chłodnia),
+- możliwość podglądu prędkości na trasie w formie "heatmapy" (czy kierowca jechał zbyt szybko),
+- eksport danych z trasy do CSV (na potrzeby analiz i ewentualnych reklamacji).
+
+Adam
+
+--
+Adam Lis
+Fleet Coordinator | PolTransLog

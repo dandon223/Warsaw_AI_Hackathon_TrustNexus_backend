@@ -1,0 +1,85 @@
+
+Od: Marek Jaworski <marek.jaworski@alphacloud.com>
+Wysłano: 2025-04-10 08:55
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+DW: support-leads@alphacloud.com, sre@alphacloud.com
+Temat: RAG Docs – czasy odpowiedzi vs SLO dla supportu
+
+Cześć Kasiu,
+
+dostaję sygnały od SRE i supportu, że czasy odpowiedzi RAG-a
+zaczynają nam “przycinać” SLO dla panelu agentskiego.
+
+Obecne dane (z ostatnich 7 dni):
+- median response time (RAG + UI) ~2,4 s,
+- p95 ~5,8 s,
+- p99 ~9,5 s.
+
+Ustalone SLO dla supportu:
+- 95% odpowiedzi < 4 s.
+
+Przy dłuższych pytaniach (np. “porównaj plany STANDARD vs ENTERPRISE dla feature X”)
+część agentów zgłasza, że:
+- RAG “mieli” kilka sekund,
+- a oni i tak muszą ręcznie szukać w portalach.
+
+Pytania:
+- czy mamy po Waszej stronie jakieś progi/prioritety dla długości promptu albo liczby dokumentów w kontekście?
+- czy agregacja “top-k=8” jest twarda, czy możemy np. zejść do 5,
+  żeby poprawić p95 kosztem minimalnego spadku jakości?
+
+Potrzebowałbym rekomendacji:
+- co możemy zrobić krótkoterminowo (konfiguracja),
+- a co wymaga głębszej optymalizacji architektury.
+
+Marek
+
+--
+Marek Jaworski
+VP Product | AlphaCloud
+
+
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-04-10 10:12
+Do: Marek Jaworski <marek.jaworski@alphacloud.com>
+DW: support-leads@alphacloud.com, sre@alphacloud.com, data-team@szpilex.ai
+Temat: RAG Docs – czasy odpowiedzi vs SLO dla supportu
+
+Cześć Marku,
+
+dzięki za liczby, sprawdziliśmy logi po stronie rag_query_log + metryki LLM.
+
+Obecnie:
+- top_k=8,
+- max_tokens=512,
+- średni czas zapytania do LLM ~1,8 s,
+- czas wektorowego searcha ~200–300 ms.
+
+Wąskie gardło:
+- najdłuższe zapytania (pytania porównawcze + długi kontekst),
+  - często dobijały do limitu 512 tokenów → model “docinał” odpowiedź.
+
+Propozycja krótkoterminowa (bez zmian architektury):
+1) Support-mode:
+   - dla panelu agentskiego:
+     - top_k=5,
+     - max_tokens=384,
+   - w zamian:
+     - wyświetlanie osobno listy dokumentów źródłowych, żeby agent mógł szybko “doklikać”.
+
+2) Limity dla długich pytań:
+   - jeśli query ma > 300 znaków:
+     - zamiast robić “rozbudowaną” odpowiedź RAG,
+     - zwracamy krótszy summary + listę 3–5 dokumentów “do przeczytania”.
+
+Średni czas odpowiedzi w takim trybie:
+- w naszych testach na logach historycznych p95 spada z ~5,8 s do ~3,9 s.
+
+Jeśli akceptujesz takie trade-off’y,
+wdrożymy “support-mode” jako osobny config i po tygodniu wrócimy z raportem: czas vs satysfakcja agentów.
+
+Kasia
+
+--
+Katarzyna Pawlak
+Program Manager | SZPILEX.ai

@@ -1,0 +1,65 @@
+
+Od: Monika Góra <monika.gora@edclass.pl>
+Wysłano: 2025-02-01 09:05
+Do: dyrektor@lo-kopernik.edu.pl
+DW: rada_pedagogiczna@lo-kopernik.edu.pl
+Temat: EdClass – zakres funkcji na start
+
+Dzień dobry,
+propozycja zakresu MVP:
+
+- moduły:
+  - wpisywanie ocen (wagi, średnie),
+  - frekwencja (obecność/nieobecność/spóźnienie),
+  - uwagi pozytywne i negatywne,
+  - dostęp rodziców do podglądu wszystkiego w czasie rzeczywistym.
+
+Dodatkowo:
+- prosty moduł wiadomości nauczyciel–rodzic.
+
+Czy możemy założyć pełną transparentność ocen/uwag dla rodziców od razu po wpisaniu?
+
+Monika
+
+--
+Monika Góra
+Product Manager | EdClass.pl
+
+
+Od: dyrektor@lo-kopernik.edu.pl
+Wysłano: 2025-02-01 09:48
+Do: Monika Góra <monika.gora@edclass.pl>
+DW: rada_pedagogiczna@lo-kopernik.edu.pl
+Temat: EdClass – zakres funkcji na start
+
+Dzień dobry,
+ogólnie zgoda, ale:
+
+- część nauczycieli sygnalizuje, że:
+  - chciałaby mieć możliwość "roboczego" wpisania oceny, zanim pokaże ją uczniowi/rodzicowi,
+  - podobnie z uwagami – czasem wymagają konsultacji z wychowawcą.
+
+Propozycja:
+- status oceny/uwagi: robocza / opublikowana,
+- rodzice widzą tylko opublikowane.
+
+Dyrektor
+
+
+Od: Monika Góra <monika.gora@edclass.pl>
+Wysłano: 2025-02-01 10:20
+Do: dyrektor@lo-kopernik.edu.pl
+DW: rada_pedagogiczna@lo-kopernik.edu.pl
+Temat: EdClass – zakres funkcji na start
+
+Dobrze, czyli:
+
+- MVP:
+  - oceny i uwagi z dwoma statusami (robocza/opublikowana),
+  - rodzice widzą tylko opublikowane,
+- domyślne zachowanie:
+  - ocena dodana jako robocza, nauczyciel decyduje o publikacji.
+
+Czyli cofamy się z pełnej "real-time" transparentności, ale dajemy nauczycielom bufor bezpieczeństwa.
+
+Monika

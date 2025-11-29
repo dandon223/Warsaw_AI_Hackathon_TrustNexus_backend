@@ -1,0 +1,43 @@
+
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-04-03 11:02
+Do: Tomasz Urban <tomasz.urban@alphacloud.com>
+DW: Marek Jaworski <marek.jaworski@alphacloud.com>, support-leads@alphacloud.com, data-team@szpilex.ai
+Temat: [Eskalacja] RAG Docs – błędne odpowiedzi i stara dokumentacja
+
+Cześć Tomku,
+
+przejechaliśmy logi rag_query_log po Twoich przykładach i mamy pierwsze wnioski:
+
+- w obu case’ach RAG korzystał z dokumentów zaimportowanych PRZED wprowadzeniem pola valid_from/valid_to,
+- część starych plików billingowych ma version=NULL,
+  - przez to filtr “bierz tylko v3” w praktyce nie wykluczał ich z wyników.
+
+Plan po naszej stronie:
+
+1) Hotfix (dzisiaj):
+   - wykluczamy z indeksu dokumenty, gdzie:
+     - version IS NULL OR valid_to < now(),
+   - zawężamy RAG-a w panelu supportowym:
+     - domyślnie wyłączamy sekcję BILLING (trzeba ją kliknięciem “rozwinąć”).
+
+2) Reindeksacja BILLING:
+   - pełny reimport plików billingowych tylko dla v3,
+   - wymuszenie ustawienia valid_from/valid_to na podstawie Waszego changelog’a.
+
+3) Jakość:
+   - po reindeksacji odpalimy test regression:
+     - zestaw ~100 pytań billingowych z oznaczoną prawdą,
+     - policzymy precision@3 i wyślemy raport.
+
+Do czasu zakończenia reindeksacji rekomenduję:
+- komunikat wewnętrzny: “W obszarze BILLING RAG jest w fazie korekty – w razie wątpliwości opierajcie się na docs.alphacloud.com”.
+
+Dam znać po zrobieniu hotfixa, kiedy będziemy gotowi z pełnym raportem.
+
+Kasia
+
+--
+Katarzyna Pawlak
+Program Manager | SZPILEX.ai
+Dział: Product Delivery

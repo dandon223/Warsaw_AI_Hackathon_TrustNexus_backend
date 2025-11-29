@@ -1,0 +1,65 @@
+Od: Krzysztof Grenda <krzysztof.grenda@szpilex.ai>
+Wysłano: 2025-02-08 09:25
+Do: security@szpilex.ai
+DW: it-ops@szpilex.ai
+Temat: RAG Security – zakres i wersjonowanie polityk
+
+Cześć,
+budujemy RAG dla działu bezpieczeństwa. Zakres na start:
+- polityka haseł,
+- polityka dostępu zdalnego,
+- procedury incydentów bezpieczeństwa,
+- standardy hardeningu systemów,
+- wytyczne dot. przetwarzania danych w chmurze.
+
+Chcemy, żeby odpowiedzi RAG zawsze wskazywały:
+- wersję dokumentu,
+- datę obowiązywania,
+- status (draft/approved/deprecated).
+
+Czy są dokumenty, których nie powinniśmy indeksować (np. wewnętrzne raporty z incydentów)?
+
+Krzysiek
+
+--
+Krzysztof Grenda
+Security Product Owner | SZPILEX.ai
+Dział: Cybersecurity
+
+
+Od: Security Team <security@szpilex.ai>
+Wysłano: 2025-02-08 10:10
+Do: Krzysztof Grenda <krzysztof.grenda@szpilex.ai>
+DW: it-ops@szpilex.ai
+Temat: RAG Security – zakres i wersjonowanie polityk
+
+Cześć,
+nie indeksujemy:
+- szczegółowych raportów z incydentów,
+- logów bezpieczeństwa,
+- dokumentów z danymi personalnymi (np. listy użytkowników).
+
+Indeksujemy:
+- zatwierdzone polityki,
+- standardy techniczne,
+- "how-to" dla inżynierów (np. jak zgłosić incydent).
+
+Warunek: każdy dokument musi mieć pola effective_from / effective_to.
+
+Security Team
+
+
+Od: Krzysztof Grenda <krzysztof.grenda@szpilex.ai>
+Wysłano: 2025-02-08 11:45
+Do: Security Team <security@szpilex.ai>
+DW: it-ops@szpilex.ai
+Temat: RAG Security – zakres i wersjonowanie polityk
+
+OK, zrobimy tak:
+- metadane: security_policy_id, version, effective_from, effective_to, owner_team,
+- domyślnie RAG zwraca tylko dokumenty, w których effective_from <= today <= effective_to,
+- starsze wersje będą dostępne tylko po użyciu filtra "pokaż archiwalne".
+
+Ryzyko: brak dat w starych dokumentach → musimy zrobić jednorazowe uzupełnienie.
+
+Krzysiek

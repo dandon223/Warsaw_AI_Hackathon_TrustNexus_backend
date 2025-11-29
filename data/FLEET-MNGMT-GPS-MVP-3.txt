@@ -1,0 +1,20 @@
+Od: Karol Małecki <karol.malecki@fleetmind.io>
+Wysłano: 2025-03-05 11:30
+Do: Joanna Baran <joanna.baran@poltranslog.pl>, Adam Lis <adam.lis@poltranslog.pl>
+Temat: System floty – potwierdzenie zakresu MVP (telemetria i GPS)
+
+Dzięki za doprecyzowanie.
+
+Podsumowanie decyzji dla MVP:
+- zakres: lokalizacja + podstawowa telemetria (prędkość, przebieg, czas pracy silnika, postój),
+- widoki: mapa, lista pojazdów, najbliższe pojazdy względem punktu na mapie,
+- flagi: GPS online/offline, ostatni kontakt, pojazdy ADR/chłodnie,
+- eksport: CSV z trasą i parametrami (prędkość, czasy postojów).
+
+Ryzyka:
+- opóźnienia danych od TrackPro,
+- niepełne dane dla starszych trackerów.
+
+Przechodzę z tym pod doprecyzowanie user stories.
+
+Karol

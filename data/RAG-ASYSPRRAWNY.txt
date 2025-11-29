@@ -1,0 +1,91 @@
+Od: Anna Nowicka <anna.nowicka@szpilex.ai>
+Wysłano: 2025-02-15 09:40
+Do: legal@szpilex.ai
+Temat: RAG Legal – zakres dokumentów
+
+Cześć,
+tworzymy wewnętrznego asystenta RAG dla działu prawnego. Zakres:
+- wzory umów ramowych z klientami,
+- NDA (PL/EN),
+- standardowe klauzule RODO,
+- instrukcje do DPIA.
+
+Czy możemy indeksować również podpisane umowy klientów, czy ograniczamy się do wzorów?
+
+Anna
+
+--
+Anna Nowicka
+Product Manager – Legal Tech | SZPILEX.ai
+
+
+Od: Magdalena Kowalska <magdalena.kowalska@szpilex.ai>
+Wysłano: 2025-02-15 11:03
+Do: Anna Nowicka <anna.nowicka@szpilex.ai>
+Temat: RAG Legal – zakres dokumentów
+
+Aniu,
+na start indeksujmy tylko:
+- wzory umów,
+- zatwierdzone "playbooki negocjacyjne",
+- checklisty legal.
+
+Podpisane umowy klientów NIE (ryzyko poufności + złożoność). RAG ma pomagać w:
+- podsuwaniu propozycji klauzul,
+- wskazywaniu standardu vs propozycji klienta.
+
+Magda
+
+--
+Magdalena Kowalska
+Senior Legal Counsel | SZPILEX.ai
+
+
+Od: Anna Nowicka <anna.nowicka@szpilex.ai>
+Wysłano: 2025-02-15 13:22
+Do: Magdalena Kowalska <magdalena.kowalska@szpilex.ai>, ds-team@szpilex.ai
+Temat: RAG Legal – zakres dokumentów
+
+Cześć,
+propozycja encji do ekstrakcji:
+- PartyName, Jurisdiction, LiabilityCap, SLA_Level,
+- DataCategory (zwykłe / wrażliwe),
+- DPA_Required (true/false).
+
+Te encje będziemy wykorzystywać do szybkiego porównywania wzorca z propozycją klienta. Czy coś jeszcze jest dla Was krytyczne?
+
+Anna
+
+
+Od: Magdalena Kowalska <magdalena.kowalska@szpilex.ai>
+Wysłano: 2025-02-15 14:55
+Do: Anna Nowicka <anna.nowicka@szpilex.ai>
+Temat: RAG Legal – zakres dokumentów
+
+Dodałabym:
+- TerminationNoticePeriod,
+- AutoRenewal (yes/no),
+- GoverningLaw.
+
+Z punktu widzenia ryzyka ważne jest też oznaczanie klauzul jako: standard / czerwone flagi / do negocjacji – nawet prostym tagiem.
+
+Magda
+
+--
+Magdalena Kowalska
+Senior Legal Counsel | SZPILEX.ai
+
+
+Od: Anna Nowicka <anna.nowicka@szpilex.ai>
+Wysłano: 2025-02-16 09:10
+Do: Magdalena Kowalska <magdalena.kowalska@szpilex.ai>, ds-team@szpilex.ai
+Temat: RAG Legal – zakres dokumentów
+
+Podsumowanie:
+- zakres: wzory umów, playbooki negocjacyjne, checklisty, bez podpisanych umów,
+- encje: PartyName, Jurisdiction, LiabilityCap, SLA_Level, DataCategory, DPA_Required, TerminationNoticePeriod, AutoRenewal, GoverningLaw,
+- dodatkowe tagi: clause_risk_level (standard / red_flag / negotiable).
+
+Ryzyko: błędne oznaczenie klauzuli → konieczny manualny przegląd na etapie pilota.
+
+Anna

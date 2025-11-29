@@ -1,0 +1,34 @@
+
+Od: Security Team AlphaCloud <security@alphacloud.com>
+Wysłano: 2025-04-18 09:20
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+DW: dpo@alphacloud.com, marek.jaworski@alphacloud.com
+Temat: RAG Docs – wymagania security przed włączeniem Confluence
+
+Cześć,
+
+wracamy do tematu rozszerzenia RAG-a o Confluence (Etap 2).
+Zanim damy formalne “GO”, potrzebujemy doprecyzować kilka kwestii:
+
+1) Redaction pipeline:
+   - czy jesteście w stanie przed indeksacją:
+     - wycinać fragmenty z potencjalnymi danymi osobowymi (logi, nazwy klientów, domeny),
+   - czy jedziemy podejściem:
+     - “indeksujemy całość, ale maskujemy na wyjściu”?
+
+2) Scope:
+   - czy macie mechanizm “deny-list” dla space_key,
+   - żebyśmy mogli wykluczyć:
+     - np. przestrzenie typu “HR”, “Legal”, “Finance”?
+
+3) Audyt:
+   - czy w rag_query_log pojawi się informacja z jakiego źródła przyszły dokumenty:
+     - np. source_type=CONFLUENCE, space_key=XXX?
+
+Bez spełnienia powyższych punktów nie będziemy mogli “przepchnąć” Confluence przez DPO.
+
+Daj proszę znać:
+- co już jest zaimplementowane,
+- a co wymaga dodatkowego developmentu.
+
+Security Team

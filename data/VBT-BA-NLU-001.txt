@@ -1,0 +1,104 @@
+Od: Jakub Serafin <jakub.serafin@szpilex.ai>
+Wysłano: 2025-03-05 09:02
+Do: Olga Kępa <olga.kepa@szpilex.ai>, Piotr Malinowski <piotr.malinowski@bankalfa.pl>
+Temat: Dane treningowe do NLU – źródła i anonimizacja
+
+Cześć,
+potrzebujemy podejścia do danych treningowych dla NLU voicebota:
+- źródło: nagrania z infolinii z ostatnich 12 miesięcy,
+- docelowo ok. 50k transkrypcji,
+- wymagania: pełna anonimizacja danych osobowych (imię, nazwisko, PESEL, numer karty, numer telefonu).
+
+Olga – zaproponujesz pipeline anonimizacji + ryzyka?
+
+Jakub
+
+--
+Jakub Serafin
+Data Science Lead | SZPILEX.ai
+
+
+Od: Olga Kępa <olga.kepa@szpilex.ai>
+Wysłano: 2025-03-05 11:21
+Do: Jakub Serafin <jakub.serafin@szpilex.ai>
+DW: Piotr Malinowski <piotr.malinowski@bankalfa.pl>
+Temat: Dane treningowe do NLU – źródła i anonimizacja
+
+Hej,
+propozycja:
+- ETL w Databricks,
+- transkrypcja przez Azure Cognitive Services (pl-PL),
+- anonimizacja rule-based + model NER uczony na wewnętrznych danych.
+
+Ryzyka:
+1. Jakość transkrypcji w hałasie – WER może przekraczać 20%.
+2. Niepełna anonimizacja – konieczny manualny sampling 1% danych.
+
+Zadania:
+- przygotuję POC do 20 marca,
+- potrzebuję dostępu do S3: bank-raw-calls-2024.
+
+Olga
+
+--
+Olga Kępa
+ML Engineer | SZPILEX.ai
+
+
+Od: Piotr Malinowski <piotr.malinowski@bankalfa.pl>
+Wysłano: 2025-03-05 13:37
+Do: Olga Kępa <olga.kepa@szpilex.ai>
+DW: Jakub Serafin <jakub.serafin@szpilex.ai>, Marta Sudoł <marta.sudol@bankalfa.pl>
+Temat: Dane treningowe do NLU – źródła i anonimizacja
+
+Olgo,
+zgoda na dostęp do S3: bank-raw-calls-2024, ale:
+- dostęp tylko z whitelista IP,
+- brak możliwości eksportu danych poza VPC,
+- proszę o rejestr użytkowników z dostępem + logi w CloudTrail.
+
+Marta – potwierdź, że to spełnia wymogi regulacyjne.
+
+Piotr
+
+--
+Piotr Malinowski
+Tribe Lead – Bankowość Detaliczna | Bank Alfa
+
+
+Od: Marta Sudoł <marta.sudol@bankalfa.pl>
+Wysłano: 2025-03-05 15:10
+Do: Jakub Serafin <jakub.serafin@szpilex.ai>, Olga Kępa <olga.kepa@szpilex.ai>, Piotr Malinowski <piotr.malinowski@bankalfa.pl>
+Temat: Dane treningowe do NLU – źródła i anonimizacja
+
+Potwierdzam, że przy powyższych ograniczeniach i pełnej anonimizacji dane mogą być użyte do trenowania NLU.
+Proszę tylko o:
+- dokument “Data Processing Agreement – NLU Voicebot”,
+- wpisanie projektu do rejestru procesów danych osobowych (ID: DPO-2025-014).
+
+Marta
+
+--
+Marta Sudoł
+Data Protection Officer | Bank Alfa
+
+
+Od: Jakub Serafin <jakub.serafin@szpilex.ai>
+Wysłano: 2025-03-06 10:03
+Do: Olga Kępa <olga.kepa@szpilex.ai>, Piotr Malinowski <piotr.malinowski@bankalfa.pl>, Marta Sudoł <marta.sudol@bankalfa.pl>
+Temat: Dane treningowe do NLU – źródła i anonimizacja
+
+Cześć,
+podsumowanie nitki:
+- Pipeline: Databricks + Azure Cognitive Services + wewnętrzny NER.
+- Dane: ~50k transkrypcji z 12 miesięcy, po pełnej anonimizacji.
+- Id procesu w rejestrze: DPO-2025-014.
+- Kluczowe ryzyka: jakość transkrykcji (hałas), niepełna anonimizacja → sampling 1%.
+
+Zamykam temat na tym etapie.
+
+Jakub
+
+--
+Jakub Serafin
+Data Science Lead | SZPILEX.ai

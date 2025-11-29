@@ -1,0 +1,49 @@
+Od: Bartosz Fijał <bartosz.fijal@contracthub.io>
+Wysłano: 2025-02-06 09:30
+Do: Kinga Rosińska <kinga.rosinska@logisupply.eu>
+DW: Procurement Team <zakupy@logisupply.eu>
+Temat: ContractHub – zakres metadanych kontraktów
+
+Cześć Kinga,
+chcemy ustalić, jakie metadane kontraktów są dla Was krytyczne:
+
+Propozycja:
+- SupplierName,
+- ContractType (ramowa, jednorazowa),
+- StartDate, EndDate,
+- AutoRenewal (tak/nie),
+- NoticePeriod,
+- Currency, AnnualValue,
+- SLA_KPI_Flag (czy kontrakt zawiera SLA).
+
+Na bazie tych pól będziemy w stanie:
+- generować alerty o wygasaniu kontraktów,
+- robić przeglądy spendu per dostawca/kategoria.
+
+Czy czegoś brakuje?
+
+Bartosz
+
+--
+Bartosz Fijał
+Product Owner | ContractHub.io
+
+
+Od: Kinga Rosińska <kinga.rosinska@logisupply.eu>
+Wysłano: 2025-02-06 10:12
+Do: Bartosz Fijał <bartosz.fijal@contracthub.io>
+DW: Procurement Team <zakupy@logisupply.eu>
+Temat: ContractHub – zakres metadanych kontraktów
+
+Cześć,
+dorzuciłabym:
+
+- Category (transport, magazynowanie, IT, usługi),
+- RiskLevel (niski/średni/wysoki),
+- Owner (osoba odpowiedzialna w organizacji).
+
+Alerty:
+- min. 90 dni przed końcem,
+- osobny raport dla kontraktów z AutoRenewal = tak (żebyśmy czegoś nie "przespali").
+
+Kinga

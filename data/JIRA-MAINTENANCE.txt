@@ -1,0 +1,31 @@
+Temat: Planowana przerwa techniczna – JIRA & Confluence
+Od: IT Operations SZPILEX.ai <it-ops@szpilex.ai>
+Wysłano: 2025-04-13 18:05
+Do: wszyscy_pracownicy@szpilex.ai
+
+Cześć,
+
+informujemy o planowanej przerwie technicznej:
+
+Systemy:
+- JIRA (projects: VOICEBOT, RAG-DOC-ALPHA, ML-MON-PLATFORM, itd.),
+- Confluence (wszystkie space’y).
+
+Termin:
+- 2025-04-19 (sobota), godz. 08:00–14:00 CET.
+
+Cel:
+- upgrade do najnowszej wersji,
+- porządki w uprawnieniach i integracjach SSO.
+
+W czasie okna serwisowego:
+- nie będzie możliwości:
+  - edycji / tworzenia ticketów,
+  - edycji stron w Confluence,
+- systemy mogą być chwilowo całkowicie niedostępne.
+
+Prosimy o uwzględnienie tego w planowaniu sprintów i rolloutów na ten weekend.
+
+Pozdrawiamy,
+IT Operations
+SZPILEX.ai

@@ -1,0 +1,43 @@
+
+Od: Ewa Słowik <ewa.slowik@metalpro.pl>
+Wysłano: 2025-02-06 09:32
+Do: Krzysztof Dębski <krzysztof.debski@enerlytics.io>
+DW: Jakub Rosiński <jakub.rosinski@metalpro.pl>
+Temat: Enerlytics – zakres monitoringu energii (wstępny)
+
+Cześć,
+po rozmowie z utrzymaniem ruchu:
+
+- 1 minuta to za rzadko przy naszych pikach (włączenie dużych pras),
+- potrzebujemy:
+  - 15-sekundowego próbkowania na linii A,
+  - 30-sekundowego na linii B/C.
+
+Ryzyko: inaczej nie wyłapiemy krótkich "strzałów", przez które płacimy za wyższą moc zamówioną.
+
+Ewa
+
+--
+Ewa Słowik
+Chief Production Officer | MetalPro
+
+
+Od: Krzysztof Dębski <krzysztof.debski@enerlytics.io>
+Wysłano: 2025-02-06 10:05
+Do: Ewa Słowik <ewa.slowik@metalpro.pl>, Jakub Rosiński <jakub.rosinski@metalpro.pl>
+Temat: Enerlytics – zakres monitoringu energii (wstępny)
+
+OK, możemy zejść z interwałem, ale:
+
+- przy 15 sekundach na linii A:
+  - rośnie wolumen danych ~4x,
+  - potrzebujemy większego bucketingu w dashboardach (np. widok co 5 minut, szczegóły "on demand").
+
+Proponuję kompromis:
+- MVP:
+  - zbieramy co 15 sek. (A) i 30 sek. (B/C),
+  - dashboard domyślnie pokazuje agregaty minutowe,
+- tryb "analiza szczegółowa":
+  - możliwość zejścia do 15 sek., ale tylko dla ostatnich 48 godzin, żeby nie zabijać performance.
+
+Krzysiek

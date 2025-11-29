@@ -1,0 +1,43 @@
+Od: Iwona Rutkowska <iwona.rutkowska@billstream.io>
+Wysłano: 2025-02-10 09:15
+Do: Monika Zając <monika.zajac@finapp.pl>
+DW: Dział Sprzedaży FinApp <sprzedaz@finapp.pl>
+Temat: Billstream – model subskrypcji i rozliczenia cykliczne
+
+Cześć Moniko,
+potrzebujemy doprecyzować model subskrypcji:
+
+- typy planów:
+  - Miesięczny (MRC),
+  - Roczny (z góry),
+  - Roczny (miesięczne raty).
+
+- rozliczenia:
+  - naliczanie cykliczne wg daty startu subskrypcji,
+  - proporcjonalne naliczanie przy upgrade/downgrade w trakcie okresu.
+
+Czy macie jakieś specyficzne przypadki, które musimy uwzględnić (np. okresy testowe, rabaty lojalnościowe)?
+
+Iwona
+
+--
+Iwona Rutkowska
+Product Manager | Billstream
+
+
+Od: Monika Zając <monika.zajac@finapp.pl>
+Wysłano: 2025-02-10 09:58
+Do: Iwona Rutkowska <iwona.rutkowska@billstream.io>
+DW: Dział Sprzedaży FinApp <sprzedaz@finapp.pl>
+Temat: Billstream – model subskrypcji i rozliczenia cykliczne
+
+Cześć,
+specjalne przypadki:
+
+- 14-dniowy okres próbny bez faktury (0 zł),
+- rabaty lojalnościowe po 12 miesiącach (np. -10%),
+- możliwość "pauzy" subskrypcji na max 3 miesiące (bez opłat, ale też bez dostępu).
+
+Ryzyko: źle policzone rabaty → reklamacje i korekty.
+
+Monika

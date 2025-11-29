@@ -1,0 +1,28 @@
+Od: Kamil Borowiec <kamil.borowiec@eduxo.ai>
+Wysłano: 2025-02-18 08:55
+Do: Sylwia Jankowska <sylwia.jankowska@traininghub.pl>
+DW: Oskar Rataj <oskar.rataj@traininghub.pl>
+Temat: Platforma e-learning – zakres modułów MVP
+
+Cześć Sylwio,
+podsumowując nasze ustalenia:
+
+1. Moduły w ramach MVP:
+   - katalog kursów z podziałem na kategorie (sprzedaż, obsługa klienta, leadership),
+   - odtwarzacz lekcji wideo + materiały PDF,
+   - quizy wiedzy na końcu modułów,
+   - certyfikaty ukończenia (PDF z logo klienta),
+   - panel administratora klienta (przypisywanie kursów użytkownikom, raporty ukończeń).
+
+2. Ścieżki:
+   - możliwość tworzenia ścieżek szkoleniowych (np. “Onboarding handlowca”),
+   - wymóg ukończenia kursów w określonej kolejności.
+
+Pytanie: czy w MVP wymagacie integracji z Waszym obecnym SSO (Azure AD), czy możemy to zrobić jako etap 2?
+
+Kamil
+
+--
+Kamil Borowiec
+Product Lead | Eduxo.ai
+Tel.: +48 600 777 888

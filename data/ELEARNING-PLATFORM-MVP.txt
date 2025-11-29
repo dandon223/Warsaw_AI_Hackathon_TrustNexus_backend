@@ -1,0 +1,71 @@
+Od: Julia Niemiec <julia.niemiec@eduxo.ai>
+Wysłano: 2025-02-21 09:05
+Do: Sylwia Jankowska <sylwia.jankowska@traininghub.pl>
+DW: Oskar Rataj <oskar.rataj@traininghub.pl>
+Temat: Platforma e-learning – ocena kursów i feedback od uczestników
+
+Cześć,
+żeby platforma dobrze się "uczyła" na podstawie zachowań użytkowników, proponuję:
+
+- po każdym kursie:
+  - ocena w skali 1–5,
+  - krótkie pytanie otwarte "Co było najbardziej wartościowe?",
+  - pytanie NPS: "Na ile prawdopodobne jest, że polecisz ten kurs współpracownikowi?".
+
+- w panelu admina:
+  - lista kursów z najniższą średnią oceną,
+  - kursy z wysoką oglądalnością, ale niskim ukończeniem (drop-off).
+
+Jakie metryki są dla Was najważniejsze przy ocenie jakości szkoleń?
+
+Julia
+
+--
+Julia Niemiec
+Learning Analytics Lead | Eduxo.ai
+
+
+Od: Sylwia Jankowska <sylwia.jankowska@traininghub.pl>
+Wysłano: 2025-02-21 09:52
+Do: Julia Niemiec <julia.niemiec@eduxo.ai>
+DW: Oskar Rataj <oskar.rataj@traininghub.pl>
+Temat: Platforma e-learning – ocena kursów i feedback od uczestników
+
+Cześć,
+zależy nam szczególnie na:
+
+- % ukończeń kursu (completion rate),
+- średnim wyniku z quizów,
+- czasie spędzonym w module (czy ktoś "przeklikał" czy faktycznie oglądał).
+
+Dodatkowo:
+- chcemy mieć alert, jeśli jakiś kurs przez 3 miesiące ma średnią ocenę < 3,5.
+
+To będzie sygnał, że trzeba go poprawić lub wycofać.
+
+Sylwia
+
+--
+Sylwia Jankowska
+Training Program Manager | TrainingHub
+
+
+Od: Julia Niemiec <julia.niemiec@eduxo.ai>
+Wysłano: 2025-02-21 11:10
+Do: Sylwia Jankowska <sylwia.jankowska@traininghub.pl>, Oskar Rataj <oskar.rataj@traininghub.pl>
+Temat: Platforma e-learning – ocena kursów i feedback od uczestników
+
+OK,
+zdefiniujemy następujące encje w analityce:
+
+- CourseRating (średnia ocena, NPS),
+- CompletionRate (% użytkowników którzy ukończyli),
+- QuizScoreAvg,
+- DropOffPoint (najczęstszy moment przerwania kursu).
+
+Do tego:
+- codzienny raport e-mailem z listą kursów "ryzykownych" (średnia < 3,5, completion < 50%).
+
+Ryzyko: zbyt wiele alertów → wprowadzimy progi, żeby nie spamować.
+
+Julia

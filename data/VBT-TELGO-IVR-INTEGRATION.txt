@@ -1,0 +1,77 @@
+
+Od: Kierownik Call Center TelGO <cc-manager@telgo.pl>
+Wysłano: 2025-04-08 14:10
+Do: Michał Wróbel <michal.wrobel@szpilex.ai>
+DW: agnieszka.rutkowska@telgo.pl, cx@telgo.pl
+Temat: Voicebot TelGO – konflikt z obecnym IVR (kolejność pytań)
+
+Cześć Michał,
+
+po tygodniu wspólnego działania:
+- starego IVR + nowego voicebota,
+wyszły nam dwa problemy z punktu widzenia UX:
+
+1) Dublowanie się pytań:
+   - IVR już na wejściu pyta:
+     - “Czy dzwonisz w sprawie internetu stacjonarnego, telewizji czy innej usługi?”
+   - potem voicebot ponownie próbuje ustalić typ problemu,
+   - klienci odbierają to jako “przepytywanie od zera”.
+
+2) Kolejność:
+   - IVR zbiera numer klienta dopiero po kilku krokach,
+   - voicebot z kolei zakłada, że ma już ServiceId na starcie,
+   - w efekcie część rozmów kończy się timeoutem, bo klient nie rozumie, czemu ma podawać numer drugi raz.
+
+Pytanie:
+- czy jesteśmy w stanie przerzucić część pytań z IVR-a “w górę” do voicebota,
+  - tak żeby:
+    - voicebot od razu zbierał numer usługi,
+    - IVR robił tylko wstępną dystrybucję kanałów (sales vs support)?
+
+Chętnie spotkamy się na krótką sesję, żeby przejść po aktualnych promptach.
+
+Pozdrawiam,
+Kierownik CC TelGO
+
+
+Od: Michał Wróbel <michal.wrobel@szpilex.ai>
+Wysłano: 2025-04-08 16:02
+Do: Kierownik Call Center TelGO <cc-manager@telgo.pl>
+DW: agnieszka.rutkowska@telgo.pl, cx@telgo.pl, oss-team@telgo.pl
+Temat: Voicebot TelGO – konflikt z obecnym IVR (kolejność pytań)
+
+Cześć,
+
+pełna zgoda – teraz mamy efekt “podwójnego formularza”.
+
+Propozycja zmiany architektury przepływu:
+
+1) IVR:
+   - zostawiamy:
+     - rozróżnienie SALES vs SUPPORT,
+   - usuwamy:
+     - szczegółowe pytania o produkt (internet/TV itd.),
+   - dla ścieżki SUPPORT:
+     - od razu przejście do voicebota.
+
+2) Voicebot:
+   - pierwszy krok:
+     - zebranie numeru usługi / telefonu,
+     - weryfikacja SMS OTP,
+   - dopiero potem:
+     - NLU na “czy to problem z internetem stacjonarnym, Wi-Fi, czy czymś innym?”.
+
+Technicznie:
+- po stronie platformy voicebotowej nic się nie zmienia,
+- po Waszej stronie trzeba:
+  - zredukować liczbę poziomów w drzewku IVR dla ścieżki SUPPORT,
+  - przekazywać nam tylko minimalny kontekst (np. “SUPPORT_TECH”).
+
+Mogę przygotować propozycję nowego diagramu IVR + voicebot
+i przejść z Wami po tym na callu.
+
+Michał
+
+--
+Michał Wróbel
+Product Manager – Telco Automation | SZPILEX.ai

@@ -1,0 +1,140 @@
+Od: Karolina Domańska <karolina.domanska@szpilex.ai>
+Wysłano: 2025-03-03 09:15
+Do: Piotr Malinowski <piotr.malinowski@bankalfa.pl>
+Temat: Voicebot – potwierdzenie zakresu MVP
+
+Cześć Piotr,
+podsumowując nasze dzisiejsze spotkanie:
+1. MVP voicebota obejmuje obsługę 3 głównych intencji:
+   - sprawdzenie salda,
+   - historia transakcji z 30 dni,
+   - blokada karty.
+2. Integracje: Genesys Cloud, CoreBank API v2, system CRM Salesforce.
+3. SLA rozpoznania mowy: 95% poprawnych intencji w godzinach 8–20.
+
+Daj proszę znać, czy powyższe możemy traktować jako finalny zakres MVP.
+
+Pozdrawiam,
+Karolina
+
+--
+Karolina Domańska
+Project Manager | SZPILEX.ai
+Dział: Banking & Conversational AI
+Tel.: +48 600 111 222
+
+
+Od: Piotr Malinowski <piotr.malinowski@bankalfa.pl>
+Wysłano: 2025-03-03 11:42
+Do: Karolina Domańska <karolina.domanska@szpilex.ai>
+DW: Katarzyna Bąk <katarzyna.bak@bankalfa.pl>, Tomasz Lis <tomasz.lis@bankalfa.pl>
+Temat: Voicebot – potwierdzenie zakresu MVP
+
+Cześć Karolino,
+zatwierdzam zakres MVP z jednym zastrzeżeniem:
+- funkcja blokady karty musi uwzględniać dwustopniową autoryzację (IVR PIN + SMS OTP).
+
+Ryzyko: jeśli SMS Gateway (nasz dostawca – TelSMS) nie będzie dostępny, proces blokady musi się automatycznie przekierować do konsultanta.
+
+Proszę o dopisanie tego jako wymogu niefunkcjonalnego i ryzyka projektowego.
+
+Pozdrawiam,
+Piotr
+
+--
+Piotr Malinowski
+Tribe Lead – Bankowość Detaliczna | Bank Alfa
+Tel.: +48 600 333 444
+
+
+Od: Karolina Domańska <karolina.domanska@szpilex.ai>
+Wysłano: 2025-03-03 14:08
+Do: Katarzyna Bąk <katarzyna.bak@bankalfa.pl>, Tomasz Lis <tomasz.lis@bankalfa.pl>
+DW: Piotr Malinowski <piotr.malinowski@bankalfa.pl>
+Temat: Voicebot – potwierdzenie zakresu MVP
+
+Cześć,
+wg ustaleń z Piotrem dodajemy wymaganie:
+
+- blokada karty wymaga IVR PIN (4 cyfry) + SMS OTP (6 cyfr),
+- przy 3 nieudanych próbach SMS OTP – obowiązkowy transfer do konsultanta,
+- logujemy wszystkie próby w modułach “SecurityEvents” i “FraudMonitor”.
+
+Zadania:
+1. Kasia – sprawdź, czy obecny CoreBank API v2 obsługuje logowanie tych zdarzeń.
+2. Tomek – potwierdź, czy to wystarczy z perspektywy KNF i RODO.
+
+Deadline: piątek 15:00.
+
+Karolina
+
+--
+Karolina Domańska
+Project Manager | SZPILEX.ai
+
+
+Od: Katarzyna Bąk <katarzyna.bak@bankalfa.pl>
+Wysłano: 2025-03-04 09:26
+Do: Karolina Domańska <karolina.domanska@szpilex.ai>
+DW: Piotr Malinowski <piotr.malinowski@bankalfa.pl>
+Temat: Voicebot – potwierdzenie zakresu MVP
+
+Hej,
+sprawdziłam: CoreBank API v2 ma endpoint /security/events. Możemy logować:
+- typ zdarzenia (BLOCK_CARD_ATTEMPT),
+- status (SUCCESS/FAILED/TRANSFERRED),
+- kanał (VOICEBOT).
+
+Ryzyko techniczne: limit 100 req/min na ten endpoint. Jeśli liczba połączeń w szczycie przekroczy ten limit, logowanie może się „rozjechać”. Proponuję dodać asynchroniczny buffer po stronie voicebota (np. Kafka topic: security-logs).
+
+Katarzyna
+
+--
+Katarzyna Bąk
+Senior Systems Analyst | Bank Alfa
+
+
+Od: Tomasz Lis <tomasz.lis@bankalfa.pl>
+Wysłano: 2025-03-04 10:03
+Do: Karolina Domańska <karolina.domanska@szpilex.ai>
+DW: Piotr Malinowski <piotr.malinowski@bankalfa.pl>
+Temat: Voicebot – potwierdzenie zakresu MVP
+
+Karolino,
+z perspektywy compliance:
+- zestaw danych jest OK pod warunkiem maskowania numeru telefonu w logach (tylko ostatnie 3 cyfry),
+- logi muszą być przechowywane max 5 lat,
+- potrzebujemy mechanizmu “right to be forgotten” powiązanego z identyfikatorem klienta.
+
+Proszę, abyście uwzględnili to w projekcie architektury i backlogu.
+
+Tomasz
+
+--
+Tomasz Lis
+Compliance Officer | Bank Alfa
+
+
+Od: Karolina Domańska <karolina.domanska@szpilex.ai>
+Wysłano: 2025-03-04 15:47
+Do: Piotr Malinowski <piotr.malinowski@bankalfa.pl>
+DW: Katarzyna Bąk <katarzyna.bak@bankalfa.pl>, Tomasz Lis <tomasz.lis@bankalfa.pl>
+Temat: Voicebot – potwierdzenie zakresu MVP
+
+Cześć,
+podsumowuję decyzje dla MVP:
+- Zakres: 3 intencje (saldo, historia, blokada karty).
+- Autoryzacja przy blokadzie: IVR PIN + SMS OTP (dwa czynniki).
+- Logowanie zdarzeń: CoreBank API v2 + bufor w Kafka/security-logs.
+- Ryzyka:
+  - limit 100 req/min na /security/events,
+  - awaria SMS Gateway (TelSMS) → automatyczny transfer do konsultanta.
+
+Zadania na sprint 3 dodane do Jiry (epik: VBT-MVP-Security).
+
+Karolina
+
+--
+Karolina Domańska
+Project Manager | SZPILEX.ai
+Dział: Banking & Conversational AI

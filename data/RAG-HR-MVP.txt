@@ -1,0 +1,81 @@
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-01-20 10:12
+Do: Joanna Lewandowska <joanna.lewandowska@szpilex.ai>, Łukasz Wójcik <lukasz.wojcik@szpilex.ai>
+Temat: RAG HR – zakres dokumentów do indeksacji
+
+Cześć,
+plan na RAG dla HR:
+- zakres: polityki urlopowe, benefity, procedury rekrutacyjne, instrukcje on/offboarding,
+- źródła: SharePoint/HR, pliki PDF, prezentacje z onboardingu,
+- użytkownicy: wszyscy pracownicy SZPILEX.ai (ok. 250 osób).
+
+Czy są dokumenty, których nie powinniśmy indeksować (np. poufne wynagrodzenia)?
+
+Kasia
+
+--
+Katarzyna Pawlak
+HR Product Owner | SZPILEX.ai
+Dział: People & Culture
+
+
+Od: Joanna Lewandowska <joanna.lewandowska@szpilex.ai>
+Wysłano: 2025-01-20 11:45
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+DW: Łukasz Wójcik <lukasz.wojcik@szpilex.ai>
+Temat: RAG HR – zakres dokumentów do indeksacji
+
+Kasia,
+nie indeksujemy:
+- arkuszy z widełkami wynagrodzeń (Compensation_Grids.xlsx),
+- dokumentów z indywidualnymi uzgodnieniami,
+- notatek z rozmów 1:1.
+
+Ważne: potrzebujemy wersjonowania polityk, np. "Polityka urlopowa v3 – od 01.03.2025". Odpowiedzi RAG muszą odnosić się do konkretnej wersji i daty obowiązywania.
+
+Joanna
+
+--
+Joanna Lewandowska
+HR Director | SZPILEX.ai
+
+
+Od: Łukasz Wójcik <lukasz.wojcik@szpilex.ai>
+Wysłano: 2025-01-20 14:03
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>, Joanna Lewandowska <joanna.lewandowska@szpilex.ai>
+Temat: RAG HR – zakres dokumentów do indeksacji
+
+Hej,
+technicznie możemy:
+- dodać meta-dane: doc_version, effective_from, effective_to,
+- w zapytaniu do RAG domyślnie wybierać dokument z effective_from <= today <= effective_to.
+
+Ryzyko: część starych dokumentów nie ma wpisanej daty. Proponuję:
+- domyślnie effective_from = data uploadu do SharePoint,
+- dla kluczowych polityk HR ręczna korekta.
+
+Łukasz
+
+--
+Łukasz Wójcik
+Enterprise Architect | SZPILEX.ai
+Dział: Internal Systems
+
+
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-01-21 09:27
+Do: Joanna Lewandowska <joanna.lewandowska@szpilex.ai>, Łukasz Wójcik <lukasz.wojcik@szpilex.ai>
+Temat: RAG HR – zakres dokumentów do indeksacji
+
+Podsumowując:
+- indeksujemy tylko dokumenty "globalne" HR, bez arkuszy wynagrodzeń,
+- dodajemy metadata: doc_version, effective_from, effective_to,
+- dla starych dokumentów datę bierzemy z uploadu, z możliwością nadpisania przez HR.
+
+Ryzyko biznesowe: błędna odpowiedź dot. liczby dni urlopu → proszę HR o przegląd najczęściej używanych dokumentów przed produkcją.
+
+Kasia
+
+--
+Katarzyna Pawlak
+HR Product Owner | SZPILEX.ai

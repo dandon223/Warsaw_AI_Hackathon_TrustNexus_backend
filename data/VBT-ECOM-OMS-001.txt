@@ -1,0 +1,56 @@
+Od: Monika Rucińska <monika.rucinska@szpilex.ai>
+Wysłano: 2025-01-15 09:18
+Do: Paweł Szymański <pawel.szymanski@ecom-client.com>, Marta Kowalczyk <marta.kowalczyk@ecom-client.com>
+Temat: Voicebot – integracja z Order Management System
+
+Cześć,
+w ramach voicebota do statusu zamówień potrzebujemy:
+- dostęp do Order Management System (OMS: “OmniOrder v3”),
+- endpoint umożliwiający wyszukiwanie po: numerze zamówienia, numerze telefonu, adresie e-mail,
+- statusy: NEW, PAID, PACKING, SHIPPED, DELIVERED, RETURNED.
+
+Czy macie już publiczne API, czy będziemy robić dedykowy adapter?
+
+Monika
+
+--
+Monika Rucińska
+Product Owner | SZPILEX.ai
+
+
+Od: Paweł Szymański <pawel.szymanski@ecom-client.com>
+Wysłano: 2025-01-15 10:41
+Do: Monika Rucińska <monika.rucinska@szpilex.ai>
+DW: Marta Kowalczyk <marta.kowalczyk@ecom-client.com>
+Temat: Voicebot – integracja z Order Management System
+
+Hej,
+mamy API GET /orders/search, ale:
+- obsługuje tylko numer zamówienia,
+- brak filtrowania po telefonie/mailu,
+- ograniczenie 5 req/s per client.
+
+Ryzyko: voicebot może generować większy ruch – trzeba przetestować. Proponuję na start cache’owanie statusów w Redis co 5 min.
+
+Paweł
+
+--
+Paweł Szymański
+Head of IT | eCom Client
+
+
+Od: Monika Rucińska <monika.rucinska@szpilex.ai>
+Wysłano: 2025-01-15 13:09
+Do: Paweł Szymański <pawel.szymanski@ecom-client.com>, Marta Kowalczyk <marta.kowalczyk@ecom-client.com>
+Temat: Voicebot – integracja z Order Management System
+
+Decyzje po callu:
+- na MVP używamy GET /orders/search po numerze zamówienia,
+- identyfikacja: klient podaje numer zamówienia + 2 ostatnie cyfry telefonu,
+- wprowadzamy Redis cache dla statusów SHIPPED i DELIVERED.
+
+Zadania:
+- Paweł – POC z Redis + test obciążeniowy (do 500 req/min) do 7 stycznia,
+- ja – aktualizacja backlogu.
+
+Monika

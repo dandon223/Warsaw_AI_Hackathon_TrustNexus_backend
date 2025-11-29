@@ -1,0 +1,70 @@
+
+Od: Karolina Sroka <karolina.sroka@szpilex.ai>
+Wysłano: 2025-02-22 09:00
+Do: Joanna Duda <joanna.duda@przychodnia-medikus.pl>
+DW: rejestracja@przychodnia-medikus.pl
+Temat: Voicebot – rejestracja pacjentów (zakres MVP)
+
+Dzień dobry,
+propozycja voicebota do rejestracji:
+
+- zakres:
+  - zapisy na wizyty do internisty i pediatry,
+  - odwoływanie wizyt,
+  - sprawdzenie terminu już umówionej wizyty.
+
+- zasady:
+  - pacjent podaje PESEL + nazwisko,
+  - voicebot proponuje najbliższe 3 wolne terminy i od razu rezerwuje wybrany.
+
+Na MVP zakładamy pełną samoobsługę w tych trzech scenariuszach.
+
+Pozdrawiam,
+Karolina
+
+--
+Karolina Sroka
+Project Manager | SZPILEX.ai
+Dział: Healthcare Automation
+
+
+Od: Joanna Duda <joanna.duda@przychodnia-medikus.pl>
+Wysłano: 2025-02-22 09:42
+Do: Karolina Sroka <karolina.sroka@szpilex.ai>
+DW: rejestracja@przychodnia-medikus.pl
+Temat: Voicebot – rejestracja pacjentów (zakres MVP)
+
+Dzień dobry,
+ważna uwaga z rejestracji:
+
+- nie możemy pozwolić, żeby:
+  - voicebot umawiał wizyty "na sztywno" u konkretnych lekarzy bez kontroli,
+  - szczególnie przy pediatrze – rodzice często proszą o "naszą panią doktor X".
+
+Propozycja:
+- internista – pełna samoobsługa (OK),
+- pediatra – voicebot zbiera preferencje, ale rezerwacja finalna po stronie rejestratorki.
+
+Joanna
+
+
+Od: Karolina Sroka <karolina.sroka@szpilex.ai>
+Wysłano: 2025-02-22 10:15
+Do: Joanna Duda <joanna.duda@przychodnia-medikus.pl>
+DW: rejestracja@przychodnia-medikus.pl
+Temat: Voicebot – rejestracja pacjentów (zakres MVP)
+
+Rozumiem, dostosowujemy:
+
+- internista:
+  - pełna samoobsługa (wyszukiwanie + rezerwacja terminu),
+- pediatra:
+  - voicebot:
+    - zbiera dane pacjenta,
+    - pyta o preferowanego lekarza i zakres dni/godzin,
+  - rejestracja:
+    - dostaje "draft" zgłoszenia i dopiero wtedy potwierdza termin.
+
+Czyli cofamy część automatyzacji dla pediatry, zostawiając ludziom większą kontrolę.
+
+Karolina

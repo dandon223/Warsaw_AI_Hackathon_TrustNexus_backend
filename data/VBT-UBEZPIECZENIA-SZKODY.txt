@@ -1,0 +1,84 @@
+Od: Alicja Krawiec <alicja.krawiec@szpilex.ai>
+Wysłano: 2025-03-12 09:10
+Do: Jakub Lewandowski <jakub.lewandowski@protecta.pl>
+DW: Monika Krawczyk <monika.krawczyk@protecta.pl>
+Temat: Voicebot – zgłaszanie szkód komunikacyjnych – zakres MVP
+
+Cześć,
+podsumowując dzisiejsze warsztaty:
+- voicebot ma obsługiwać zgłoszenia szkód komunikacyjnych z OC i AC,
+- kanał: połączenia przychodzące z głównej infolinii,
+- identyfikacja klienta: PESEL + numer polisy lub numer rejestracyjny pojazdu,
+- integracja z systemem SZKODY v4 (API do zakładania sprawy).
+
+Na MVP proponuję, aby voicebot:
+- zbierał podstawowe dane o zdarzeniu (data, miejsce, liczba uczestników),
+- tworzył szkic zgłoszenia w SZKODY v4 z statusem "DO WERYFIKACJI",
+- przekazywał klientowi numer sprawy i orientacyjny czas kontaktu opiekuna.
+
+Czy zakres jest dla Was akceptowalny, czy na starcie oczekujecie również obsługi dosyłania dokumentów/zdjęć?
+
+Alicja
+
+--
+Alicja Krawiec
+Project Manager | SZPILEX.ai
+Dział: Insurance Solutions
+
+
+Od: Jakub Lewandowski <jakub.lewandowski@protecta.pl>
+Wysłano: 2025-03-12 10:02
+Do: Alicja Krawiec <alicja.krawiec@szpilex.ai>
+DW: Monika Krawczyk <monika.krawczyk@protecta.pl>
+Temat: Voicebot – zgłaszanie szkód komunikacyjnych – zakres MVP
+
+Cześć Alicjo,
+na MVP wystarczy:
+- zebranie podstawowych danych,
+- założenie sprawy,
+- przekazanie numeru szkody i czasu kontaktu.
+
+Dosyłanie dokumentów/zdjęć zróbmy w drugim etapie (integracja z portalem klienta).
+Ważne: klient musi usłyszeć wyraźnie, że zgłoszenie jest "wstępne" i wymaga potwierdzenia przez konsultanta.
+
+Ryzyko: jeśli voicebot obieca coś więcej (np. gwarancję wypłaty), będziemy mieli problem w reklamacji.
+
+Jakub
+
+--
+Jakub Lewandowski
+Kierownik ds. Likwidacji Szkód | Protecta
+
+
+Od: Monika Krawczyk <monika.krawczyk@protecta.pl>
+Wysłano: 2025-03-12 11:20
+Do: Alicja Krawiec <alicja.krawiec@szpilex.ai>, Jakub Lewandowski <jakub.lewandowski@protecta.pl>
+Temat: Voicebot – zgłaszanie szkód komunikacyjnych – zakres MVP
+
+Dodam jeszcze:
+- potrzebujemy osobnych ścieżek dla "sprawcy" i "poszkodowanego",
+- voicebot powinien od razu wychwytywać frazy typu "wypadek z rannymi" i wtedy przekierowywać do priorytetowej kolejki.
+
+Proszę, żebyście uwzględnili te scenariusze w projektowaniu intencji.
+
+Monika
+
+--
+Monika Krawczyk
+Product Owner – Szkody Komunikacyjne | Protecta
+
+
+Od: Alicja Krawiec <alicja.krawiec@szpilex.ai>
+Wysłano: 2025-03-12 12:55
+Do: Jakub Lewandowski <jakub.lewandowski@protecta.pl>, Monika Krawczyk <monika.krawczyk@protecta.pl>
+Temat: Voicebot – zgłaszanie szkód komunikacyjnych – zakres MVP
+
+Podsumowanie:
+- MVP: szkody OC/AC, zgłoszenia wstępne, bez dokumentów,
+- osobne ścieżki dla sprawcy/poszkodowanego,
+- intencja "wypadek z rannymi" → priorytetowa kolejka,
+- integracja z SZKODY v4 – tworzenie sprawy "DO WERYFIKACJI".
+
+Zamykam tę nitkę i przechodzę z zespołem do projektowania dialogów.
+
+Alicja

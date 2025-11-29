@@ -1,0 +1,77 @@
+Od: Ewelina Szymańska <ewelina.szymanska@softtalent.ai>
+Wysłano: 2025-03-07 09:15
+Do: Marek Kołodziej <marek.kolodziej@hrcloud.pl>
+DW: Lidia Rogowska <lidia.rogowska@hrcloud.pl>
+Temat: ATS – potwierdzenie zakresu MVP
+
+Cześć Marku,
+podsumowując wczorajszą sesję warsztatową:
+
+1. Zakres MVP systemu ATS:
+   - publikacja ofert pracy na stronie kariery + integracja z Pracuj.pl i LinkedIn,
+   - formularz aplikacyjny z możliwością dodania CV i listu motywacyjnego,
+   - pipeline kandydata (statusy: NEW, SCREENING, INTERVIEW, OFFER, REJECTED),
+   - podstawowy kalendarz rozmów (integracja z Google Calendar).
+
+2. Role:
+   - Rekruter,
+   - Hiring Manager,
+   - HR Admin.
+
+3. SLA:
+   - czas wczytania listy kandydatów < 2 sekundy,
+   - czas wysłania zaproszenia na rozmowę < 5 sekund.
+
+Daj proszę znać, czy możemy to traktować jako finalny zakres MVP, czy brakuje Ci jakiejś krytycznej funkcji.
+
+Pozdrawiam,
+Ewelina
+
+--
+Ewelina Szymańska
+Product Manager | SoftTalent.ai
+
+
+Od: Marek Kołodziej <marek.kolodziej@hrcloud.pl>
+Wysłano: 2025-03-07 10:02
+Do: Ewelina Szymańska <ewelina.szymanska@softtalent.ai>
+DW: Lidia Rogowska <lidia.rogowska@hrcloud.pl>
+Temat: ATS – potwierdzenie zakresu MVP
+
+Cześć Ewelino,
+zakres MVP jest OK, ale doprecyzujmy dwie rzeczy:
+
+- chcemy mieć możliwość definiowania niestandardowych etapów procesu (np. “Case study”, “Assessment Center”),
+- system musi wspierać aplikacje w dwóch językach (PL/EN), zarówno w formularzu, jak i w komunikacji mailowej.
+
+Ryzyko: jeśli nie będzie możliwości dopasowania pipeline’u do poszczególnych działów, rekruterzy wrócą do Excela.
+
+Proszę o dodanie w backlogu epika “Configurable Pipelines per Department”.
+
+Marek
+
+--
+Marek Kołodziej
+Head of Recruitment | HRcloud
+
+
+Od: Lidia Rogowska <lidia.rogowska@hrcloud.pl>
+Wysłano: 2025-03-07 11:26
+Do: Ewelina Szymańska <ewelina.szymanska@softtalent.ai>
+DW: Marek Kołodziej <marek.kolodziej@hrcloud.pl>
+Temat: ATS – potwierdzenie zakresu MVP
+
+Cześć,
+z mojej strony kluczowe jest jeszcze:
+
+- tagowanie kandydatów (np. “Java”, “Senior”, “Remote”),
+- możliwość szybkiego wyszukiwania po tagach, lokalizacji i widełkach płacowych,
+- anonimowe CV dla Hiring Managerów przy pierwszym etapie (bez imienia i nazwiska, tylko kompetencje).
+
+Ryzyko HR: niechciane uprzedzenia przy selekcji – stąd ten wymóg anonimizacji w pierwszym kroku.
+
+Lidia
+
+--
+Lidia Rogowska
+HR Business Partner | HRcloud

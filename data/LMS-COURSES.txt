@@ -1,0 +1,72 @@
+
+Od: Paweł Zięba <pawel.zieba@campuslearn.io>
+Wysłano: 2025-03-04 09:05
+Do: dr hab. Marta Chmiel <marta.chmiel@uniwersytet-alpha.edu>
+DW: dziekanat@uniwersytet-alpha.edu
+Temat: CampusLearn – zapisy na kursy i limity miejsc (MVP)
+
+Dzień dobry,
+propozycja logiki zapisów w CampusLearn:
+
+- student może:
+  - zapisać się na kurs, jeśli są wolne miejsca,
+  - zapisać się na listę rezerwową, jeśli limit jest osiągnięty.
+
+- limity:
+  - 30 osób na ćwiczenia,
+  - 120 osób na wykład (bez listy rezerwowej – kto pierwszy, ten lepszy).
+
+- przepisywanie:
+  - system automatycznie przepisuje osoby z listy rezerwowej na kurs zwolniony przez innych (wg kolejności zgłoszeń).
+
+Czy możemy traktować to jako punkt wyjścia?
+
+Pozdrawiam,
+Paweł
+
+--
+Paweł Zięba
+Product Manager | CampusLearn.io
+Dział: Higher Ed Solutions
+
+
+Od: dr hab. Marta Chmiel <marta.chmiel@uniwersytet-alpha.edu>
+Wysłano: 2025-03-04 09:48
+Do: Paweł Zięba <pawel.zieba@campuslearn.io>
+DW: dziekanat@uniwersytet-alpha.edu
+Temat: CampusLearn – zapisy na kursy i limity miejsc (MVP)
+
+Dzień dobry,
+dziękuję za propozycję.
+
+Zgłaszam dwie uwagi:
+- wykład:
+  - mimo wszystko chcielibyśmy mieć miękki limit (np. 150 miejsc),
+  - z doświadczenia wiemy, że przy braku limitu na egzaminie pojawia się znacznie więcej osób niż w semestrze.
+
+- automatyczne przepisywanie:
+  - proszę o możliwość wyłączenia tej funkcji na poziomie przedmiotu,
+  - niekiedy prowadzący wolą o tym decydować ręcznie (np. przy kursach specjalistycznych).
+
+Marta Chmiel
+
+
+Od: Paweł Zięba <pawel.zieba@campuslearn.io>
+Wysłano: 2025-03-04 10:22
+Do: dr hab. Marta Chmiel <marta.chmiel@uniwersytet-alpha.edu>
+DW: dziekanat@uniwersytet-alpha.edu
+Temat: CampusLearn – zapisy na kursy i limity miejsc (MVP)
+
+Dziękuję, doprecyzowuję:
+
+- limity:
+  - ćwiczenia: twardy limit 30,
+  - wykład: domyślny limit 120, z możliwością zwiększenia do 150 przez dziekanat.
+
+- lista rezerwowa:
+  - automatyczne przepisywanie można wyłączyć per przedmiot,
+  - wówczas prowadzący dostaje tylko listę oczekujących.
+
+Czyli zamiast "sztywnego" braku limitu na wykładach wracamy do modelu z limitem, ale elastycznym.
+
+Paweł

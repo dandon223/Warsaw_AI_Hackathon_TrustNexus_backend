@@ -1,0 +1,41 @@
+
+
+Od: dr Anna Ptak <anna.ptak@centrum-zdrowia24.pl>
+Wysłano: 2025-02-14 09:30
+Do: Adam Łojek <adam.lojek@mediline.cloud>
+DW: rejestracja@centrum-zdrowia24.pl
+Temat: MediLine – zakres wizyt telemedycznych (MVP)
+
+Dzień dobry,
+co do typów wizyt – zgoda.
+
+Natomiast:
+- nie chcemy automatycznego wystawiania recept na bazie samych notatek,
+- lekarze i tak muszą to świadomie kliknąć.
+
+Proszę:
+- zostawić generowanie e-recepty/e-skierowania jako akcję po stronie lekarza (przycisk),
+- dopiero wtedy dane trafiają do P1.
+
+Anna Ptak
+
+
+Od: Adam Łojek <adam.lojek@mediline.cloud>
+Wysłano: 2025-02-14 10:05
+Do: dr Anna Ptak <anna.ptak@centrum-zdrowia24.pl>
+DW: rejestracja@centrum-zdrowia24.pl
+Temat: MediLine – zakres wizyt telemedycznych (MVP)
+
+Rozumiem, cofamy więc automatyzację o jeden krok:
+
+- system:
+  - podpowiada lekarzowi dane pacjenta i historię leków,
+  - proponuje szkic recepty na podstawie szablonu wizyty,
+- lekarz:
+  - musi ręcznie zatwierdzić wystawienie (lub poprawić).
+
+W praktyce:
+- wracamy do bardziej "manualnego" modelu,
+- ale nadal skracamy czas wypisywania dokumentów.
+
+Adam

@@ -1,0 +1,216 @@
+
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-03-17 09:05
+Do: Marek Jaworski <marek.jaworski@alphacloud.com>
+DW: data-team@szpilex.ai, security@alphacloud.com
+Temat: RAG Docs – wstępny zakres źródeł i architektury indeksu
+
+Cześć Marku,
+podsumowując warsztaty z piątku:
+
+1) Zakres MVP:
+   - indeksujemy:
+     - AlphaCloud Docs (portal docs.alphacloud.com),
+     - wybrane przestrzenie z Confluence ("Customer Guides", "Release Notes"),
+     - publiczne artykuły z help center (Zendesk).
+   - NIE indeksujemy jeszcze:
+     - ticketów supportowych,
+     - maili 1:1 z klientami.
+
+2) Architektura:
+   - wektorówka: PostgreSQL 16 + pgvector (db: rag_docs, schema: public),
+   - kolekcje:
+     - docs_public,
+     - docs_internal,
+     - release_notes,
+   - embedding: text-embedding-3-large,
+   - LLM: gpt-4.1-mini za NAT-em, bez dostępu do publicznego internetu (tylko nasze źródła).
+
+3) Encje / metadata:
+   - product_area (CORE / BILLING / ANALYTICS),
+   - version (v1 / v2 / v3),
+   - audience (ADMIN / END_USER / DEV),
+   - valid_from / valid_to,
+   - doc_id, source_url, space_key (dla Confluence).
+
+Daj proszę znać, czy możemy to traktować jako bazę do szczegółowego designu, czy już teraz coś powinno wylecieć / dojść.
+
+Pozdrawiam,
+Kasia
+
+--
+Katarzyna Pawlak
+Program Manager | SZPILEX.ai
+Dział: Product Delivery
+
+
+Od: Marek Jaworski <marek.jaworski@alphacloud.com>
+Wysłano: 2025-03-17 10:02
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+DW: security@alphacloud.com
+Temat: RAG Docs – wstępny zakres źródeł i architektury indeksu
+
+Cześć,
+co do źródeł – OK, z jednym dużym “ale”:
+
+- security i legal mocno naciskają, żeby:
+  - na MVP ograniczyć się do publicznych treści,
+  - tzn. help center + public AlphaCloud Docs (bez Confluence "internal").
+
+Ryzyko: część przestrzeni Confluence zawiera nazwy klientów i fragmenty logów → potencjalne dane osobowe.
+
+Propozycja z naszej strony:
+- Etap 1:
+  - docs_public + help center (Zendesk),
+- Etap 2:
+  - dopiero Confluence, po przejściu audytu DPO.
+
+Marek
+
+--
+Marek Jaworski
+VP Product | AlphaCloud
+
+
+Od: Joanna Felińska <joanna.felinska@szpilex.ai>
+Wysłano: 2025-03-17 11:15
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>, Marek Jaworski <marek.jaworski@alphacloud.com>
+DW: data-team@szpilex.ai
+Temat: RAG Docs – wstępny zakres źródeł i architektury indeksu
+
+Cześć,
+z perspektywy data/ML:
+
+- brak Confluence w MVP:
+  - uprości nam pierwszą iterację (mniej różnorodnych formatów),
+  - ale RAG będzie miał mniej kontekstu dot. edge-case’ów i znanych bugów.
+
+Proponuję technicznie:
+- przygotować pipeline ingestion, który:
+  - ma abstrakcyjny "SourceType" (DOCS / ZENDESK / CONFLUENCE),
+  - w MVP działa tylko DOCS + ZENDESK,
+  - później dołączymy CONFLUENCE bez przerabiania całego kodu.
+
+Encje, które będziemy ekstrahować z dokumentów (do JSONB w kolumnie metadata):
+- ProductName,
+- FeatureFlag,
+- BreakingChangeFlag,
+- MinimalPlan (FREE / STANDARD / ENTERPRISE),
+- API_Endpoint (np. /v3/projects/{projectId}/reports).
+
+Joanna
+
+--
+Joanna Felińska
+Lead Data Scientist | SZPILEX.ai
+
+
+Od: Security Team AlphaCloud <security@alphacloud.com>
+Wysłano: 2025-03-17 12:03
+Do: Marek Jaworski <marek.jaworski@alphacloud.com>, Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+DW: dpo@alphacloud.com
+Temat: RAG Docs – wymagania bezpieczeństwa (MVP)
+
+Cześć,
+z naszej strony warunki brzegowe:
+
+1) Data residency:
+   - wszystkie embeddingi i indeksy muszą być w regionie EU (Azure: westeurope),
+   - backupy również w EU (geo-replika do northeurope).
+
+2) PII:
+   - RAG nie może zwracać imion/nazwisk klientów ani domen z logów,
+   - wymagamy filtra PII na poziomie post-processingu (maskowanie adresów e-mail i domen klientów).
+
+3) Audyt:
+   - potrzebujemy tabeli rag_query_log:
+     - user_id (agent/support),
+     - query_text_hash,
+     - top_k_docs_ids,
+     - timestamp,
+     - rag_session_id.
+
+Dopóki nie mamy pewności, że w źródłach nie ma danych osobowych, Confluence jest out-of-scope.
+
+Security
+
+
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-03-17 13:30
+Do: Security Team AlphaCloud <security@alphacloud.com>, Marek Jaworski <marek.jaworski@alphacloud.com>
+DW: data-team@szpilex.ai, dpo@alphacloud.com
+Temat: RAG Docs – aktualizacja zakresu MVP po uwagach Security
+
+Cześć,
+dzięki za doprecyzowanie.
+
+Nowy zakres MVP:
+
+- Źródła:
+  - AlphaCloud Docs (tylko sekcja public),
+  - Help Center (Zendesk, artykuły public).
+- Architektura:
+  - Azure PostgreSQL Flexible Server (region: westeurope),
+  - DB: rag_docs, tabela: documents (id, content, embedding, metadata JSONB, source_type, version),
+  - logi w rag_query_log (schema: audit).
+- PII:
+  - post-processing:
+    - maskowanie e-maili (user@****.com),
+    - maskowanie domen klientów (***.customer.com),
+    - regex + NER do wychwytywania przypadkowych nazw własnych.
+
+Confluence odkładamy na Etap 2, ale projektujemy pipeline ingestion z polem SourceType, żeby potem tylko "podpiąć" nowe źródło.
+
+Kasia
+
+
+Od: DPO AlphaCloud <dpo@alphacloud.com>
+Wysłano: 2025-03-17 15:05
+Do: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>, Security Team AlphaCloud <security@alphacloud.com>
+DW: Marek Jaworski <marek.jaworski@alphacloud.com>
+Temat: RAG Docs – uwagi DPO do zakresu MVP
+
+Cześć,
+potwierdzam, że:
+
+- przy źródłach ograniczonych do public docs + help center,
+- przy data residency wyłącznie w EU,
+- oraz przy maskowaniu e-maili/domen:
+
+możemy potraktować projekt jako "low risk" z perspektywy ochrony danych osobowych.
+
+Dwa dodatkowe wymagania:
+- retencja logów w rag_query_log max 12 miesięcy,
+- wpisanie procesu do rejestru czynności przetwarzania (ID: DPO-2025-021).
+
+DPO AlphaCloud
+
+
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-03-17 16:10
+Do: Marek Jaworski <marek.jaworski@alphacloud.com>
+DW: Security Team AlphaCloud <security@alphacloud.com>, dpo@alphacloud.com, data-team@szpilex.ai
+Temat: RAG Docs – finalne podsumowanie zakresu MVP
+
+Cześć,
+podsumowanie nitki (żebyśmy wszyscy mieli jeden punkt odniesienia):
+
+- Zakres źródeł w MVP:
+  - AlphaCloud Docs (public),
+  - Help Center (Zendesk, public),
+  - BEZ Confluence (Etap 2 po audycie).
+- Kluczowe encje/metadata:
+  - product_area, version, audience, valid_from, valid_to,
+  - ProductName, FeatureFlag, BreakingChangeFlag, MinimalPlan, API_Endpoint.
+- Bezpieczeństwo:
+  - region EU (westeurope + northeurope),
+  - maskowanie PII w odpowiedziach,
+  - logi w rag_query_log: user_id, query_text_hash, doc_ids, timestamp, rag_session_id, z retencją 12 miesięcy.
+- Compliance:
+  - wpis do rejestru: DPO-2025-021 (DPO potwierdził low risk).
+
+W praktyce wracamy do “bardziej zachowawczego” MVP (tylko public docs + help), ale cała architektura ingestion/indexu jest przygotowana pod dołożenie Confluence w Etapie 2 bez przepisywania systemu.
+
+Jeśli z Waszej strony to jest zgodne z ustaleniami, zamykam tę nitkę i przenosimy szczegóły do Confluence (proj: RAG-DOC-ALPHA).
+
+Kasia

@@ -1,0 +1,183 @@
+
+Od: Michał Wróbel <michal.wrobel@szpilex.ai>
+Wysłano: 2025-04-02 08:55
+Do: Agnieszka Rutkowska <agnieszka.rutkowska@telgo.pl>
+DW: oss-team@telgo.pl, cx@telgo.pl
+Temat: Voicebot TelGO – techniczny flow diagnostyki (MVP)
+
+Cześć,
+w nawiązaniu do wczorajszego technical deep-dive, poniżej proponowany flow:
+
+1) Identyfikacja:
+   - klient podaje numer usługi (ServiceId) lub numer telefonu,
+   - voicebot odpytuje BSS (endpoint: /api/v2/customers/byServiceId),
+   - weryfikacja SMS OTP (6 cyfr).
+
+2) Diagnostyka:
+   - wywołanie OSS:
+     - /api/v1/lineTest (ADSL/VDSL),
+     - /api/v1/ontStatus (FTTH),
+   - odczyt kluczowych parametrów:
+     - sync_status, snr_margin, line_att, ont_uptime, last_restart_timestamp.
+
+3) Decyzje:
+   - jeśli:
+     - sync_status = DOWN lub ont offline > 10 min → zgłoszenie awarii,
+   - jeśli:
+     - parametry w normie → proponujemy restart routera zdalnie (endpoint: /api/v1/cpe/reboot).
+
+4) Eskalacje:
+   - jeśli voicebot nie rozwiąże problemu w 2 krokach → transfer do konsultanta ze streszczeniem wstępnej diagnozy.
+
+Zakładamy SLA odpowiedzi z OSS/BSS < 3 s. W logach voicebota chcemy zapisywać pełne payloady z OSS (maskując dane osobowe).
+
+Daj znać, czy powyższy flow jest OK jako MVP.
+
+Michał
+
+--
+Michał Wróbel
+Product Manager – Telco Automation | SZPILEX.ai
+
+
+Od: Agnieszka Rutkowska <agnieszka.rutkowska@telgo.pl>
+Wysłano: 2025-04-02 09:40
+Do: Michał Wróbel <michal.wrobel@szpilex.ai>
+DW: oss-team@telgo.pl, cx@telgo.pl
+Temat: Voicebot TelGO – techniczny flow diagnostyki (MVP)
+
+Cześć,
+flow wygląda dobrze, ale mamy kilka uwag od OSS:
+
+- /api/v1/lineTest:
+  - test “pełny” trwa do 25 s, nie możemy go wołać w real-time z voicebota,
+  - jest też test “szybki” (mode=FAST, ~3–5 s), z ograniczonym zakresem parametrów.
+
+- /api/v1/cpe/reboot:
+  - mamy limit 5 żądań / godzinę / CPE,
+  - powinniśmy logować ReasonCode (VOICEBOT / AGENT / CUSTOMER_PORTAL).
+
+Propozycja:
+- w MVP korzystamy tylko z “FAST” testu linii,
+- pełny test robimy tylko po stronie agenta (z panelu).
+
+Ryzyko: inaczej klienci będą czekać w ciszy na linii, a to fatalne UX.
+
+Agnieszka
+
+--
+Agnieszka Rutkowska
+Tribe Lead – Digital Care | TelGO
+
+
+Od: OSS Team TelGO <oss-team@telgo.pl>
+Wysłano: 2025-04-02 10:12
+Do: Michał Wróbel <michal.wrobel@szpilex.ai>, Agnieszka Rutkowska <agnieszka.rutkowska@telgo.pl>
+Temat: Voicebot TelGO – techniczny flow diagnostyki (MVP)
+
+Cześć,
+doprecyzowanie z naszej strony:
+
+- endpointy:
+  - /api/v1/lineTest?mode=FAST&serviceId=...,
+  - /api/v1/cpe/reboot?cpeId=...&reason=VOICEBOT.
+
+- limity:
+  - lineTest FAST – max 60 req/min per tenant,
+  - reboot – jak pisała Agnieszka, 5/h/CPE.
+
+Prosimy:
+- w warstwie voicebota:
+  - dodać throttling (np. Kafka topic: telgo-line-tests, max concurrency 10),
+  - jeśli limit przekroczony → komunikat “Mamy kolejkę testów, spróbuj za kilka minut”.
+
+OSS Team
+
+
+Od: Michał Wróbel <michal.wrobel@szpilex.ai>
+Wysłano: 2025-04-02 11:05
+Do: OSS Team TelGO <oss-team@telgo.pl>, Agnieszka Rutkowska <agnieszka.rutkowska@telgo.pl>
+DW: cx@telgo.pl
+Temat: Voicebot TelGO – techniczny flow diagnostyki (MVP)
+
+Dzięki,
+aktualizuję flow:
+
+- Diagnostyka:
+  - używamy TYLKO lineTest FAST (3–5 s),
+  - wołamy przez kolejkę:
+    - Kafka topic: line-test-requests (key: ServiceId),
+    - mikroserwis “line-tester” odpytuje OSS i odsyła wynik na topic: line-test-results.
+
+- Voicebot:
+  - w trakcie oczekiwania na wynik mówi:
+    - “Wykonuję szybki test linii. To potrwa kilka sekund...”
+  - jeśli przekroczymy limit / timeout:
+    - komunikat o kolejce + opcja:
+      - przejście do zgłoszenia awarii,
+      - lub transfer do konsultanta.
+
+Reboot CPE:
+- logujemy ReasonCode=VOICEBOT,
+- dodamy limiter: max 2 reboot’y / 24 h / ServiceId z poziomu voicebota.
+
+Michał
+
+
+Od: Zespół CX TelGO <cx@telgo.pl>
+Wysłano: 2025-04-02 12:20
+Do: Michał Wróbel <michal.wrobel@szpilex.ai>, Agnieszka Rutkowska <agnieszka.rutkowska@telgo.pl>
+Temat: Voicebot TelGO – scenariusze brzegowe i język komunikatów
+
+Cześć,
+z perspektywy CX:
+
+- potrzebujemy osobnego flow na:
+  - zgłoszenia biznesowe (“faktura”, “zmiana pakietu”) – nie powinno wpadać w diagnostykę,
+  - przypadki, gdy klient już dzwonił w tej samej sprawie w ciągu ostatnich 24 h.
+
+Prosimy:
+- dodać encję “IssueType”:
+  - TECH_ISSUE, BILLING, OFFER_CHANGE,
+- logika:
+  - jeśli ostatnie zgłoszenie TECH_ISSUE < 24 h i status “IN_PROGRESS”:
+    - voicebot ma powiedzieć:
+      - “Widzę, że już pracujemy nad Twoim zgłoszeniem nr X. Możemy przekazać dodatkowe informacje konsultantowi lub poczekać na zakończenie prac.”
+
+CX TelGO
+
+
+Od: Michał Wróbel <michal.wrobel@szpilex.ai>
+Wysłano: 2025-04-02 13:10
+Do: Zespół CX TelGO <cx@telgo.pl>, Agnieszka Rutkowska <agnieszka.rutkowska@telgo.pl>, OSS Team TelGO <oss-team@telgo.pl>
+Temat: Voicebot TelGO – podsumowanie ustaleń technicznych MVP
+
+Podsumowanie (żebyśmy mieli pełny obraz):
+
+- Zakres MVP:
+  - tylko TECH_ISSUE (brak internetu / wolne łącze),
+  - IssueType rozpoznawany przez NLU + sprawdzenie ostatnich zgłoszeń w BSS (endpoint: /api/v2/tickets/lastByServiceId).
+
+- Integracje:
+  - BSS:
+    - /customers/byServiceId,
+    - /tickets/lastByServiceId,
+  - OSS:
+    - /lineTest?mode=FAST,
+    - /cpe/reboot (Reason=VOICEBOT),
+  - kolejki:
+    - Kafka: line-test-requests, line-test-results.
+
+- Encje:
+  - ServiceId, IssueType, sync_status, ont_status, last_ticket_status, last_ticket_id, ReasonCode.
+
+- Ograniczenia:
+  - brak pełnego testu linii w czasie rozmowy,
+  - reboot CPE max 2/24 h z voicebota,
+  - przy otwartym zgłoszeniu z ostatnich 24 h → informacja o statusie zamiast nowego zgłoszenia.
+
+W praktyce odchodzimy od “magicznego” pełnego testu w czasie rozmowy, ale utrzymujemy sensowny balans pomiędzy UX, techniką i limitami OSS.
+
+Jeśli nie ma dodatkowych blokad, wrzucam te ustalenia do epika VOICEBOT-TELGO-MVP w Jirze.
+
+Michał

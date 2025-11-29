@@ -1,0 +1,42 @@
+Od: Michał Kostecki <michal.kostecki@edukids.cloud>
+Wysłano: 2025-02-01 08:40
+Do: Anna Grzelak <dyrektor@przedszkole-kolorowy-swiat.pl>
+DW: Joanna Lis <joanna.lis@przedszkole-kolorowy-swiat.pl>
+Temat: EduKids – raporty dla gminy i dotacji
+
+Dzień dobry,
+zgodnie z rozmową telefoniczną, raporty dla gminy powinny obejmować:
+
+- liczbę dzieci zapisanych w danym miesiącu,
+- liczbę dni obecności / nieobecności per dziecko,
+- listę dzieci z orzeczeniami (bez danych medycznych, tylko flaga "orzeczenie TAK/NIE"),
+- informację o liczbie dzieci korzystających z wyżywienia.
+
+Chcemy zbudować generator raportów tak, abyście mogli wyklikać zakres dat i od razu wygenerować plik w wymaganym przez gminę formacie.
+
+Czy są jeszcze jakieś pola, które gmina regularnie wymaga?
+
+Pozdrawiam,
+Michał
+
+--
+Michał Kostecki
+Product Owner | EduKids.cloud
+
+
+Od: Anna Grzelak <dyrektor@przedszkole-kolorowy-swiat.pl>
+Wysłano: 2025-02-01 09:12
+Do: Michał Kostecki <michal.kostecki@edukids.cloud>
+DW: Joanna Lis <joanna.lis@przedszkole-kolorowy-swiat.pl>
+Temat: EduKids – raporty dla gminy i dotacji
+
+Dzień dobry,
+gmina czasem prosi też o:
+
+- liczbę dzieci z innych gmin,
+- listę dzieci z dietami (bez szczegółów, tylko informacja "dieta TAK/NIE"),
+- zestawienie frekwencji per grupa.
+
+Ryzyko: każdy urząd potrafi mieć trochę inne wymagania – dobrze, jeśli pola będą konfigurowalne.
+
+Anna

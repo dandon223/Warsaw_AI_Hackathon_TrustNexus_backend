@@ -1,0 +1,64 @@
+Od: Szymon Ratajczak <szymon.ratajczak@flowboard.io>
+Wysłano: 2025-01-27 09:00
+Do: Dorota Stach <dorota.stach@devhouse.pl>
+DW: Tech Leads <techleads@devhouse.pl>
+Temat: FlowBoard – konfiguracja tablic Kanban
+
+Cześć Dorota,
+na podstawie warsztatów z zespołami dev proponujemy defaultową tablicę:
+
+- Backlog
+- Selected for Development
+- In Progress
+- Code Review
+- Testing
+- Ready for Release
+- Done
+
+Dodatkowo:
+- limity WIP na "In Progress" i "Code Review",
+- SLA na "Code Review" (max 2 dni).
+
+Czy takie ustawienia pasują do Waszych procesów, czy potrzebne są dodatkowe kolumny (np. "Blocked")?
+
+Szymon
+
+--
+Szymon Ratajczak
+Product Manager | FlowBoard
+
+
+Od: Dorota Stach <dorota.stach@devhouse.pl>
+Wysłano: 2025-01-27 09:42
+Do: Szymon Ratajczak <szymon.ratajczak@flowboard.io>
+DW: Tech Leads <techleads@devhouse.pl>
+Temat: FlowBoard – konfiguracja tablic Kanban
+
+Cześć,
+potrzebujemy jednak kolumny "Blocked":
+- przydaje się przy zewnętrznych zależnościach (np. czekamy na klienta),
+- chcemy raportować ile pracy "stoi" za długo.
+
+Limity WIP – OK, ale chcemy, żeby dało się je konfigurować per zespół.
+
+Dorota
+
+--
+Dorota Stach
+Head of Delivery | DevHouse
+
+
+Od: Szymon Ratajczak <szymon.ratajczak@flowboard.io>
+Wysłano: 2025-01-27 10:20
+Do: Dorota Stach <dorota.stach@devhouse.pl>, Tech Leads <techleads@devhouse.pl>
+Temat: FlowBoard – konfiguracja tablic Kanban
+
+Dzięki,
+dodamy:
+- kolumnę "Blocked",
+- konfigurację WIP per tablica/zespół,
+- raport "czas w kolumnie" (ile karta spędza w In Progress, Blocked itd.).
+
+Ryzyko: przy zbyt wielu customizacjach tablice między zespołami staną się nieporównywalne – warto wypracować kilka standardów.
+
+Szymon

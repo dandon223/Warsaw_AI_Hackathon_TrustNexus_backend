@@ -1,0 +1,185 @@
+
+Od: Ewelina Szymańska <ewelina.szymanska@softtalent.ai>
+Wysłano: 2025-02-17 09:10
+Do: Marek Kołodziej <marek.kolodziej@hrcloud.pl>
+DW: Lidia Rogowska <lidia.rogowska@hrcloud.pl>, legal@hrcloud.pl
+Temat: ATS – automatyczny scoring kandydatów (propozycja zakresu)
+
+Cześć Marku,
+zgodnie z obietnicą – wstępna propozycja modułu automatycznego scoringu:
+
+- scoring 0–100 oparty o:
+  - dopasowanie kompetencji do oferty (na podstawie CV i słów kluczowych),
+  - doświadczenie w latach,
+  - znajomość języków,
+- ATS:
+  - sortuje kandydatów wg wyniku,
+  - sugeruje "shortlistę" dla rekrutera.
+
+Zakładamy, że scoring jest tylko REKOMENDACJĄ, a ostateczna decyzja należy do rekrutera.
+
+Daj znać, czy to jest kierunek, który Wam odpowiada.
+
+Ewelina
+
+--
+Ewelina Szymańska
+Product Manager | SoftTalent.ai
+
+
+Od: Lidia Rogowska <lidia.rogowska@hrcloud.pl>
+Wysłano: 2025-02-17 10:02
+Do: Ewelina Szymańska <ewelina.szymanska@softtalent.ai>
+DW: Marek Kołodziej <marek.kolodziej@hrcloud.pl>, legal@hrcloud.pl
+Temat: ATS – automatyczny scoring kandydatów (propozycja zakresu)
+
+Cześć,
+z HR-owego punktu widzenia:
+- super, że scoring nam pomaga, ale:
+  - boimy się "czarnej skrzynki",
+  - jest ryzyko nieuświadomionych biasów (wiek, płeć, uczelnia).
+
+Chciałabym:
+- możliwość wyłączenia scoringu dla określonych rekrutacji (np. programy stażowe),
+- wgląd w to, które czynniki miały największy wpływ na wynik (taki "explainability light").
+
+Lidia
+
+--
+Lidia Rogowska
+HR Business Partner | HRcloud
+
+
+Od: Dział Prawny HRcloud <legal@hrcloud.pl>
+Wysłano: 2025-02-17 11:15
+Do: Ewelina Szymańska <ewelina.szymanska@softtalent.ai>, Lidia Rogowska <lidia.rogowska@hrcloud.pl>, Marek Kołodziej <marek.kolodziej@hrcloud.pl>
+Temat: ATS – automatyczny scoring kandydatów (propozycja zakresu)
+
+Dzień dobry,
+z perspektywy prawnej:
+
+- musimy bardzo uważać na:
+  - potencjalną dyskryminację algorytmiczną,
+  - obowiązek informowania kandydata o zautomatyzowanym profilowaniu (RODO).
+
+Rekomendacja:
+- na start NIE wprowadzać automatycznego odrzucania kandydatów na podstawie scoringu,
+- scoring tylko jako wsparcie rekrutera,
+- ATS musi umożliwiać proces "bez scoringu" (np. pełna lista kandydatów w random order).
+
+Dział Prawny
+
+
+Od: Marek Kołodziej <marek.kolodziej@hrcloud.pl>
+Wysłano: 2025-02-17 12:05
+Do: Ewelina Szymańska <ewelina.szymanska@softtalent.ai>
+DW: Lidia Rogowska <lidia.rogowska@hrcloud.pl>, legal@hrcloud.pl
+Temat: ATS – automatyczny scoring kandydatów (propozycja zakresu)
+
+Cześć,
+biorąc pod uwagę powyższe:
+
+- na MVP rezygnujemy z "twardego" scoringu 0–100,
+- zostawmy:
+  - tagi dopasowania (np. "wysokie / średnie / niskie"),
+  - filtry kompetencji,
+  - opcjonalne sortowanie wg dopasowania, które rekruter może włączyć albo nie.
+
+Mówiąc wprost: odchodzimy od automatycznego rankingu, bardziej w stronę "asystenta wyszukiwania".
+
+Marek
+
+--
+Marek Kołodziej
+Head of Recruitment | HRcloud
+
+
+Od: Ewelina Szymańska <ewelina.szymanska@softtalent.ai>
+Wysłano: 2025-02-17 13:20
+Do: Marek Kołodziej <marek.kolodziej@hrcloud.pl>, Lidia Rogowska <lidia.rogowska@hrcloud.pl>, legal@hrcloud.pl
+Temat: ATS – automatyczny scoring kandydatów (propozycja zakresu)
+
+Cześć,
+OK, przebudowuję założenia:
+
+- MVP:
+  - brak punktowego scoringu,
+  - w zamian "match level" (low/medium/high) z prostym wyjaśnieniem (np. "spełnia 3/4 wymaganych technologii"),
+  - filtry + sortowanie według match level.
+
+- później (Etap 2):
+  - możemy wrócić do tematu scoringu, jeśli zobaczycie, że to Wam faktycznie pomaga.
+
+Czyli de facto cofamy się do bardziej "wyjaśnialnego" rozwiązania.
+
+Ewelina
+
+
+Od: CFO HRcloud <cfo@hrcloud.pl>
+Wysłano: 2025-02-20 09:40
+Do: Marek Kołodziej <marek.kolodziej@hrcloud.pl>, Ewelina Szymańska <ewelina.szymanska@softtalent.ai>
+DW: Lidia Rogowska <lidia.rogowska@hrcloud.pl>
+Temat: ATS – efektywność rekrutacji i automatyzacja
+
+Cześć,
+po ostatnim przeglądzie KPI rekrutacyjnych:
+- liczba otwartych ról rośnie,
+- time-to-hire nam się wydłuża.
+
+Zastanawiam się, czy rezygnacja z pełnego scoringu nie jest pójściem za bardzo "w bezpieczną stronę".
+Chciałbym, żeby:
+
+- chociaż część ról (np. masowe rekrutacje do call center) mogła korzystać z mocniejszej automatyzacji.
+
+Czy da się:
+- w wybranych procesach jednak włączyć "twardszy" scoring, ale z bardzo prostą logiką i pełną transparentnością?
+
+CFO
+
+
+Od: Ewelina Szymańska <ewelina.szymanska@softtalent.ai>
+Wysłano: 2025-02-20 10:30
+Do: CFO HRcloud <cfo@hrcloud.pl>, Marek Kołodziej <marek.kolodziej@hrcloud.pl>
+DW: Lidia Rogowska <lidia.rogowska@hrcloud.pl>, legal@hrcloud.pl
+Temat: ATS – efektywność rekrutacji i automatyzacja
+
+Cześć,
+proponuję kompromis:
+
+- dla ról "masowych" (call center, junior backoffice):
+  - scoring 0–100, ALE:
+    - oparty tylko o jasne kryteria (np. "tak/nie" dla wymagań),
+    - rekruter nadal widzi wszystkich kandydatów, scoring tylko zmienia kolejność listy.
+
+- dla ról "unikatowych":
+  - zostajemy przy match level (low/medium/high).
+
+Dodatkowo:
+- w UI pokażemy, co wpływa na wynik (np. "brak wymaganej technologii X").
+
+To jest trochę powrót do pierwotnego pomysłu, ale w wąskim zakresie, z większą transparentnością.
+
+Ewelina
+
+
+Od: Marek Kołodziej <marek.kolodziej@hrcloud.pl>
+Wysłano: 2025-02-20 11:15
+Do: Ewelina Szymańska <ewelina.szymanska@softtalent.ai>, CFO HRcloud <cfo@hrcloud.pl>
+DW: Lidia Rogowska <lidia.rogowska@hrcloud.pl>, legal@hrcloud.pl
+Temat: ATS – finalny zakres scoringu
+
+OK, ustalmy:
+
+- MVP:
+  - match level (low/medium/high) dla wszystkich ról,
+  - dodatkowo scoring 0–100 TYLKO dla ról masowych, z prostym, wyjaśnialnym algorytmem,
+- brak automatycznego odrzucania kandydatów,
+- pełna transparentność czynników scoringu w UI.
+
+Czyli:
+- koncept scoringu wraca częściowo (masówki),
+- dla reszty zostajemy przy "bezpieczniejszym" modelu.
+
+Jeśli wszyscy są OK, możemy traktować to jako finalny zakres.
+
+Marek

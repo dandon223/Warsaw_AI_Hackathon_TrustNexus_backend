@@ -1,0 +1,102 @@
+
+Od: Marta Wilczyńska <marta.wilczynska@deskflow.io>
+Wysłano: 2025-03-18 09:05
+Do: Paweł Adamik <pawel.adamik@citydesk.pl>
+DW: Joanna Mróz <joanna.mroz@citydesk.pl>
+Temat: DeskFlow – model rezerwacji biurek (wstępna propozycja)
+
+Cześć Pawle,
+wstępnie zakładamy:
+
+1. Rezerwacje:
+   - pracownicy mogą rezerwować biurko na cały dzień,
+   - maks. 10 przyszłych rezerwacji na osobę,
+   - brak overbookingu – jeśli biurko zajęte, nie da się go zarezerwować.
+
+2. Strefy:
+   - quiet zone,
+   - open space,
+   - phone booths.
+
+3. Widoczność:
+   - każdy widzi tylko dostępność, nie nazwiska innych użytkowników.
+
+Daj znać, czy możemy od tego startować.
+
+Marta
+
+--
+Marta Wilczyńska
+Product Manager | DeskFlow.io
+Dział: Workplace SaaS
+
+
+Od: Paweł Adamik <pawel.adamik@citydesk.pl>
+Wysłano: 2025-03-18 09:44
+Do: Marta Wilczyńska <marta.wilczynska@deskflow.io>
+DW: Joanna Mróz <joanna.mroz@citydesk.pl>
+Temat: DeskFlow – model rezerwacji biurek (wstępna propozycja)
+
+Cześć,
+to jest dobry punkt startu, ale:
+
+- w praktyce mamy problem z "ghost bookings":
+  - ktoś rezerwuje biurko i się nie pojawia,
+  - realnie biurko stoi puste.
+
+Chcę:
+- opcję lekkiego overbookingu (np. 110% miejsc),
+- dodatkowo: auto-zwolnienie biurka, jeśli użytkownik się nie "zameldował" w ciągu 30 minut od rozpoczęcia rezerwacji.
+
+Ryzyko: bez tego system nie poprawi realnej dostępności.
+
+Paweł
+
+--
+Paweł Adamik
+Head of Operations | CityDesk
+
+
+Od: Marta Wilczyńska <marta.wilczynska@deskflow.io>
+Wysłano: 2025-03-18 10:20
+Do: Paweł Adamik <pawel.adamik@citydesk.pl>, Joanna Mróz <joanna.mroz@citydesk.pl>
+Temat: DeskFlow – model rezerwacji biurek (wstępna propozycja)
+
+OK, czyli zmieniamy założenia:
+
+- wprowadzamy:
+  - check-in w aplikacji lub przez QR na biurku,
+  - auto-cancel po 30 minutach bez check-inu,
+  - opcjonalne overbooking per strefa (np. 10% dla open space).
+
+Na MVP proponuję:
+- domyślnie overbooking wyłączony,
+- ale konfiguracja dostępna w panelu admina (możecie sami włączyć na wybranych piętrach).
+
+Brzmi sensownie?
+
+Marta
+
+
+Od: Joanna Mróz <joanna.mroz@citydesk.pl>
+Wysłano: 2025-03-18 11:05
+Do: Marta Wilczyńska <marta.wilczynska@deskflow.io>
+DW: Paweł Adamik <pawel.adamik@citydesk.pl>
+Temat: DeskFlow – model rezerwacji biurek (wstępna propozycja)
+
+Hej,
+to jest kompromis, którego szukaliśmy:
+
+- na start:
+  - brak overbookingu (żeby najpierw przyzwyczaić ludzi),
+  - check-in + auto-cancel po 30 minutach,
+- po 2–3 miesiącach:
+  - włączymy overbooking tylko w open space, na poziomie 5–10%.
+
+W praktyce wracamy więc do "braku overbookingu" w MVP, ale już z mechanizmem, który później pozwoli to bezboleśnie rozszerzyć.
+
+Joanna
+
+--
+Joanna Mróz
+Community Manager | CityDesk

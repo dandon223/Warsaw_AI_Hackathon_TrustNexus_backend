@@ -1,0 +1,27 @@
+
+Od: Krzysztof Dębski <krzysztof.debski@enerlytics.io>
+Wysłano: 2025-02-06 08:50
+Do: Ewa Słowik <ewa.slowik@metalpro.pl>
+DW: Jakub Rosiński <jakub.rosinski@metalpro.pl>
+Temat: Enerlytics – zakres monitoringu energii (wstępny)
+
+Cześć Ewo,
+propozycja na start:
+
+- zbieramy dane:
+  - główny licznik energii,
+  - liczniki na liniach produkcyjnych A/B/C,
+  - częstotliwość próbkowania: co 1 minutę.
+
+- dashboard:
+  - zużycie godzinowe i dzienne,
+  - porównanie linii A/B/C,
+  - alert, jeśli przekroczymy ustalony limit mocy.
+
+Szacuję ok. 6 tygodni pracy do prostego MVP.
+
+Krzysiek
+
+--
+Krzysztof Dębski
+IoT Product Lead | Enerlytics.io

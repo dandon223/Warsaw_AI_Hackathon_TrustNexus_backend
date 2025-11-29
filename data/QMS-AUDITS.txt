@@ -1,0 +1,72 @@
+
+Od: Robert Musiał <robert.musial@qmetrix.io>
+Wysłano: 2025-01-28 08:55
+Do: Katarzyna Duda <katarzyna.duda@metalform.pl>
+DW: jakosc@metalform.pl
+Temat: QMetrix – audyty jakości i obsługa niezgodności
+
+Cześć Kasiu,
+na start proponuję:
+
+- audyty:
+  - checklisty per linia produkcyjna,
+  - ocena "zaliczone / niezaliczone" na poziomie pytania.
+
+- niezgodności:
+  - każde "niezaliczone" pytanie automatycznie tworzy rekord niezgodności,
+  - wymagane jest przypisanie właściciela i terminu korekty.
+
+Dzięki temu nic nam nie "ucieknie" z audytów.
+
+Robert
+
+--
+Robert Musiał
+QMS Product Lead | QMetrix.io
+
+
+Od: Katarzyna Duda <katarzyna.duda@metalform.pl>
+Wysłano: 2025-01-28 09:30
+Do: Robert Musiał <robert.musial@qmetrix.io>
+DW: jakosc@metalform.pl
+Temat: QMetrix – audyty jakości i obsługa niezgodności
+
+Cześć,
+problem jest taki, że:
+
+- część "niezaliczeń" to drobnostki (brak podpisu, źle odłożony formularz),
+- gdy z wszystkiego robimy niezgodność:
+  - system robi się przeładowany,
+  - ludzie przestają traktować zgłoszenia poważnie.
+
+Proponuję:
+- rozróżnić: uwaga / niezgodność,
+- tylko część pytań w checkliście oznaczyć jako "krytyczne" (tam automatycznie tworzymy niezgodność).
+
+Kasia
+
+--
+Katarzyna Duda
+Kierownik Działu Jakości | MetalForm
+
+
+Od: Robert Musiał <robert.musial@qmetrix.io>
+Wysłano: 2025-01-28 10:05
+Do: Katarzyna Duda <katarzyna.duda@metalform.pl>
+DW: jakosc@metalform.pl
+Temat: QMetrix – audyty jakości i obsługa niezgodności
+
+Jasne, zmieniamy założenia:
+
+- checklisty:
+  - pytania: normalne / krytyczne,
+- wynik audytu:
+  - niezaliczone pytanie normalne → uwaga,
+  - niezaliczone pytanie krytyczne → automatyczna niezgodność.
+
+Dodatkowo:
+- w UI damy filtr: "tylko niezgodności", żeby nie mieszać ich z drobnymi uwagami.
+
+Czyli cofamy się z "wszystko = niezgodność" do bardziej realistycznego podziału.
+
+Robert

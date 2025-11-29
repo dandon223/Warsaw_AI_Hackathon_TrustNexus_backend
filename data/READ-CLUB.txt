@@ -1,0 +1,26 @@
+Temat: Klub książki produktowo-tech – edycja Q2
+Od: Anna Wysocka <anna.wysocka@szpilex.ai>
+Wysłano: 2025-04-11 16:10
+Do: pm-team@szpilex.ai, ml-leads@szpilex.ai
+
+Cześć,
+
+rusza kolejna edycja naszego firmowego “Klubu książki produktowo-tech”.
+
+Książka na Q2:
+- “Inspired” – Marty Cagan (wersja PL/EN, zależnie co kto ma pod ręką).
+
+Format:
+- spotkanie raz w miesiącu (Teams),
+- omawiamy 2–3 rozdziały,
+- patrzymy na nasze projekty (RAG, voicebot, monitoring ML)
+  przez pryzmat tego, co autor pisze o discovery/delivery.
+
+Pierwsze spotkanie:
+- 2025-04-30, godz. 17:00–18:00.
+
+Nie ma formalnych zapisów,
+ale jeśli chcesz być na liście do zaproszeń w kalendarzu,
+odpisz “ja” na tego maila.
+
+Anna

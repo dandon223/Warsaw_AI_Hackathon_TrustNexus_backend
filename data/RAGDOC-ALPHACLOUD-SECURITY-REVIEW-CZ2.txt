@@ -1,0 +1,47 @@
+Od: Katarzyna Pawlak <katarzyna.pawlak@szpilex.ai>
+Wysłano: 2025-04-18 11:05
+Do: Security Team AlphaCloud <security@alphacloud.com>
+DW: dpo@alphacloud.com, marek.jaworski@alphacloud.com, data-team@szpilex.ai
+Temat: RAG Docs – wymagania security przed włączeniem Confluence
+
+Cześć,
+
+stan na dziś:
+
+1) Redaction:
+   - mamy post-processing PII na wyjściu (maskowanie maili, domen, nazw własnych),
+   - dodatkowo:
+     - pipeline ingestion dla Confluence ma krok “pre-index redaction”:
+       - regex na domeny klientów,
+       - heurystyki na logi (wzorce typu “ERROR at ...”),
+   - NIE usuwamy jeszcze całych paragrafów, tylko maskujemy fragmenty.
+
+2) Scope:
+   - mamy pole SourceType (DOCS / ZENDESK / CONFLUENCE),
+   - dodatkowo w metadata:
+     - space_key, space_name,
+   - w configu klienta możemy zdefiniować listę:
+     - allowed_space_keys + optional deny_list (np. HR, LEGAL).
+
+3) Audyt:
+   - w rag_query_log dopiszemy:
+     - kolumnę top_k_sources JSONB,
+     - np. ["CONFLUENCE:ENG_GUIDES", "DOCS:PUBLIC"].
+
+To, czego brakuje:
+- centralnej deny-list po stronie platformy (obecnie config jest na poziomie klienta),
+- automatycznego raportu “co dokładnie indeksujemy” (space → liczba dokumentów / słów).
+
+Propozycja:
+- dla pilota z Confluence:
+  - ograniczamy się do 2–3 “bezpiecznych” przestrzeni (np. “Customer Guides – Anonimized”),
+  - co tydzień generujemy raport z listą space_key + liczba dokumentów.
+
+Jeśli taki setup jest do zaakceptowania jako krok pośredni,
+możemy ruszyć z PoC i zebrać realne dane przed szerszym roll-outem.
+
+Kasia
+
+--
+Katarzyna Pawlak
+Program Manager | SZPILEX.ai

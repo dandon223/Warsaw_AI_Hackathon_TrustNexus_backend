@@ -1,0 +1,94 @@
+
+Od: Marta Celińska <marta.celinska@grantflow.org>
+Wysłano: 2025-03-05 09:10
+Do: Jan Kurek <jan.kurek@fundacja-otwarte-dlonie.pl>
+DW: Anna Błońska <anna.blonska@fundacja-otwarte-dlonie.pl>
+Temat: GrantFlow – automatyczny scoring wniosków (propozycja MVP)
+
+Cześć Jan,
+wstępna propozycja:
+
+1. Kryteria automatycznego scoringu:
+   - zgodność z obszarami programowymi (0–30 pkt),
+   - budżet w ramach limitów (0–20 pkt),
+   - doświadczenie organizacji (0–20 pkt),
+   - wpływ społeczny opisany we wniosku (0–30 pkt – analiza tekstu).
+
+2. Wykorzystanie:
+   - system sortuje wnioski wg wyniku,
+   - wnioski poniżej 40/100 trafiają od razu do puli "do odrzucenia".
+
+Zdaję sobie sprawę, że to dość agresywne cięcie, ale przy 2 000+ wniosków rocznie może uratować sporo czasu.
+
+Daj znać, czy taka automatyzacja jest dla Was akceptowalna.
+
+Marta
+
+--
+Marta Celińska
+Product Manager | GrantFlow.org
+Dział: Non-profit Solutions
+
+
+Od: Jan Kurek <jan.kurek@fundacja-otwarte-dlonie.pl>
+Wysłano: 2025-03-05 10:02
+Do: Marta Celińska <marta.celinska@grantflow.org>
+DW: Anna Błońska <anna.blonska@fundacja-otwarte-dlonie.pl>
+Temat: GrantFlow – automatyczny scoring wniosków (propozycja MVP
+
+Cześć,
+automatyzacja – tak, ale:
+
+- nie możemy mieć sytuacji, że algorytm "wyrzuca" wnioski bez ludzkiego wglądu,
+- część małych organizacji gorzej "sprzedaje się" w tekście, a robi świetną robotę lokalnie.
+
+Chciałbym:
+- scoring jako pomoc przy priorytetyzacji,
+- ale zero automatycznych odrzuceń.
+
+Jan
+
+--
+Jan Kurek
+Koordynator Programów Grantowych
+Fundacja Otwarte Dłonie
+
+
+Od: Anna Błońska <anna.blonska@fundacja-otwarte-dlonie.pl>
+Wysłano: 2025-03-05 10:25
+Do: Marta Celińska <marta.celinska@grantflow.org>, Jan Kurek <jan.kurek@fundacja-otwarte-dlonie.pl>
+Temat: GrantFlow – automatyczny scoring wniosków (propozycja MVP)
+
+Dodam:
+- z perspektywy transparentności ważne jest, żeby:
+  - dało się wyjaśnić, czemu dany wniosek ma niski wynik,
+  - członkowie komisji widzieli, które kryteria "zaniżyły" punkty.
+
+Proszę, żeby scoring był jawny i łatwy do wytłumaczenia.
+
+Anna
+
+--
+Anna Błońska
+Członkini Komisji Grantowej
+Fundacja Otwarte Dłonie
+
+
+Od: Marta Celińska <marta.celinska@grantflow.org>
+Wysłano: 2025-03-05 11:10
+Do: Jan Kurek <jan.kurek@fundacja-otwarte-dlonie.pl>, Anna Błońska <anna.blonska@fundacja-otwarte-dlonie.pl>
+Temat: GrantFlow – automatyczny scoring wniosków (propozycja MVP)
+
+Dzięki za szybki feedback.
+
+Aktualizuję założenia:
+- scoring:
+  - służy TYLKO do sortowania i podpowiedzi,
+  - żaden wniosek nie jest automatycznie odrzucany,
+- UI:
+  - dla każdego wniosku pokazujemy rozbicie na kryteria (ile punktów za co),
+  - zawsze widoczny jest komunikat "Decyzja należy do komisji, scoring ma charakter pomocniczy".
+
+Czyli wracamy do mniej "ostrej" wersji, ale z zachowaniem korzyści z automatyki.
+
+Marta

@@ -1,0 +1,29 @@
+
+Od: Adam Łojek <adam.lojek@mediline.cloud>
+Wysłano: 2025-02-14 08:55
+Do: dr Anna Ptak <anna.ptak@centrum-zdrowia24.pl>
+DW: rejestracja@centrum-zdrowia24.pl
+Temat: MediLine – zakres wizyt telemedycznych (MVP)
+
+Dzień dobry,
+propozycja na MVP:
+
+- typy wizyt:
+  - konsultacje kontrolne (internista),
+  - przedłużenie recepty,
+  - omówienie wyników badań,
+  - pierwszorazowe konsultacje dietetyczne.
+
+- proces:
+  - rejestracja online,
+  - płatność online,
+  - automatyczne wystawienie e-recepty / e-skierowania po zakończeniu wizyty (na podstawie notatki lekarza).
+
+Czy na tym etapie możemy założyć automatyzację recept/skierowań?
+
+Pozdrawiam,
+Adam
+
+--
+Adam Łojek
+Product Manager | MediLine.cloud

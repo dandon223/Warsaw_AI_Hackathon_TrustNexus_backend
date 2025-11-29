@@ -1,0 +1,27 @@
+Temat: Ankieta satysfakcji z projektów międzyfirmowych (TelGO / AlphaCloud / inni)
+Od: PMO SZPILEX.ai <pmo@szpilex.ai>
+Wysłano: 2025-04-07 10:45
+Do: pm-team@szpilex.ai
+
+Cześć,
+
+uruchomiliśmy krótką ankietę dot. współpracy z klientami w projektach międzyfirmowych (TelGO, AlphaCloud, inni).
+
+Cel:
+- lepiej zrozumieć, gdzie “przepalamy” czas na niepotrzebne statusy,
+- jak działają procesy decyzyjne po stronie klientów,
+- co możemy poprawić w naszych praktykach PM-owych.
+
+Ankieta:
+- średni czas wypełnienia: 6–8 minut,
+- pytania m.in. o:
+  - transparentność scope’u,
+  - eskalacje,
+  - jakość komunikacji w stylu “PM ↔ PM klienta”.
+
+Link znajdziesz w intranecie (kafelek “Ankieta PMO 2025 Q2”).
+Ankieta jest anonimowa, wyniki pokażemy zbiorczo na jednym z brown-bagów.
+
+Dzięki za poświęcony czas!
+Zespół PMO
+SZPILEX.ai

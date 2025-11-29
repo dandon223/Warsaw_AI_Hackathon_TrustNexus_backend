@@ -1,0 +1,69 @@
+
+Od: Piotr Rudnicki <piotr.rudnicki@szpilex.ai>
+Wysłano: 2025-03-06 09:00
+Do: leadership@szpilex.ai
+Temat: KnowledgeHub – struktura przestrzeni i uprawnienia (draft)
+
+Cześć,
+propozycja struktury:
+
+- przestrzenie:
+  - ENG,
+  - PRODUCT,
+  - SALES,
+  - CS,
+  - HR,
+  - FINANCE.
+
+- domyślne zasady:
+  - każdy ma dostęp "read" do wszystkich przestrzeni,
+  - edycja tylko w ramach własnego działu.
+
+Chcemy ułatwić cross-funkcyjną współpracę, stąd szeroki dostęp.
+
+Piotr
+
+--
+Piotr Rudnicki
+Internal Tools Lead | SZPILEX.ai
+
+
+Od: CFO SZPILEX.ai <cfo@szpilex.ai>
+Wysłano: 2025-03-06 09:35
+Do: Piotr Rudnicki <piotr.rudnicki@szpilex.ai>
+DW: leadership@szpilex.ai
+Temat: KnowledgeHub – struktura przestrzeni i uprawnienia (draft)
+
+Cześć,
+ogólnie kierunek mi się podoba, ale:
+
+- FINANCE:
+  - nie może być "read for all",
+  - część dokumentów (budżety, prognozy) jest wrażliwa.
+
+Proponuję:
+- FINANCE:
+  - domyślnie tylko dla zespołu finansów + zarządu,
+  - reszta firmy widzi tylko kilka "publicznych" stron (np. polityka rozliczeń delegacji).
+
+CFO
+
+
+Od: Piotr Rudnicki <piotr.rudnicki@szpilex.ai>
+Wysłano: 2025-03-06 10:05
+Do: CFO SZPILEX.ai <cfo@szpilex.ai>
+DW: leadership@szpilex.ai
+Temat: KnowledgeHub – struktura przestrzeni i uprawnienia (draft)
+
+Zgoda, doprecyzowuję:
+
+- ENG/PRODUCT/SALES/CS/HR:
+  - "read for all" jak w pierwotnej propozycji,
+- FINANCE:
+  - dwie strefy:
+    - FINANCE-PUBLIC (polityki, instrukcje) – dostęp dla wszystkich,
+    - FINANCE-PRIVATE (budżety, prognozy) – tylko finanse + zarząd.
+
+Czyli zawężamy "pełną" transparentność tylko tam, gdzie faktycznie nie ma ryzyka.
+
+Piotr

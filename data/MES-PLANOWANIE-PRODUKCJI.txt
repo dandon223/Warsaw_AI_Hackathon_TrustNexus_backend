@@ -1,0 +1,59 @@
+Od: Paweł Lichoń <pawel.lichon@factoryflow.io>
+Wysłano: 2025-01-19 08:55
+Do: Ewa Nowak <ewa.nowak@metaltech.pl>
+DW: Marek Czaja <marek.czaja@metaltech.pl>
+Temat: MES – zakres obsługi zleceń produkcyjnych
+
+Cześć Ewo,
+zgodnie z ustaleniami:
+
+1. System MES ma obsługiwać:
+   - zlecenia produkcyjne z ERP (statusy: PLANNED, IN_PROGRESS, DONE, SCRAPPED),
+   - raportowanie czasu pracy na gniazdach produkcyjnych,
+   - rejestrację przestojów z przyczyną.
+
+2. Integracja:
+   - import zleceń z ERP raz na 15 minut,
+   - eksport statusów zleceń z MES do ERP.
+
+Czy na MVP potrzebujecie również śledzenia partii materiału (traceability), czy to temat na kolejną fazę?
+
+Paweł
+
+--
+Paweł Lichoń
+Implementation Consultant | FactoryFlow.io
+Tel.: +48 609 000 321
+
+
+Od: Ewa Nowak <ewa.nowak@metaltech.pl>
+Wysłano: 2025-01-19 09:32
+Do: Paweł Lichoń <pawel.lichon@factoryflow.io>
+DW: Marek Czaja <marek.czaja@metaltech.pl>
+Temat: MES – zakres obsługi zleceń produkcyjnych
+
+Cześć,
+traceability jest ważne, ale nie na sam start.
+Na MVP:
+- wystarczy śledzenie na poziomie zlecenia,
+- ale chcemy mieć już w modelu danych możliwość późniejszego dodania numerów partii.
+
+Ryzyko: jeśli teraz to całkowicie pominiemy, późniejsza migracja będzie droga.
+
+Ewa
+
+--
+Ewa Nowak
+Kierownik Produkcji | MetalTech
+
+
+Od: Marek Czaja <marek.czaja@metaltech.pl>
+Wysłano: 2025-01-19 10:05
+Do: Paweł Lichoń <pawel.lichon@factoryflow.io>, Ewa Nowak <ewa.nowak@metaltech.pl>
+Temat: MES – zakres obsługi zleceń produkcyjnych
+
+Dodam z perspektywy utrzymania ruchu:
+- potrzebujemy katalogu przyczyn przestojów (np. awaria, brak materiału, brak operatora),
+- w przyszłości chcielibyśmy łączyć dane o przestojach z CMMS.
+
+Marek

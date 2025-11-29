@@ -1,0 +1,58 @@
+Od: Karol Małecki <karol.malecki@fleetmind.io>
+Wysłano: 2025-03-05 09:10
+Do: Joanna Baran <joanna.baran@poltranslog.pl>
+DW: Adam Lis <adam.lis@poltranslog.pl>
+Temat: System floty – potwierdzenie zakresu MVP (telemetria i GPS)
+
+Cześć Joanno,
+podsumowując nasze wczorajsze spotkanie:
+
+1. Zakres MVP systemu floty:
+   - monitorowanie lokalizacji pojazdów w czasie zbliżonym do rzeczywistego (odświeżanie co 30 sek.),
+   - podstawowe parametry telematyczne: prędkość, przebieg, czas pracy silnika, postój,
+   - widok mapy z filtrami (trasa dziś / ostatnie 7 dni),
+   - lista pojazdów z informacją: numer rejestracyjny, kierowca, status (w trasie / postój / serwis).
+
+2. Integracje:
+   - obecne urządzenia GPS (dostawca: TrackPro),
+   - import listy pojazdów z ERP (moduł "Majątek").
+
+3. Użytkownicy:
+   - dyspozytorzy,
+   - kierownicy transportu,
+   - dział administracji floty.
+
+Daj proszę znać, czy coś pominęliśmy albo czy są elementy, które koniecznie chcesz mieć już w MVP.
+
+Pozdrawiam,
+Karol
+
+--
+Karol Małecki
+Product Manager | FleetMind.io
+Dział: Fleet & Telematics Solutions
+Tel.: +48 600 321 987
+
+
+Od: Joanna Baran <joanna.baran@poltranslog.pl>
+Wysłano: 2025-03-05 10:02
+Do: Karol Małecki <karol.malecki@fleetmind.io>
+DW: Adam Lis <adam.lis@poltranslog.pl>
+Temat: System floty – potwierdzenie zakresu MVP (telemetria i GPS)
+
+Cześć,
+zakres wygląda bardzo sensownie.
+
+Doprecyzujmy tylko:
+- chcemy widzieć również status sygnału GPS (online/offline),
+- przydatna będzie flaga "ostatni kontakt z pojazdem" (data/godzina),
+- dla dyspozytorów kluczowe jest wskazanie, które pojazdy są najbliżej wskazanego punktu (np. adres klienta).
+
+Ryzyko operacyjne: brak aktualnej lokalizacji przy pilnych zleceniach → musimy jasno widzieć, że pojazd nie nadaje sygnału.
+
+Joanna
+
+--
+Joanna Baran
+Kierownik Działu Transportu | PolTransLog
+

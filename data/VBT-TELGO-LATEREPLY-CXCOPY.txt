@@ -1,0 +1,105 @@
+
+Od: Michał Wróbel <michal.wrobel@szpilex.ai>
+Wysłano: 2025-04-05 09:10
+Do: Zespół CX TelGO <cx@telgo.pl>
+DW: agnieszka.rutkowska@telgo.pl
+Temat: Voicebot TelGO – prośba o finalne copy komunikatów (diagnostyka)
+
+Cześć,
+
+potrzebujemy od Was finalnych tekstów komunikatów:
+- ekran startowy (powitanie),
+- informacja o teście linii,
+- propozycja reboot’u,
+- komunikat o kolejce testów (gdy przekroczymy limity OSS).
+
+Na razie mamy robocze wersje z warsztatu,
+ale zanim puścimy to na 100% ruchu,
+chciałbym mieć copy “po Waszej stronie” zatwierdzone.
+
+Jeśli podrzucicie finalne brzmienie do środy (2025-04-09),
+wciągniemy to do sprintu i pójdzie od razu na produkcję.
+
+Michał
+
+--
+Michał Wróbel
+Product Manager – Telco Automation | SZPILEX.ai
+
+
+Od: Zespół CX TelGO <cx@telgo.pl>
+Wysłano: 2025-04-16 11:25
+Do: Michał Wróbel <michal.wrobel@szpilex.ai>
+DW: agnieszka.rutkowska@telgo.pl, contact-center@telgo.pl
+Temat: Re: Voicebot TelGO – prośba o finalne copy komunikatów (diagnostyka)
+
+Cześć Michał,
+
+dopiero teraz odkryliśmy, że ten mail utknął nam w folderze “Do akceptacji” – przepraszamy za obsuwę.
+
+Zakładam, że już coś wdrożyliście (słyszeliśmy od agentów, że bot mówi “Sprawdzam parametry Twojej linii…”),
+ale mimo wszystko podrzucamy nasze propozycje:
+
+1) Powitanie:
+   - “Cześć, tu automatyczny asystent TelGO. Pomogę Ci sprawdzić, co dzieje się z Twoim internetem.”
+
+2) Test linii:
+   - zamiast:
+     - “Wykonuję test linii. To potrwa kilka sekund.”
+   - proponujemy:
+     - “Sprawdzam teraz jakość Twojego łącza. To może potrwać chwilkę, proszę zostań na linii.”
+
+3) Reboot:
+   - obecne (z nagrań):
+     - “Za chwilę zdalnie zrestartuję Twój router.”
+   - proponujemy:
+     - “Możemy zdalnie uruchomić ponownie Twój router. W tym czasie internet na chwilę przestanie działać. Czy się zgadzasz?”
+
+4) Kolejka testów:
+   - “Mamy w tej chwili kolejkę testów. Możemy przyjąć zgłoszenie awarii lub połączyć Cię z konsultantem.”
+
+Rozumiemy, że część z tego wymaga przeorania promptów,
+ale woleliśmy dosłać to późno niż wcale – bo obecne komunikaty są momentami zbyt techniczne.
+
+Daj znać:
+- co jest realne do wprowadzenia w najbliższych sprintach,
+- a co zostawimy na później.
+
+CX TelGO
+
+
+Od: Michał Wróbel <michal.wrobel@szpilex.ai>
+Wysłano: 2025-04-16 13:02
+Do: Zespół CX TelGO <cx@telgo.pl>
+DW: agnieszka.rutkowska@telgo.pl, contact-center@telgo.pl
+Temat: Re: Voicebot TelGO – prośba o finalne copy komunikatów (diagnostyka)
+
+Cześć,
+
+dzięki za copy – faktycznie, czas odpowiedzi trochę nam się rozjechał z planem, ale nic straconego :)
+
+Stan na dziś:
+- mamy na produkcji:
+  - robocze teksty z warsztatu,
+  - część z nich pokrywa się z Waszymi propozycjami, część jest mniej “ludzka”.
+
+Propozycja:
+1) Krótki termin (najbliższy sprint):
+   - wymienimy komunikaty:
+     - test linii,
+     - reboot routera,
+   - to są zmiany “1:1” w scenariuszu, bez wpływu na integracje.
+
+2) Kolejny sprint:
+   - przejedziemy całość promptów z Wami na callu
+   - i zrobimy cleanup językowy,
+   - plus mini A/B test na 10–20% ruchu (sprawdzimy, jak wpływa to na NPS).
+
+Dla jasności:
+- nie cofniemy się do “zero” – bot już żyje na produkcji,
+- ale potraktujemy ten pakiet copy jako “v2 języka”.
+
+Wrzucę Wasze propozycje do Jiry jako osobny task,
+żeby nikt więcej nie miał wymówki, że “mail się zakopał” ;)
+
+Michał

@@ -1,0 +1,78 @@
+Od: Łukasz Krupa <lukasz.krupa@szpilex.ai>
+Wysłano: 2025-02-10 09:30
+Do: Natalia Król <natalia.krol@ecom-client.com>, Bartosz Maj <bartosz.maj@szpilex.ai>
+Temat: RAG – wstępna propozycja architektury dla CC
+
+Cześć,
+propozycja architektury RAG dla Contact Center:
+- źródła: Zendesk KB, Confluence/Operations, regulaminy PDF, FAQ z www,
+- wektorówka: PostgreSQL + pgvector,
+- embeddingi: text-embedding-3-large,
+- LLM: gpt-4.1-mini z warstwą moderacji.
+
+Czy taka kombinacja pokrywa Wasze potrzeby biznesowe i compliance?
+
+Łukasz
+
+--
+Łukasz Krupa
+Solution Architect | SZPILEX.ai
+
+
+Od: Natalia Król <natalia.krol@ecom-client.com>
+Wysłano: 2025-02-10 11:02
+Do: Łukasz Krupa <lukasz.krupa@szpilex.ai>
+DW: Bartosz Maj <bartosz.maj@szpilex.ai>
+Temat: RAG – wstępna propozycja architektury dla CC
+
+Michał,
+z biznesowego punktu widzenia: tak, pod warunkiem że:
+- system będzie rozróżniał kraje (PL, DE, CZ) i dobierał treści wg kraju/języka,
+- będzie możliwość oznaczania artykułów jako “do wycofania” z datą ważności (np. stare promocje).
+
+Ryzyko: agent poda klientowi nieaktualne warunki zwrotu. Musimy mieć flagę valid_from / valid_to na poziomie dokumentu w indeksie.
+
+Natalia
+
+--
+Natalia Król
+Customer Service Director | eCom Client
+
+
+Od: Bartosz Maj <bartosz.maj@szpilex.ai>
+Wysłano: 2025-02-10 13:18
+Do: Łukasz Krupa <lukasz.krupa@szpilex.ai>, Natalia Król <natalia.krol@ecom-client.com>
+Temat: RAG – wstępna propozycja architektury dla CC
+
+Cześć,
+od strony technicznej:
+- pgvector + text-embedding-3-large jest OK,
+- rozdzielimy kolekcje na: kb_pl, kb_de, kb_cz, policy_global,
+- wprowadzimy meta-dane: country, language, channel (chat/phone/email), valid_from, valid_to.
+
+Zadanie po mojej stronie: draft schematu indeksu do 10 grudnia.
+
+Bartek
+
+--
+Bartosz Maj
+Backend Engineer | SZPILEX.ai
+
+
+Od: Łukasz Krupa <lukasz.krupa@szpilex.ai>
+Wysłano: 2025-02-10 15:45
+Do: Bartosz Maj <bartosz.maj@szpilex.ai>, Natalia Król <natalia.krol@ecom-client.com>
+Temat: RAG – wstępna propozycja architektury dla CC
+
+Dzięki,
+jeszcze jedna decyzja: priorytet źródeł, gdy RAG znajdzie konflikt:
+1. regulaminy PDF (policy_global),
+2. Zendesk KB (zatwierdzone artykuły),
+3. Confluence/Operations (robocze procedury).
+
+Jeśli dokumenty mają sprzeczne treści, odpowiedź ma wskazywać:
+“Na podstawie regulaminu X z dnia Y oraz artykułu KB Z...”.
+
+Dodajmy to jako logikę w warstwie post-processing.
+
+Łukasz
