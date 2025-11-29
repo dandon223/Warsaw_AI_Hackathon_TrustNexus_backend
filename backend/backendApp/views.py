@@ -10,7 +10,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 import pandas as pd
-from .emails import parse_mails_to_dataframe
+from .emails import parse_mails_to_dataframe, emails_to_csv
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Email
 
@@ -55,4 +55,18 @@ class EmailAPIView(APIView):  # type: ignore[misc]
         return Response(
         {"message": "Done"}, 
         status=status.HTTP_201_CREATED
-    )
+        )
+
+class SaveEmailsAPIView(APIView):  # type: ignore[misc]
+    def post(self, request: Request) -> Response:
+        email_path = request.data.get("email_path")
+        if email_path is None:
+            return Response(
+            {"message": "no email_path"}, 
+            status=status.HTTP_400_BAD_REQUEST 
+            )
+        emails_to_csv(email_path)
+        return Response(
+        {"message": "Done"}, 
+        status=status.HTTP_201_CREATED
+        )
