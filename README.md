@@ -3,13 +3,13 @@
 ## Backend
 
 ```
-cd backend
 curl -LsSf https://astral.sh/uv/install.sh | sh
 uv init
 ```
 
 
 ```
- uv run manage.py migrate
- uv run manage.py runserver
+cd backend
+uv run manage.py migrate
+uv run manage.py runserver
 ```
