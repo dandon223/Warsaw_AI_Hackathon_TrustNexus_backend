@@ -56,34 +56,34 @@ def parse_single_mail(mail_content):
         # Add "Od: " back to the beginning for easier parsing
         message_text = "Od: " + part.strip()
         
-        # Extract sender (nadawca)
+        # Extract sender
         sender_match = re.search(r'^Od:\s+(.+?)(?:\n|$)', message_text, re.MULTILINE)
-        nadawca_raw = sender_match.group(1).strip() if sender_match else None
+        sender_raw = sender_match.group(1).strip() if sender_match else None
         
         # Parse sender into name and email
-        nadawca_nazwa, nadawca_mail = parse_sender(nadawca_raw) if nadawca_raw else (None, None)
+        sender_name, sender_email = parse_sender(sender_raw) if sender_raw else (None, None)
         
-        # Extract date (data)
+        # Extract date
         date_match = re.search(r'Wysłano:\s+(.+?)(?:\n|$)', message_text, re.MULTILINE)
-        data = date_match.group(1).strip() if date_match else None
+        date = date_match.group(1).strip() if date_match else None
         
-        # Extract recipient (odbiorca)
+        # Extract recipient
         recipient_match = re.search(r'Do:\s+(.+?)(?:\n|$)', message_text, re.MULTILINE)
-        odbiorca_raw = recipient_match.group(1).strip() if recipient_match else None
+        recipient_raw = recipient_match.group(1).strip() if recipient_match else None
         
         # Handle multiple recipients (comma-separated) - take the first one
-        if odbiorca_raw:
+        if recipient_raw:
             # Split by comma and take the first recipient
-            first_recipient = odbiorca_raw.split(',')[0].strip()
-            odbiorca_nazwa, odbiorca_mail = parse_sender(first_recipient)
+            first_recipient = recipient_raw.split(',')[0].strip()
+            recipient_name, recipient_email = parse_sender(first_recipient)
         else:
-            odbiorca_nazwa, odbiorca_mail = None, None
+            recipient_name, recipient_email = None, None
         
-        # Extract subject (temat)
+        # Extract subject
         subject_match = re.search(r'Temat:\s+(.+?)(?:\n|$)', message_text, re.MULTILINE)
-        temat = subject_match.group(1).strip() if subject_match else None
+        subject = subject_match.group(1).strip() if subject_match else None
         
-        # Extract main content (message_content)
+        # Extract main content
         # Find the line after "Temat:" and extract everything until the next "Od:" or end
         content_match = re.search(r'Temat:\s+.+?\n\n(.+?)(?=\n\nOd:\s+|$)', message_text, re.DOTALL)
         if not content_match:
@@ -91,22 +91,22 @@ def parse_single_mail(mail_content):
             content_match = re.search(r'Temat:\s+.+?\n\n(.+)', message_text, re.DOTALL)
         
         if content_match:
-            tresc = content_match.group(1).strip()
+            content = content_match.group(1).strip()
             # Remove signature (everything after "--")
-            tresc = re.split(r'\n--\n', tresc)[0].strip()
+            content = re.split(r'\n--\n', content)[0].strip()
         else:
-            tresc = None
+            content = None
         
         # Only add message if we have at least sender or recipient
-        if nadawca_nazwa or nadawca_mail or odbiorca_nazwa or odbiorca_mail:
+        if sender_name or sender_email or recipient_name or recipient_email:
             messages.append({
-                'sender_name': nadawca_nazwa,
-                'sender_email': nadawca_mail,
-                'recipient_name': odbiorca_nazwa,
-                'recipient_email': odbiorca_mail,
-                'subject': temat,
-                'date': data,
-                'message_content': tresc
+                'sender_name': sender_name,
+                'sender_email': sender_email,
+                'recipient_name': recipient_name,
+                'recipient_email': recipient_email,
+                'subject': subject,
+                'date': date,
+                'message_content': content
             })
     
     return messages
