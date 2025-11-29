@@ -19,3 +19,14 @@ dependencies = [
     "pandas>=2.3.3",
     "python-dotenv>=1.2.1",
 ]
+
+[tool.ruff]
+line-length = 130
+
+[tool.ruff.lint]
+extend-select = ["E501"]
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "tab"
+docstring-code-format = true
