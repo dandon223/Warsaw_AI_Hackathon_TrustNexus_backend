@@ -2,6 +2,7 @@ import uuid
 from typing import Any, Dict, List
 
 from django.db import transaction
+from django.forms import model_to_dict
 from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.exceptions import NotFound, ValidationError
@@ -64,7 +65,8 @@ class AnalyzeEmailsView(APIView):  # type: ignore[misc]
         
         text_request = request.data.get("text", "")
 
-        resp = query_llm(text_request, list(emails))
-        print(text_request)
+        data =[model_to_dict(email) for email in emails]
+
+        resp = query_llm(text_request, data)
         
         return Response({"emails": {resp}}, status=status.HTTP_200_OK)
