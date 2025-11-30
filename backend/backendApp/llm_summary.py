@@ -15,7 +15,6 @@ from .test_connection import llm
 
 # Configure logging to both console and file
 def setup_logging(log_dir=None):
-
     # Create log filename with timestamp
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
@@ -45,28 +44,6 @@ class EmailInput(BaseModel):
 
 class EmailSummary(BaseModel):
     summary: str = Field(..., description="Concise summary of the email")
-    project_name: str | None = Field(
-        None, description="Name of the project or system (if mentioned)"
-    )
-    # key_requirements: list[str] = Field(
-    #     [], description="Array of key requirements, features, or specifications"
-    # )
-    # risks: list[str] = Field(
-    #     [], description="Array of risks, concerns, or issues mentioned"
-    # )
-    # decisions: list[str] = Field(
-    #     [], description="Array of decisions made or action items"
-    # )
-    # technical_details: list[str] = Field(
-    #     [],
-    #     description="Array of technical details (APIs, endpoints, databases, architectures)",
-    # )
-    # stakeholders: list[str] = Field(
-    #     [], description="Array of people, teams, or departments mentioned"
-    # )
-    # timeline: str | None = Field(
-    #     None, description="Any deadlines, dates, or timeline information (if mentioned)"
-    # )
     category: str | None = Field(
         None,
         description="Category of the email - you can choose widely used categories",
@@ -161,28 +138,23 @@ def add_model_results_to_df(df, merged_results):
 
 
 def add_summary_to_dataframe(
-    df: pd.DataFrame,
-    subject_column="subject",
-    content_column="message_content",
-    summary_column="summary",
-    model_name="meta-llama/Llama-3.3-70B-Instruct",
-    max_tokens=100,
+	df: pd.DataFrame,
+	subject_column='subject',
+	content_column='message_content',
+	summary_column='summary',
 ) -> pd.DataFrame:
-    """
-    Add summary column to DataFrame using LLM-based summarization.
+	"""
+	Add summary column to DataFrame using LLM-based summarization.
+	"""
+	df = df.copy()
+	summaries = []
+	skipped_count = 0
 
-    Args:
-        df: DataFrame with email data
-        subject_column: Name of subject column
-        content_column: Name of content column
-        summary_column: Name of summary column to create
-        model_name: OpenAI model name to use
-        max_tokens: Maximum tokens for summary
+	tasks = []
 
-    Returns:
-        DataFrame with added summary column
-    """
-    df = df.copy()
+	for _, row in df.iterrows():
+		subject = row.get(subject_column)
+		content = row.get(content_column)
 
     total_emails = len(df)
     logger.info(f"Starting to add summaries to DataFrame with {total_emails} emails")
