@@ -115,7 +115,7 @@ class AnalyzeEmailsView(APIView):  # type: ignore[misc]
 
 		text_request = request.data.get('text', '')
 
-		data = [model_to_dict(email) for email in emails]
+		data = [email.to_dict() for email in emails]
 
 		resp = query_llm(text_request, data)
 		LLMAnalysis.objects.create(question=text_request, answer=resp)
