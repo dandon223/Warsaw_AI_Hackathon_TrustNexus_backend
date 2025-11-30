@@ -42,7 +42,6 @@ class EmailAPIView(APIView):  # type: ignore[misc]
         df = parse_mails_to_dataframe(email_path)
         summaried_df = add_summary_to_dataframe(df)
         emails_to_create = []
-        # stakeholders = summaried_df.get("stakeholders")
         for _, row in summaried_df.iterrows():
             emails_to_create.append(
                 Email(
@@ -54,14 +53,10 @@ class EmailAPIView(APIView):  # type: ignore[misc]
                     date=row['date'],
                     message_content=row['message_content'],
                     summary=row['summary'],
-                    project_name=row.get('project_name'),
-                    timeline=row.get('timeline'),
                     category=row.get('category'),
-                    # stakeholder_names=row.get('stakeholders')
                 )
             )
 
-        # Stakeholder.objects.bulk_create(stakeholders, ignore_conflicts=True)
         Email.objects.bulk_create(emails_to_create, ignore_conflicts=True)
         serializer = EmailSerializerPost(emails_to_create, many=True)
         return Response(serializer.data)

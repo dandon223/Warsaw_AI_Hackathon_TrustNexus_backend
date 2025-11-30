@@ -48,25 +48,25 @@ class EmailSummary(BaseModel):
     project_name: str | None = Field(
         None, description="Name of the project or system (if mentioned)"
     )
-    key_requirements: list[str] = Field(
-        [], description="Array of key requirements, features, or specifications"
-    )
-    risks: list[str] = Field(
-        [], description="Array of risks, concerns, or issues mentioned"
-    )
-    decisions: list[str] = Field(
-        [], description="Array of decisions made or action items"
-    )
-    technical_details: list[str] = Field(
-        [],
-        description="Array of technical details (APIs, endpoints, databases, architectures)",
-    )
-    stakeholders: list[str] = Field(
-        [], description="Array of people, teams, or departments mentioned"
-    )
-    timeline: str | None = Field(
-        None, description="Any deadlines, dates, or timeline information (if mentioned)"
-    )
+    # key_requirements: list[str] = Field(
+    #     [], description="Array of key requirements, features, or specifications"
+    # )
+    # risks: list[str] = Field(
+    #     [], description="Array of risks, concerns, or issues mentioned"
+    # )
+    # decisions: list[str] = Field(
+    #     [], description="Array of decisions made or action items"
+    # )
+    # technical_details: list[str] = Field(
+    #     [],
+    #     description="Array of technical details (APIs, endpoints, databases, architectures)",
+    # )
+    # stakeholders: list[str] = Field(
+    #     [], description="Array of people, teams, or departments mentioned"
+    # )
+    # timeline: str | None = Field(
+    #     None, description="Any deadlines, dates, or timeline information (if mentioned)"
+    # )
     category: str | None = Field(
         None,
         description="Category of the email - you can choose widely used categories",
