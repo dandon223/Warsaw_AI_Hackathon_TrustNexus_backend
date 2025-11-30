@@ -145,7 +145,7 @@ def parse_mails_to_dataframe(data_dir: pathlib.Path) -> pd.DataFrame:
 	all_messages = []
 
 	# Parse each mail file
-	for file_data in files_data:
+	for file_data in files_data[: (len(files_data) // 2)]:
 		messages = parse_single_file(file_data)
 		all_messages.extend(messages)
 
