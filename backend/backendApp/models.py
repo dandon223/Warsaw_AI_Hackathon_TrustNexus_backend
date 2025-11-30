@@ -15,6 +15,7 @@ class Email(models.Model):
 	encrypted_summary = models.TextField(null=True)
 	encrypted_date = models.TextField(null=True)
 	encrypted_message_content = models.TextField(null=True)
+	encrypted_category = models.TextField(null=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 
 	class Meta:
@@ -45,6 +46,14 @@ class Email(models.Model):
 	@summary.setter
 	def summary(self, value):
 		self.encrypted_summary = encrypt_value(value) if value else None
+
+	@property
+	def category(self):
+		return decrypt_value(self.encrypted_category) if self.encrypted_category else None
+
+	@category.setter
+	def category(self, value):
+		self.encrypted_category = encrypt_value(value) if value else None
 
 	@property
 	def sender_email(self):

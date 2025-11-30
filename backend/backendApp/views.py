@@ -1,3 +1,4 @@
+import json
 import logging
 
 from django.forms import model_to_dict
@@ -31,7 +32,16 @@ Subject: {subject}
 
 Content: {content}
 
-Provide a clear, concise summary (2-4 sentences) that captures the essential information."""
+Provide JSON with the following fields:
+- summary: A clear, concise summary (2-4 sentences) that captures the essential information.
+- category: A category label for the email - use widely recognized categories.
+
+Return the response in ONLY JSON format like this:
+{{
+  "summary": "...",
+  "category": "..."
+}}
+"""
 
 
 @ensure_csrf_cookie
@@ -63,7 +73,10 @@ class EmailAPIView(APIView):  # type: ignore[misc]
 				subject = row.get('subject') or 'N/A'
 				content = row.get('message_content') or 'N/A'
 				prompt = SUMMARY_PROMPT.format(subject=subject, content=content)
-				summary = llm.invoke(prompt).content
+				result = llm.invoke(prompt).content
+				as_json = json.loads(result)
+
+				print(f'Result for email {idx}: {result}')
 
 				# Save immediately to database
 				Email.objects.create(
@@ -74,7 +87,8 @@ class EmailAPIView(APIView):  # type: ignore[misc]
 					subject=row.get('subject'),
 					date=row.get('date'),
 					message_content=row.get('message_content'),
-					summary=summary,
+					summary=as_json.get('summary'),
+					category=as_json.get('category')
 				)
 				processed += 1
 				logger.info(f'Processed email {processed}/{total}: {row.get("subject", "No subject")[:50]}')

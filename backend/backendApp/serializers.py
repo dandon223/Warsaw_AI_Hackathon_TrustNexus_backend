@@ -15,6 +15,7 @@ class EmailSerializerGet(serializers.ModelSerializer):
 			'date',
 			'message_content',
 			'summary',
+			'category',
 		]
 
 
