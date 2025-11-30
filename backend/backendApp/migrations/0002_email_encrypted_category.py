@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+	dependencies = [
+		('backendApp', '0001_initial'),
+	]
 
-    dependencies = [
-        ('backendApp', '0001_initial'),
-    ]
-
-    operations = [
-        migrations.AddField(
-            model_name='email',
-            name='encrypted_category',
-            field=models.TextField(null=True),
-        ),
-    ]
+	operations = [
+		migrations.AddField(
+			model_name='email',
+			name='encrypted_category',
+			field=models.TextField(null=True),
+		),
+	]

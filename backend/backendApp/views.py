@@ -88,7 +88,7 @@ class EmailAPIView(APIView):  # type: ignore[misc]
 					date=row.get('date'),
 					message_content=row.get('message_content'),
 					summary=as_json.get('summary'),
-					category=as_json.get('category')
+					category=as_json.get('category'),
 				)
 				processed += 1
 				logger.info(f'Processed email {processed}/{total}: {row.get("subject", "No subject")[:50]}')
