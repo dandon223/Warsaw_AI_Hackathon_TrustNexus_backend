@@ -15,26 +15,9 @@ from .test_connection import llm
 
 # Configure logging to both console and file
 def setup_logging(log_dir=None):
-    """
-    Setup logging configuration to save logs to file and display in console.
-
-    Args:
-        log_dir: Directory to save log files. If None, uses 'logs' directory in project root.
-    """
-    # Determine log directory
-    if log_dir is None:
-        # Get project root (3 levels up from this file)
-        LOG_BASE_DIR = Path(__file__).parent.parent.parent
-        log_dir = LOG_BASE_DIR / "logs"
-    else:
-        log_dir = Path(log_dir)
-
-    # Create logs directory if it doesn't exist
-    log_dir.mkdir(parents=True, exist_ok=True)
 
     # Create log filename with timestamp
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_file = log_dir / f"llm_summary_{timestamp}.log"
 
     # Configure logging with both file and console handlers
     logging.basicConfig(
@@ -42,18 +25,17 @@ def setup_logging(log_dir=None):
         format="%(asctime)s - %(levelname)s - %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
         handlers=[
-            logging.FileHandler(log_file, encoding="utf-8"),
             logging.StreamHandler(),  # Also output to console
         ],
     )
 
     logger = logging.getLogger(__name__)
-    logger.info(f"Logging initialized. Log file: {log_file}")
-    return logger, str(log_file)
+    logger.info(f"Logging initialized.")
+    return logger
 
 
 # Initialize logging
-logger, log_file_path = setup_logging()
+logger = setup_logging()
 
 
 class EmailInput(BaseModel):

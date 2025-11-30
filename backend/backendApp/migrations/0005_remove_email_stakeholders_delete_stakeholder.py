@@ -4,17 +4,16 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
+	dependencies = [
+		('backendApp', '0004_email_stakeholders'),
+	]
 
-    dependencies = [
-        ('backendApp', '0004_email_stakeholders'),
-    ]
-
-    operations = [
-        migrations.RemoveField(
-            model_name='email',
-            name='stakeholders',
-        ),
-        migrations.DeleteModel(
-            name='Stakeholder',
-        ),
-    ]
+	operations = [
+		migrations.RemoveField(
+			model_name='email',
+			name='stakeholders',
+		),
+		migrations.DeleteModel(
+			name='Stakeholder',
+		),
+	]

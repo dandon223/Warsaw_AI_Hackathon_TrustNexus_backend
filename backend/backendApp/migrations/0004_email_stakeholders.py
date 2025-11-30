@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+	dependencies = [
+		('backendApp', '0003_stakeholder'),
+	]
 
-    dependencies = [
-        ('backendApp', '0003_stakeholder'),
-    ]
-
-    operations = [
-        migrations.AddField(
-            model_name='email',
-            name='stakeholders',
-            field=models.ManyToManyField(blank=True, to='backendApp.stakeholder'),
-        ),
-    ]
+	operations = [
+		migrations.AddField(
+			model_name='email',
+			name='stakeholders',
+			field=models.ManyToManyField(blank=True, to='backendApp.stakeholder'),
+		),
+	]

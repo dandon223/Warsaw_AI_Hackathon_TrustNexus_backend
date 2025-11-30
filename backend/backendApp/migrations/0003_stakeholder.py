@@ -4,16 +4,15 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+	dependencies = [
+		('backendApp', '0002_email_encrypted_category_and_more'),
+	]
 
-    dependencies = [
-        ('backendApp', '0002_email_encrypted_category_and_more'),
-    ]
-
-    operations = [
-        migrations.CreateModel(
-            name='Stakeholder',
-            fields=[
-                ('encrypted_name', models.TextField(max_length=255, primary_key=True, serialize=False)),
-            ],
-        ),
-    ]
+	operations = [
+		migrations.CreateModel(
+			name='Stakeholder',
+			fields=[
+				('encrypted_name', models.TextField(max_length=255, primary_key=True, serialize=False)),
+			],
+		),
+	]
