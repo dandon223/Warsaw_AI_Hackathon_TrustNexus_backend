@@ -3,6 +3,20 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from .anonymization import encrypt_value, decrypt_value
 
+# class Stakeholder(models.Model):
+#     encrypted_name = models.TextField(max_length=255, primary_key=True)
+
+#     @property
+#     def name(self):
+#         return decrypt_value(self.encrypted_name) if self.encrypted_name else None
+
+#     @name.setter
+#     def name(self, value):
+#         self.encrypted_name = encrypt_value(value) if value else None   
+
+#     def __str__(self):
+#         return self.encrypted_name
+
 class Email(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     encrypted_sender_name = models.TextField(null=True)
@@ -13,6 +27,10 @@ class Email(models.Model):
     encrypted_summary = models.TextField(null=True)
     encrypted_date = models.TextField(null=True)
     encrypted_message_content = models.TextField(null=True)
+    encrypted_project_name = models.TextField(null=True)
+    encrypted_timeline = models.TextField(null=True)
+    encrypted_category = models.TextField(null=True)
+    # stakeholders = models.ManyToManyField(Stakeholder, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:
@@ -35,6 +53,45 @@ class Email(models.Model):
     @summary.setter
     def summary(self, value):
         self.encrypted_summary = encrypt_value(value) if value else None
+
+    @property
+    def project_name(self):
+        return decrypt_value(self.encrypted_project_name) if self.encrypted_project_name else None
+
+    @project_name.setter
+    def project_name(self, value):
+        self.encrypted_project_name = encrypt_value(value) if value else None
+
+    @property
+    def timeline(self):
+        return decrypt_value(self.encrypted_timeline) if self.encrypted_timeline else None
+
+    @timeline.setter
+    def timeline(self, value):
+        self.encrypted_timeline = encrypt_value(value) if value else None
+
+    # @property
+    # def stakeholder_names(self):
+    #     return [decrypt_value(stakeholder) if stakeholder.name else None for stakeholder in self.stakeholders.all()]
+
+    # @stakeholder_names.setter
+    # def stakeholder_names(self, value):
+    #     stakeholders = []
+    #     for stakeholder_name in value:
+    #         if stakeholder_name:
+    #             stakeholder, _ = Stakeholder.objects.get_or_create(
+    #                 encrypted_name=encrypt_value(stakeholder_name)
+    #             )
+    #             stakeholders.append(stakeholder)
+    #     self.stakeholders.set(stakeholders)
+
+    @property
+    def category(self):
+        return decrypt_value(self.encrypted_category) if self.encrypted_category else None
+
+    @category.setter
+    def category(self, value):
+        self.encrypted_category = encrypt_value(value) if value else None
 
     @property
     def sender_email(self):
@@ -86,6 +143,7 @@ class Email(models.Model):
 
     def __str__(self):
         return self.subject
+
 
 class LLMAnalysis(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

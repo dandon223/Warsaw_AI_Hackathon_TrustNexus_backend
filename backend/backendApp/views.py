@@ -17,7 +17,7 @@ from .emails import parse_mails_to_dataframe, emails_to_csv, analysis_to_csv
 from django.views.decorators.csrf import ensure_csrf_cookie
 from .llm_summary import add_summary_to_dataframe 
 from .models import Email, LLMAnalysis
-from .serializers import EmailSerializerGet, LLMAnalysisSerializerGet
+from .serializers import EmailSerializerGet, EmailSerializerPost, LLMAnalysisSerializerGet
 
 @ensure_csrf_cookie
 def csrf(request: Request) -> JsonResponse:
@@ -42,6 +42,7 @@ class EmailAPIView(APIView):  # type: ignore[misc]
         df = parse_mails_to_dataframe(email_path)
         summaried_df = add_summary_to_dataframe(df)
         emails_to_create = []
+        # stakeholders = summaried_df.get("stakeholders")
         for _, row in summaried_df.iterrows():
             emails_to_create.append(
                 Email(
@@ -52,15 +53,18 @@ class EmailAPIView(APIView):  # type: ignore[misc]
                     subject=row['subject'],
                     date=row['date'],
                     message_content=row['message_content'],
-                    summary=row['summary']
+                    summary=row['summary'],
+                    project_name=row.get('project_name'),
+                    timeline=row.get('timeline'),
+                    category=row.get('category'),
+                    # stakeholder_names=row.get('stakeholders')
                 )
             )
 
+        # Stakeholder.objects.bulk_create(stakeholders, ignore_conflicts=True)
         Email.objects.bulk_create(emails_to_create, ignore_conflicts=True)
-        return Response(
-        {"message": "Done"}, 
-        status=status.HTTP_201_CREATED
-    )
+        serializer = EmailSerializerPost(emails_to_create, many=True)
+        return Response(serializer.data)
 
     def get(self, request: Request) -> Response:
             emails = Email.objects.filter()

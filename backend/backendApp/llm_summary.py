@@ -2,17 +2,15 @@
 Module for extracting key information and generating summaries from email messages using LLM.
 """
 
-import os
 import pandas as pd
 import logging
 from datetime import datetime
 from pathlib import Path
-from dotenv import load_dotenv
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.utils.pydantic import BaseModel, Field
+from langchain_core.output_parsers import JsonOutputParser
 
 from .test_connection import llm
-
-
-# load_dotenv()
 
 
 # Configure logging to both console and file
@@ -58,44 +56,49 @@ def setup_logging(log_dir=None):
 logger, log_file_path = setup_logging()
 
 
-def summarize_by_llm(
-    subject, content, model_name="meta-llama/Llama-3.3-70B-Instruct", max_tokens=100
-):
-    """
-    Generate a summary of email content using LLM (OpenAI).
+class EmailInput(BaseModel):
+    subject: str = Field(..., description="Subject of the email")
+    content: str = Field(..., description="Content/body of the email")
 
-    Args:
-        subject: Email subject line
-        content: Email message content
-        model_name: OpenAI model to use
-        max_tokens: Maximum tokens for summary
 
-    Returns:
-        Summary string
-    """
-    try:
-        from openai import OpenAI
-    except ImportError:
-        raise ImportError(
-            "openai package is required. Install with: pip install openai"
-        )
-
-    api_key = os.getenv("OPEN_AI_TOKEN")
-
-    if not api_key:
-        raise ValueError("OPEN_AI_TOKEN environment variable not set")
-
-    client = OpenAI(
-        api_key=api_key, base_url="https://llmlab.plgrid.pl/api/v1", timeout=50
+class EmailSummary(BaseModel):
+    summary: str = Field(..., description="Concise summary of the email")
+    project_name: str | None = Field(
+        None, description="Name of the project or system (if mentioned)"
     )
-    # client = OpenAI(base_url="https://llmlab.plgrid.pl/api/v1")
+    key_requirements: list[str] = Field(
+        [], description="Array of key requirements, features, or specifications"
+    )
+    risks: list[str] = Field(
+        [], description="Array of risks, concerns, or issues mentioned"
+    )
+    decisions: list[str] = Field(
+        [], description="Array of decisions made or action items"
+    )
+    technical_details: list[str] = Field(
+        [],
+        description="Array of technical details (APIs, endpoints, databases, architectures)",
+    )
+    stakeholders: list[str] = Field(
+        [], description="Array of people, teams, or departments mentioned"
+    )
+    timeline: str | None = Field(
+        None, description="Any deadlines, dates, or timeline information (if mentioned)"
+    )
+    category: str | None = Field(
+        None,
+        description="Category of the email - you can choose widely used categories",
+    )
 
-    # Prepare text
-    text = f"Subject: {subject or 'N/A'}\n\nContent: {content or 'N/A'}"
-    # print(text)
 
-    # Build prompt for summary
-    prompt = f"""Extract key information and create a concise summary of the following email.
+parser = JsonOutputParser(pydantic_object=EmailSummary)
+template = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            """You analyze emails and return structured JSON.
+TASK:
+Extract key information and create a concise summary of the following email.
 Focus on:
 - Main topic or project
 - Key requirements or specifications
@@ -103,104 +106,76 @@ Focus on:
 - Risks or concerns mentioned
 - Technical details (APIs, systems, integrations)
 
+Return only valid JSON, nothing else. If a field has no information, use null or empty array.
+""",
+        ),
+        (
+            "human",
+            """
 Email:
-{text}
 
-Provide a clear, concise summary (2-4 sentences) that captures the essential information."""
+SUBJECT: {subject}
+CONTENT: {content}
 
-    try:
-        response = client.chat.completions.create(
-            model=model_name,
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are an expert at extracting key information from emails and creating concise summaries.",
-                },
-                {"role": "user", "content": prompt},
-            ],
-            temperature=0.3,
-            max_tokens=max_tokens,
-        )
+Return ONLY JSON:
+{format_instructions}
+""",
+        ),
+    ]
+).partial(
+    format_instructions=parser.get_format_instructions(),
+    input_variables=["subject", "content"],
+)
 
-        summary = response.choices[0].message.content.strip()
-        # print(summary)
-        return summary
-
-    except Exception as e:
-        print(f"Error in LLM summarization: {e}")
-        return None
+chain = template | llm | parser
 
 
-def extract_key_information_by_llm(
-    subject, content, model_name="meta-llama/Llama-3.3-70B-Instruct"
-):
+def enhance_subject_or_content(subject_or_content) -> str:
+    return subject_or_content if subject_or_content else "N/A"
+
+
+def merge_model_results_with_skipped(skipped_indices, results):
+    total_rows = len(skipped_indices) + len(results)
+    skipped = set(skipped_indices)
+    res_iter = iter(results)
+
+    return [None if i in skipped else next(res_iter) for i in range(total_rows)]
+
+
+def add_model_results_to_df(df, merged_results):
     """
-    Extract structured key information from email content using LLM.
+    Adds model results (like EmailSummary) to a DataFrame, preserving skipped rows.
 
     Args:
-        subject: Email subject line
-        content: Email message content
-        model_name: OpenAI model to use
+        df (pd.DataFrame): Original DataFrame.
+        merged_results (list): List of EmailSummary or None, aligned with df.
+        prefix (str): Optional prefix for new column names.
 
     Returns:
-        Dictionary with extracted information
+        pd.DataFrame: DataFrame with new columns for each field in EmailSummary.
     """
-    try:
-        from openai import OpenAI
-        import json
-    except ImportError:
-        raise ImportError(
-            "openai package is required. Install with: pip install openai"
-        )
-
-    api_key = os.getenv("OPEN_AI_TOKEN")
-
-    if not api_key:
-        raise ValueError("OPEN_AI_TOKEN environment variable not set")
-
-    client = OpenAI(api_key=api_key, base_url="https://llmlab.plgrid.pl/api/v1")
-
-    # Prepare text
-    text = f"Subject: {subject or 'N/A'}\n\nContent: {content or 'N/A'}"
-
-    # Build prompt for structured extraction
-    prompt = f"""Extract key information from the following email and return it as JSON with these fields:
-- project_name: Name of the project or system (if mentioned)
-- key_requirements: Array of key requirements, features, or specifications
-- risks: Array of risks, concerns, or issues mentioned
-- decisions: Array of decisions made or action items
-- technical_details: Array of technical details (APIs, endpoints, databases, architectures)
-- stakeholders: Array of people, teams, or departments mentioned
-- timeline: Any deadlines, dates, or timeline information (if mentioned)
-
-Email:
-{text}
-
-Return only valid JSON, nothing else. If a field has no information, use null or empty array."""
-
-    try:
-        response = client.chat.completions.create(
-            model=model_name,
-            messages=[
+    records = []
+    for res in merged_results:
+        if res is None:
+            records.append(
                 {
-                    "role": "system",
-                    "content": "You are an expert at extracting structured information from emails. Always return valid JSON.",
-                },
-                {"role": "user", "content": prompt},
-                # {"role": "user", "content": "Say Hi to me!"}
-            ],
-            response_format={"type": "json_object"},
-            temperature=0.1,
-            max_tokens=100,  # 500
-        )
+                    "summary": None,
+                    "project_name": None,
+                    "key_requirements": [],
+                    "risks": [],
+                    "decisions": [],
+                    "technical_details": [],
+                    "stakeholders": [],
+                    "timeline": None,
+                    "category": None,
+                }
+            )
+        else:
+            records.append(res)
 
-        result = json.loads(response.choices[0].message.content)
-        # print(result)
-        return result
+    result_df = pd.DataFrame(records)
 
-    except Exception as e:
-        print(f"Error in LLM information extraction: {e}")
-        return {}
+    return pd.concat([df.reset_index(drop=True), result_df], axis=1)
 
 
 def add_summary_to_dataframe(
@@ -234,8 +209,8 @@ def add_summary_to_dataframe(
     summaries = []
     skipped_count = 0
 
+    skipped_emails_indices = []
     tasks = []
-
     for idx, row in df.iterrows():
         current_num = len(summaries) + 1
         progress_pct = (current_num / total_emails) * 100
@@ -248,30 +223,23 @@ def add_summary_to_dataframe(
             logger.debug(
                 f"Email {current_num}/{total_emails} ({progress_pct:.1f}%): Skipping - empty subject and content"
             )
-            summaries.append(None)
+            skipped_emails_indices.append(idx)
             skipped_count += 1
-            tasks.append("")
         else:
             tasks.append(
-                f"""Extract key information and create a concise summary of the following email.
-Focus on:
-- Main topic or project
-- Key requirements or specifications
-- Important decisions or action items
-- Risks or concerns mentioned
-- Technical details (APIs, systems, integrations)
-
-Email:
-{f"Subject: {subject or 'N/A'}\n\nContent: {content or 'N/A'}"}
-
-Provide a clear, concise summary (2-4 sentences) that captures the essential information."""
+                {
+                    "subject": enhance_subject_or_content(subject),
+                    "content": enhance_subject_or_content(content),
+                }
             )
 
-    result =  (llm.batch(tasks))
+    result = chain.batch(tasks)
 
-    summaries: list[str] = [resp.content for resp in result]
+    merged_results = merge_model_results_with_skipped(
+        skipped_indices=skipped_emails_indices, results=result
+    )
 
-    df[summary_column] = summaries
+    df_with_summaries = add_model_results_to_df(df, merged_results)
 
     successful_count = sum(1 for s in summaries if s is not None)
     logger.info(f"Summary generation completed!")
@@ -280,93 +248,4 @@ Provide a clear, concise summary (2-4 sentences) that captures the essential inf
     logger.info(f"  Skipped (empty): {skipped_count}")
     logger.info(f"  Failed: {total_emails - successful_count - skipped_count}")
 
-    return df
-
-
-def add_key_information_to_dataframe(
-    df,
-    subject_column="subject",
-    content_column="message_content",
-    model_name="meta-llama/Llama-3.3-70B-Instruct",
-):
-    """
-    Add columns with extracted key information to DataFrame using LLM.
-
-    Args:
-        df: DataFrame with email data
-        subject_column: Name of subject column
-        content_column: Name of content column
-        model_name: OpenAI model name to use
-
-    Returns:
-        DataFrame with added columns: project_name, key_requirements, risks,
-        decisions, technical_details, stakeholders, timeline
-    """
-    df = df.copy()
-
-    # Initialize new columns
-    df["project_name"] = None
-    df["key_requirements"] = None
-    df["risks"] = None
-    df["decisions"] = None
-    df["technical_details"] = None
-    df["stakeholders"] = None
-    df["timeline"] = None
-
-    for idx, row in df.iterrows():
-        subject = row.get(subject_column)
-        content = row.get(content_column)
-
-        # Skip if both subject and content are empty
-        if pd.isna(subject) and pd.isna(content):
-            continue
-
-        extracted = extract_key_information_by_llm(
-            subject, content, model_name=model_name
-        )
-
-        # Fill in the extracted information
-        if extracted:
-            df.at[idx, "project_name"] = extracted.get("project_name")
-            df.at[idx, "key_requirements"] = extracted.get("key_requirements", [])
-            df.at[idx, "risks"] = extracted.get("risks", [])
-            df.at[idx, "decisions"] = extracted.get("decisions", [])
-            df.at[idx, "technical_details"] = extracted.get("technical_details", [])
-            df.at[idx, "stakeholders"] = extracted.get("stakeholders", [])
-            df.at[idx, "timeline"] = extracted.get("timeline")
-
-    return df
-
-
-# Example usage
-if __name__ == "__main__":
-    # Import from the same package
-    try:
-        from .emails import parse_mails_to_dataframe
-    except ImportError:
-        # Fallback for direct execution
-        from emails import parse_mails_to_dataframe
-    load_dotenv()
-
-    # Parse emails
-    print("Parsing emails...")
-    BASE_DIR = os.path.dirname(
-        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    )
-    DATA_DIR = os.path.join(BASE_DIR, "data")
-    df = parse_mails_to_dataframe(DATA_DIR)
-    print(f"Parsed {len(df)} messages")
-
-    # Add summary column
-    print("\nGenerating summaries...")
-    df_with_summary = add_summary_to_dataframe(
-        df, model_name="meta-llama/Llama-3.3-70B-Instruct"
-    )
-    print(f"\nAdded summary column")
-    print(df_with_summary[["subject", "summary"]].head())
-
-    # Optionally, add structured key information
-    # print("\nExtracting key information...")
-    # df_with_info = add_key_information_to_dataframe(df, model_name="meta-llama/Llama-3.3-70B-Instruct")
-    # print(f"\nAdded key information columns")
-    # print(df_with_info[['subject', 'project_name', 'key_requirements']].head())
+    return df_with_summaries
