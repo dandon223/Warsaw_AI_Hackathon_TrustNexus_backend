@@ -1,5 +1,8 @@
 # Warsaw_AI_Hackathon_TrustNexus
 
+## Demo from frontend perspective
+[![Watch the video](https://img.youtube.com/vi/pDMuoqMXJ9Y/maxresdefault.jpg)](https://www.youtube.com/watch?v=pDMuoqMXJ9Y)
+
 ## Backend
 
 ### How to run
